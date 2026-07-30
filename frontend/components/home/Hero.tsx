@@ -34,8 +34,10 @@ return(
 
 <div className="absolute inset-0">
 
+{/* eslint-disable-next-line @next/next/no-img-element */}
 <img
 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+alt="Modern home exterior"
 className="h-full w-full object-cover opacity-60"
 />
 

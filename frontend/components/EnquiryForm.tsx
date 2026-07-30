@@ -1,127 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { createLead } from "@/lib/api";
 
+export default function EnquiryForm({ propertyId }: { propertyId: number }) {
+  const [form, setForm] = useState({ name: "", mobile: "", email: "", location: "", budget: "", message: "" });
 
-export default function EnquiryForm({
-  propertyId
-}:{
-  propertyId:number
-}) {
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    try {
+      await createLead({ property: propertyId, ...form });
+      alert("Enquiry submitted successfully.");
+      setForm({ name: "", mobile: "", email: "", location: "", budget: "", message: "" });
+    } catch {
+      alert("Something went wrong. Please try again.");
+    }
+  }
 
-
-const [form,setForm] = useState({
-
-name:"",
-mobile:"",
-email:"",
-location:"",
-budget:"",
-message:""
-
-});
-
-
-async function handleSubmit(e:React.FormEvent){
-
-e.preventDefault();
-
-
-const response = await fetch(
-"http://127.0.0.1:8000/api/leads/",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-property:propertyId,
-
-...form
-
-})
-
-});
-
-
-if(response.ok){
-
-alert("Enquiry Submitted Successfully");
-
-}
-else{
-
-alert("Something went wrong");
-
-}
-
-
-}
-
-
-
-return (
-
-<form
-onSubmit={handleSubmit}
-className="mt-8 space-y-4 rounded-xl bg-gray-100 p-6"
->
-
-
-<input
-className="w-full rounded border p-3"
-placeholder="Name"
-onChange={(e)=>setForm({...form,name:e.target.value})}
-/>
-
-
-<input
-className="w-full rounded border p-3"
-placeholder="Mobile"
-onChange={(e)=>setForm({...form,mobile:e.target.value})}
-/>
-
-
-<input
-className="w-full rounded border p-3"
-placeholder="Email"
-onChange={(e)=>setForm({...form,email:e.target.value})}
-/>
-
-
-<input
-className="w-full rounded border p-3"
-placeholder="Location"
-onChange={(e)=>setForm({...form,location:e.target.value})}
-/>
-
-
-<input
-className="w-full rounded border p-3"
-placeholder="Budget"
-onChange={(e)=>setForm({...form,budget:e.target.value})}
-/>
-
-
-<textarea
-className="w-full rounded border p-3"
-placeholder="Message"
-onChange={(e)=>setForm({...form,message:e.target.value})}
-/>
-
-
-<button
-className="rounded-lg bg-blue-600 px-8 py-3 text-white"
->
-Submit Enquiry
-</button>
-
-
-</form>
-
-)
-
+  return <form onSubmit={handleSubmit} className="mt-8 space-y-4 rounded-xl bg-gray-100 p-6">
+    <input className="w-full rounded border p-3" placeholder="Name" value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required />
+    <input className="w-full rounded border p-3" placeholder="Mobile" value={form.mobile} onChange={(event) => setForm({ ...form, mobile: event.target.value })} required />
+    <input className="w-full rounded border p-3" placeholder="Email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} />
+    <input className="w-full rounded border p-3" placeholder="Location" value={form.location} onChange={(event) => setForm({ ...form, location: event.target.value })} required />
+    <input className="w-full rounded border p-3" placeholder="Budget" value={form.budget} onChange={(event) => setForm({ ...form, budget: event.target.value })} required />
+    <textarea className="w-full rounded border p-3" placeholder="Message" value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} />
+    <button className="rounded-lg bg-blue-600 px-8 py-3 text-white">Submit Enquiry</button>
+  </form>;
 }

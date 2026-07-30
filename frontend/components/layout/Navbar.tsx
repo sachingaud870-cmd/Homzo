@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar(){
 
 return(
@@ -12,11 +14,11 @@ PropVerse
 
 <div className="flex gap-8 text-gray-700">
 
-<a href="/">Home</a>
+<Link href="/">Home</Link>
 
-<a href="/properties">
+<Link href="/properties">
 Properties
-</a>
+</Link>
 
 <a href="#">
 About

@@ -11,6 +11,8 @@ venv/
 
 # Database
 *.sqlite3
+staticfiles/
+backend/media/
 
 # Environment
 .env.local

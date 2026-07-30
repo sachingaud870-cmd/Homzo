@@ -1,6 +1,8 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
+import { API_URL } from "@/lib/api";
 
 
 export default function ImageGallery({
@@ -15,8 +17,9 @@ export default function ImageGallery({
 
 
 const [activeImage,setActiveImage] = useState(
-  images[0]?.image
+  images[0]?.image ?? null
 );
+const imageUrl = activeImage?.startsWith("http") ? activeImage : activeImage ? `${API_URL}${activeImage}` : null;
 
 
 
@@ -25,10 +28,7 @@ return (
 <div>
 
 
-<img
-src={activeImage}
-className="h-[450px] w-full rounded-xl object-cover"
-/>
+{imageUrl ? <img src={imageUrl} alt="Property" className="h-[450px] w-full rounded-xl object-cover" /> : <div className="flex h-[450px] items-center justify-center rounded-xl bg-gray-100 text-gray-500">No images available</div>}
 
 
 
@@ -42,7 +42,8 @@ images.map((img)=>(
 
 key={img.id}
 
-src={img.image}
+src={img.image.startsWith("http") ? img.image : `${API_URL}${img.image}`}
+alt="Property thumbnail"
 
 onClick={()=>setActiveImage(img.image)}
 

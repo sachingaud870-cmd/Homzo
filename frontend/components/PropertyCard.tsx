@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { API_URL } from "@/lib/api";
 
 
 type Property = {
@@ -22,6 +23,8 @@ type Property = {
 export default function PropertyCard(
   { property }: { property: Property }
 ) {
+  const image = property.images?.[0]?.image;
+  const imageUrl = image?.startsWith("http") ? image : image ? `${API_URL}${image}` : null;
 
   return (
     <div className="rounded-xl bg-white p-5 shadow-lg transition hover:shadow-xl">
@@ -31,11 +34,11 @@ export default function PropertyCard(
 
       <div className="h-48 overflow-hidden rounded-lg">
 
-        {property.images && property.images.length > 0 ? (
+        {imageUrl ? (
 
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={property.images[0].image}
+            src={imageUrl}
             alt={property.project_name}
             className="h-full w-full object-cover transition duration-300 hover:scale-105"
           />

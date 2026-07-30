@@ -1,6 +1,8 @@
 import { searchProperties } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
 
+type Property = { id: number; project_name: string; builder_name: string; location: string; status: string; price: string; bhk: string; carpet_area: number; images: { id: number; image: string; is_main: boolean }[] };
+
 
 export default async function SearchPage({
   searchParams,
@@ -34,7 +36,7 @@ export default async function SearchPage({
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
 
 
-        {properties.map((property:any)=>(
+        {properties.map((property: Property)=>(
 
           <PropertyCard
             key={property.id}
