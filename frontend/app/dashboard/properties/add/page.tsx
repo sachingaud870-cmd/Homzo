@@ -53,9 +53,7 @@ export default function AddPropertyPage() {
       });
       await uploadPropertyImages(property.id, images);
 
-      alert("Property Added Successfully!");
-
-      router.push("/dashboard/properties");
+      router.push("/dashboard/properties?success=created");
     } catch (error) {
       console.error(error);
       alert("Failed to add property.");

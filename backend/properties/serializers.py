@@ -4,7 +4,6 @@ from property_images.models import PropertyImage
 
 
 class PropertyImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PropertyImage
         fields = [
@@ -15,7 +14,6 @@ class PropertyImageSerializer(serializers.ModelSerializer):
 
 
 class PropertySerializer(serializers.ModelSerializer):
-
     images = PropertyImageSerializer(
         many=True,
         read_only=True

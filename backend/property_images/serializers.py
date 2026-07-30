@@ -1,10 +1,19 @@
 from rest_framework import serializers
-
 from .models import PropertyImage
 
-
 class PropertyImageUploadSerializer(serializers.ModelSerializer):
+
+    image = serializers.ImageField()
+
     class Meta:
         model = PropertyImage
-        fields = ["id", "property", "image", "is_main"]
-        read_only_fields = ["id", "property"]
+        fields = [
+            "id",
+            "property",
+            "image",
+            "is_main",
+        ]
+        read_only_fields = [
+            "id",
+            "property",
+        ]

@@ -9,16 +9,26 @@ from .serializers import PropertyImageUploadSerializer
 
 
 class PropertyImageUploadAPIView(APIView):
+
     parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request, pk):
+
         property_record = Property.objects.filter(pk=pk).first()
+
         if property_record is None:
-            return Response({"detail": "Property not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "Property not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
         images = request.FILES.getlist("images")
+
         if not images:
-            return Response({"images": ["At least one image is required."]}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"images": ["At least one image is required."]},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         created_images = [
             PropertyImage.objects.create(
@@ -28,4 +38,32 @@ class PropertyImageUploadAPIView(APIView):
             )
             for index, image in enumerate(images)
         ]
-        return Response(PropertyImageUploadSerializer(created_images, many=True, context={"request": request}).data, status=status.HTTP_201_CREATED)
+
+        return Response(
+            PropertyImageUploadSerializer(
+                created_images,
+                many=True,
+                context={"request": request}
+            ).data,
+            status=status.HTTP_201_CREATED
+        )
+
+
+class PropertyImageDeleteAPIView(APIView):
+
+    def delete(self, request, pk):
+
+        image = PropertyImage.objects.filter(pk=pk).first()
+
+        if image is None:
+            return Response(
+                {"detail": "Image not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        image.delete()
+
+        return Response(
+            {"detail": "Image deleted successfully."},
+            status=status.HTTP_204_NO_CONTENT
+        )

@@ -13,6 +13,11 @@ export type PropertyPayload = {
   featured: boolean;
   description: string;
 };
+export type PropertyImage = {
+  id: number;
+  image: string;
+  is_main: boolean;
+};
 
 export type LeadPayload = {
   property?: number;
@@ -22,6 +27,19 @@ export type LeadPayload = {
   location: string;
   budget: string;
   message: string;
+};
+
+export type Lead = LeadPayload & {
+  id: number;
+  status: "NEW" | "CONTACTED" | "INTERESTED" | "CLOSED";
+  created_at: string;
+};
+
+export type PaginatedLeads = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Lead[];
 };
 
 // ===============================
@@ -54,6 +72,7 @@ export async function getProperties(
   );
 
   if (!response.ok) {
+
     throw new Error("Failed to fetch properties");
   }
 
@@ -183,9 +202,13 @@ export async function createLead(data: LeadPayload) {
 // GET ALL LEADS
 // ===============================
 
-export async function getLeads() {
+export async function getLeads(params: Record<string, string | number | undefined> = {}): Promise<PaginatedLeads> {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== "") query.set(key, String(value));
+  });
   const response = await fetch(
-    `${API_URL}/api/leads/`,
+    `${API_URL}/api/leads/?${query.toString()}`,
     {
       cache: "no-store",
     }
@@ -262,6 +285,41 @@ export async function uploadPropertyImages(id: number, files: File[]) {
 
   if (!response.ok) {
     throw new Error("Failed to upload property images");
+  }
+
+  return response.json();
+}
+
+export async function deletePropertyImage(id:number){
+
+ const response = await fetch(
+ `${API_URL}/api/properties/images/${id}/delete/`,
+ {
+   method:"DELETE",
+ }
+ );
+
+ if(!response.ok){
+   throw new Error("Failed to delete image");
+ }
+
+ return true;
+}
+
+export async function login(username: string, password: string) {
+  const response = await fetch("http://127.0.0.1:8000/api/login/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Invalid username or password");
   }
 
   return response.json();
