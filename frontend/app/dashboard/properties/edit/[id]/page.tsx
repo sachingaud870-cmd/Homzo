@@ -11,6 +11,7 @@ import {
   updateProperty,
   uploadPropertyImages,
   deletePropertyImage,
+  setPropertyImageAsMain,
 } from "@/lib/api";
 
 
@@ -41,6 +42,8 @@ export default function EditPropertyPage() {
 
 
   const [images, setImages] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [dragActive, setDragActive] = useState(false);
 
   const [existingImages, setExistingImages] =
     useState<PropertyImage[]>([]);
@@ -133,6 +136,33 @@ export default function EditPropertyPage() {
 
 
 
+  function addFiles(files: FileList | File[] | null) {
+    const fileList = Array.from(files ?? []);
+    const validFiles = fileList.filter((file) => file.type.startsWith("image/"));
+
+    if (!validFiles.length) {
+      alert("Please choose valid image files.");
+      return;
+    }
+
+    setImages((previous) => [...previous, ...validFiles]);
+    setPreviewUrls((previous) => [
+      ...previous,
+      ...validFiles.map((file) => URL.createObjectURL(file)),
+    ]);
+  }
+
+  function removeNewImage(index: number) {
+    setImages((previous) => previous.filter((_, itemIndex) => itemIndex !== index));
+    setPreviewUrls((previous) => previous.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    setDragActive(false);
+    addFiles(event.dataTransfer.files);
+  }
+
   async function handleDeleteImage(
     id:number
   ){
@@ -160,6 +190,17 @@ export default function EditPropertyPage() {
 
     }
 
+  }
+
+  async function handleSetMainImage(id: number) {
+    try {
+      await setPropertyImageAsMain(id);
+      setExistingImages((previous) =>
+        previous.map((image) => ({ ...image, is_main: image.id === id }))
+      );
+    } catch {
+      alert("Unable to set main image.");
+    }
   }
 
 
@@ -460,21 +501,28 @@ export default function EditPropertyPage() {
                     />
 
 
-                    <button
+                    {image.is_main ? (
+                      <div className="mt-2 rounded bg-green-100 px-2 py-1 text-center text-sm font-medium text-green-700">
+                        Main Image
+                      </div>
+                    ) : null}
 
-                      type="button"
-
-                      onClick={()=>
-                        handleDeleteImage(image.id)
-                      }
-
-                      className="mt-2 w-full rounded bg-red-600 py-1 text-white"
-
-                    >
-
-                      Delete
-
-                    </button>
+                    <div className="mt-2 flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleSetMainImage(image.id)}
+                        className="flex-1 rounded bg-blue-600 py-1 text-white"
+                      >
+                        Set Main
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteImage(image.id)}
+                        className="flex-1 rounded bg-red-600 py-1 text-white"
+                      >
+                        Delete
+                      </button>
+                    </div>
 
 
                   </div>
@@ -492,27 +540,57 @@ export default function EditPropertyPage() {
 
 
 
-          <input
+          <div
+            onDragEnter={(event) => {
+              event.preventDefault();
+              setDragActive(true);
+            }}
+            onDragOver={(event) => {
+              event.preventDefault();
+              setDragActive(true);
+            }}
+            onDragLeave={(event) => {
+              event.preventDefault();
+              setDragActive(false);
+            }}
+            onDrop={handleDrop}
+            className={`rounded-2xl border-2 border-dashed p-6 text-center transition ${
+              dragActive ? "border-blue-500 bg-blue-50" : "border-gray-300 bg-gray-50"
+            }`}
+          >
+            <input
+              id="edit-property-images"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={(event) => addFiles(event.target.files)}
+              className="hidden"
+            />
+            <label htmlFor="edit-property-images" className="cursor-pointer">
+              <p className="text-lg font-semibold text-gray-800">Upload more images</p>
+              <p className="mt-2 text-sm text-gray-600">Drag and drop or choose multiple files.</p>
+            </label>
+          </div>
 
-            type="file"
-
-            multiple
-
-            accept="image/*"
-
-            onChange={(event)=>
-
-              setImages(
-                Array.from(
-                  event.target.files ?? []
-                )
-              )
-
-            }
-
-            className="w-full rounded border p-3"
-
-          />
+          {images.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-3">
+              {images.map((file, index) => (
+                <div key={`${file.name}-${file.lastModified}-${index}`} className="rounded border p-2">
+                  {previewUrls[index] ? (
+                    <img src={previewUrls[index]} alt={file.name} className="mb-2 h-32 w-full rounded object-cover" />
+                  ) : null}
+                  <p className="truncate text-sm font-medium text-gray-800">{file.name}</p>
+                  <button
+                    type="button"
+                    onClick={() => removeNewImage(index)}
+                    className="mt-2 w-full rounded bg-gray-600 py-1 text-white"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : null}
 
 
 

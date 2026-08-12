@@ -27,6 +27,9 @@ export type LeadPayload = {
   location: string;
   budget: string;
   message: string;
+  follow_up_date?: string | null;
+  follow_up_note?: string;
+  preferred_channel?: "CALL" | "WHATSAPP" | "EMAIL";
 };
 
 export type Lead = LeadPayload & {
@@ -227,7 +230,8 @@ export async function getLeads(params: Record<string, string | number | undefine
 
 export async function updateLeadStatus(
   id: number,
-  status: string
+  status: string,
+  followUp?: { follow_up_date?: string | null; follow_up_note?: string; preferred_channel?: string }
 ) {
   const response = await fetch(
     `${API_URL}/api/leads/${id}/`,
@@ -238,6 +242,7 @@ export async function updateLeadStatus(
       },
       body: JSON.stringify({
         status,
+        ...followUp,
       }),
     }
   );
@@ -263,6 +268,22 @@ export async function getDashboardStats() {
 
   if (!response.ok) {
     throw new Error("Failed to fetch dashboard stats");
+  }
+
+  return response.json();
+}
+
+export async function triggerLeadAutomation(id: number, channel: string) {
+  const response = await fetch(`${API_URL}/api/leads/${id}/automate/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ channel }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to trigger outreach");
   }
 
   return response.json();
@@ -306,6 +327,21 @@ export async function deletePropertyImage(id:number){
  return true;
 }
 
+export async function setPropertyImageAsMain(id:number){
+ const response = await fetch(
+   `${API_URL}/api/properties/images/${id}/set-main/`,
+   {
+     method:"POST",
+   }
+ );
+
+ if(!response.ok){
+   throw new Error("Failed to set main image");
+ }
+
+ return response.json();
+}
+
 export async function login(username: string, password: string) {
   const response = await fetch("http://127.0.0.1:8000/api/login/", {
     method: "POST",
@@ -320,6 +356,39 @@ export async function login(username: string, password: string) {
 
   if (!response.ok) {
     throw new Error("Invalid username or password");
+  }
+
+  return response.json();
+}
+
+export async function getRecommendations(
+  location: string = "",
+  bhk: string = "",
+  budget: string = ""
+) {
+  const params = new URLSearchParams();
+
+  if (location) {
+    params.append("location", location);
+  }
+
+  if (bhk) {
+    params.append("bhk", bhk);
+  }
+
+  if (budget) {
+    params.append("budget", budget);
+  }
+
+  const response = await fetch(
+    `${API_URL}/api/properties/recommendations/?${params.toString()}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch recommendations");
   }
 
   return response.json();

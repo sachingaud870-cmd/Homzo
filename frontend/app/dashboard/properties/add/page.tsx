@@ -22,6 +22,9 @@ export default function AddPropertyPage() {
     description: "",
   });
   const [images, setImages] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [dragActive, setDragActive] = useState(false);
+  const [imageError, setImageError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleChange(
@@ -38,6 +41,54 @@ export default function AddPropertyPage() {
           ? (e.target as HTMLInputElement).checked
           : value,
     }));
+  }
+
+  function addFiles(files: FileList | File[] | null) {
+    const fileList = Array.from(files ?? []);
+
+    if (!fileList.length) {
+      return;
+    }
+
+    const validImages = fileList.filter((file) => file.type.startsWith("image/"));
+
+    if (!validImages.length) {
+      setImageError("Please select valid image files.");
+      return;
+    }
+
+    const uniqueImages = validImages.filter(
+      (file) =>
+        !images.some(
+          (existing) =>
+            existing.name === file.name &&
+            existing.size === file.size &&
+            existing.lastModified === file.lastModified
+        )
+    );
+
+    if (!uniqueImages.length) {
+      setImageError("These images are already selected.");
+      return;
+    }
+
+    setImages((prev) => [...prev, ...uniqueImages]);
+    setPreviewUrls((prev) => [
+      ...prev,
+      ...uniqueImages.map((file) => URL.createObjectURL(file)),
+    ]);
+    setImageError("");
+  }
+
+  function removeImage(index: number) {
+    setImages((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+    setPreviewUrls((prev) => prev.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  function handleDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    setDragActive(false);
+    addFiles(event.dataTransfer.files);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -184,13 +235,75 @@ export default function AddPropertyPage() {
             required
           />
 
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={(event) => setImages(Array.from(event.target.files ?? []))}
-            className="w-full rounded border p-3"
-          />
+          <div
+            onDragEnter={(event) => {
+              event.preventDefault();
+              setDragActive(true);
+            }}
+            onDragOver={(event) => {
+              event.preventDefault();
+              setDragActive(true);
+            }}
+            onDragLeave={(event) => {
+              event.preventDefault();
+              setDragActive(false);
+            }}
+            onDrop={handleDrop}
+            className={`rounded-2xl border-2 border-dashed p-6 text-center transition ${
+              dragActive
+                ? "border-blue-500 bg-blue-50"
+                : "border-gray-300 bg-gray-50"
+            }`}
+          >
+            <input
+              id="property-image-upload"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={(event) => addFiles(event.target.files)}
+              className="hidden"
+            />
+            <label htmlFor="property-image-upload" className="cursor-pointer">
+              <p className="text-lg font-semibold text-gray-800">
+                Drag and drop property images here
+              </p>
+              <p className="mt-2 text-sm text-gray-600">
+                You can upload multiple photos at once. JPG, PNG, and WebP are supported.
+              </p>
+            </label>
+            {imageError ? (
+              <p className="mt-3 text-sm text-red-600">{imageError}</p>
+            ) : null}
+          </div>
+
+          {images.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-3">
+              {images.map((file, index) => (
+                <div
+                  key={`${file.name}-${file.lastModified}-${index}`}
+                  className="rounded-xl border border-gray-200 p-3"
+                >
+                  {previewUrls[index] ? (
+                    <img
+                      src={previewUrls[index]}
+                      alt={file.name}
+                      className="mb-3 h-32 w-full rounded-lg object-cover"
+                    />
+                  ) : null}
+                  <p className="truncate text-sm font-medium text-gray-800">
+                    {file.name}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="mt-3 text-sm text-red-600"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : null}
 
           <button
             type="submit"

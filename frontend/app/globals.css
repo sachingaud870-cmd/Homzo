@@ -1,26 +1,592 @@
 @import "tailwindcss";
 
+/* =========================================================
+   PROPVERSE — PREMIUM REAL ESTATE DESIGN SYSTEM
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf6f0;
+  --foreground: #2c2c2c;
+
+  --primary: #e8c4b3;
+  --primary-light: #f5d5c8;
+  --primary-dark: #d4a574;
+
+  --accent: #c9a961;
+  --accent-light: #d4b776;
+  --accent-dark: #9b7e52;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  --card: rgba(255, 255, 255, 0.82);
+  --border: rgba(201, 169, 97, 0.16);
+
+  --shadow-soft:
+    0 10px 35px rgba(72, 52, 35, 0.08);
+
+  --shadow-premium:
+    0 20px 60px rgba(72, 52, 35, 0.12);
+
+  --shadow-hover:
+    0 25px 70px rgba(72, 52, 35, 0.18);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(232, 196, 179, 0.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(201, 169, 97, 0.12),
+      transparent 30%
+    ),
+    var(--background);
+
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  min-height: 100vh;
+}
+
+/* Better text selection */
+::selection {
+  background: var(--primary);
+  color: #2c2c2c;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5eee7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--primary),
+    var(--accent)
+  );
+
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dark);
+}
+
+/* =========================================================
+   PREMIUM BUTTONS
+   ========================================================= */
+
+.btn-primary {
+  @apply relative overflow-hidden bg-[#E8C4B3] text-white
+    transition-all duration-300
+    font-semibold
+    shadow-md;
+
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  @apply bg-[#D4A574] shadow-xl;
+
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-accent {
+  @apply relative overflow-hidden bg-[#C9A961] text-white
+    transition-all duration-300
+    font-semibold
+    shadow-md;
+
+  transform: translateY(0);
+}
+
+.btn-accent:hover {
+  @apply bg-[#9B7E52] shadow-xl;
+
+  transform: translateY(-2px);
+}
+
+.btn-accent:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  @apply bg-gray-100 text-gray-700
+    transition-all duration-300
+    font-semibold
+    border border-gray-200;
+
+  transform: translateY(0);
+}
+
+.btn-secondary:hover {
+  @apply bg-white text-[#9B7E52] border-[#C9A961]/30 shadow-md;
+
+  transform: translateY(-2px);
+}
+
+/* Button shine animation */
+
+.btn-accent::before,
+.btn-primary::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 70%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+}
+
+.btn-accent:hover::before,
+.btn-primary:hover::before {
+  left: 140%;
+}
+
+/* =========================================================
+   TEXT UTILITIES
+   ========================================================= */
+
+.text-primary {
+  @apply text-[#E8C4B3];
+}
+
+.text-accent {
+  @apply text-[#C9A961];
+}
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    #9b7e52 0%,
+    #c9a961 45%,
+    #d4a574 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* =========================================================
+   GLASSMORPHISM
+   ========================================================= */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(201, 169, 97, 0.15);
+
+  box-shadow: var(--shadow-soft);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 24px;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(201, 169, 97, 0.28);
+
+  box-shadow: var(--shadow-premium);
+}
+
+/* =========================================================
+   PROPERTY CARD
+   ========================================================= */
+
+.premium-card {
+  position: relative;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.88);
+
+  border: 1px solid rgba(201, 169, 97, 0.13);
+
+  border-radius: 24px;
+
+  box-shadow: var(--shadow-soft);
+
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(201, 169, 97, 0.3);
+
+  box-shadow: var(--shadow-hover);
+}
+
+/* =========================================================
+   IMAGE HOVER
+   ========================================================= */
+
+.image-hover {
+  overflow: hidden;
+}
+
+.image-hover img {
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+}
+
+.image-hover:hover img {
+  transform: scale(1.07);
+
+  filter: saturate(1.08);
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.input-premium {
+  @apply w-full rounded-xl border bg-white/80 px-4 py-3
+    text-sm text-gray-800 outline-none
+    transition-all duration-300;
+
+  border-color: rgba(156, 163, 175, 0.3);
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.025);
+}
+
+.input-premium::placeholder {
+  color: #9ca3af;
+}
+
+.input-premium:hover {
+  border-color: rgba(201, 169, 97, 0.4);
+}
+
+.input-premium:focus {
+  border-color: var(--accent);
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(201, 169, 97, 0.12),
+    0 8px 25px rgba(72, 52, 35, 0.06);
+
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+select.input-premium {
+  appearance: auto;
+}
+
+/* =========================================================
+   PROPERTY DETAIL BOX
+   ========================================================= */
+
+.detail-box {
+  @apply rounded-2xl bg-white/70 p-4;
+
+  border: 1px solid rgba(201, 169, 97, 0.12);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.detail-box:hover {
+  transform: translateY(-4px);
+
+  background: white;
+
+  border-color: rgba(201, 169, 97, 0.28);
+
+  box-shadow: 0 12px 30px rgba(72, 52, 35, 0.08);
+}
+
+.detail-icon {
+  @apply flex h-10 w-10 items-center justify-center rounded-xl;
+
+  background: linear-gradient(
+    135deg,
+    rgba(232, 196, 179, 0.35),
+    rgba(201, 169, 97, 0.12)
+  );
+
+  transition: transform 0.3s ease;
+}
+
+.detail-box:hover .detail-icon {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* =========================================================
+   PREMIUM BADGE
+   ========================================================= */
+
+.badge-premium {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 7px 13px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(232, 196, 179, 0.28),
+      rgba(201, 169, 97, 0.12)
+    );
+
+  border: 1px solid rgba(201, 169, 97, 0.2);
+
+  color: var(--accent-dark);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   ANIMATION DELAYS
+   ========================================================= */
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+/* =========================================================
+   SHIMMER / LOADING
+   ========================================================= */
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f1ebe5 25%,
+    #faf7f3 50%,
+    #f1ebe5 75%
+  );
+
+  background-size: 1000px 100%;
+
+  animation: shimmer 2s infinite linear;
+}
+
+/* =========================================================
+   GLOW
+   ========================================================= */
+
+.gold-glow {
+  box-shadow:
+    0 0 0 1px rgba(201, 169, 97, 0.12),
+    0 10px 40px rgba(201, 169, 97, 0.14);
+}
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .glass-card {
+    border-radius: 20px;
+  }
+
+  .premium-card {
+    border-radius: 20px;
+  }
+
+  .animate-fade-up {
+    animation-duration: 0.55s;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

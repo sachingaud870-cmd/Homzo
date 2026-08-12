@@ -2,126 +2,283 @@ import { getProperty } from "@/lib/api";
 import EnquiryForm from "@/components/EnquiryForm";
 import ImageGallery from "@/components/ImageGallery";
 
-
 export default async function PropertyDetails({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-
   const { id } = await params;
 
   const property = await getProperty(id);
 
+  const formattedStatus = property.status.replaceAll("_", " ");
 
   return (
+    <main className="relative min-h-screen overflow-hidden bg-[#FAF6F0]">
 
-    <main className="min-h-screen bg-gray-100 p-10">
+      {/* Background Effects */}
+      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[#E8C4B3]/25 blur-3xl" />
 
-      <div className="mx-auto max-w-6xl rounded-xl bg-white p-8 shadow-lg">
+      <div className="pointer-events-none absolute -right-40 top-[500px] h-[500px] w-[500px] rounded-full bg-[#C9A961]/15 blur-3xl" />
 
+      <div className="relative mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
 
-        {/* Main Image */}
+        {/* Breadcrumb */}
+        <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
+          <span>Properties</span>
+          <span>›</span>
+          <span className="font-medium text-[#9B7E52]">
+            {property.project_name}
+          </span>
+        </div>
 
-       <ImageGallery 
- images={property.images}
-/>
+        {/* Main Container */}
+        <div className="glass-card overflow-hidden">
 
-        {/* Title */}
-
-        <h1 className="mt-8 text-4xl font-bold">
-          {property.project_name}
-        </h1>
-
-
-        <p className="mt-3 text-gray-600">
-          📍 {property.location}
-        </p>
-
-
-        <p className="mt-2 text-gray-600">
-          Builder: {property.builder_name}
-        </p>
-
-
-        {/* Details */}
-
-        <div className="mt-6 grid grid-cols-2 gap-4">
-
-
-          <div className="rounded-lg bg-gray-100 p-4">
-            <p className="text-gray-500">
-              BHK
-            </p>
-
-            <p className="font-bold">
-              {property.bhk}
-            </p>
+          {/* Gallery */}
+          <div className="p-3 md:p-5">
+            <ImageGallery images={property.images} />
           </div>
 
+          {/* Property Information */}
+          <div className="p-6 md:p-10">
 
+            <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
 
-          <div className="rounded-lg bg-gray-100 p-4">
-            <p className="text-gray-500">
-              Carpet Area
-            </p>
+              {/* LEFT CONTENT */}
+              <div>
 
-            <p className="font-bold">
-              {property.carpet_area} sq.ft
-            </p>
+                {/* Status */}
+                <div className="flex flex-wrap items-center gap-3">
+
+                  <span className="rounded-full border border-[#C9A961]/20 bg-[#C9A961]/10 px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#9B7E52]">
+                    {formattedStatus}
+                  </span>
+
+                  <span className="rounded-full bg-[#E8C4B3]/20 px-4 py-2 text-xs font-semibold text-[#9B7E52]">
+                    {property.bhk}
+                  </span>
+
+                </div>
+
+                {/* Title */}
+                <h1 className="mt-5 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+                  {property.project_name}
+                </h1>
+
+                {/* Location */}
+                <div className="mt-4 flex items-center gap-2 text-gray-600">
+                  <span className="text-lg text-[#C9A961]">
+                    📍
+                  </span>
+
+                  <span>
+                    {property.location}
+                  </span>
+                </div>
+
+                {/* Builder */}
+                <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
+                  <span>Developed by</span>
+
+                  <span className="font-semibold text-gray-700">
+                    {property.builder_name}
+                  </span>
+                </div>
+
+                {/* Price */}
+                <div className="mt-8 rounded-2xl border border-[#C9A961]/15 bg-gradient-to-br from-[#F5D5C8]/30 to-[#C9A961]/10 p-5">
+
+                  <p className="text-sm font-medium text-gray-500">
+                    Property Price
+                  </p>
+
+                  <p className="mt-1 text-3xl font-bold text-[#9B7E52] md:text-4xl">
+                    ₹ {Number(property.price).toLocaleString("en-IN")}
+                  </p>
+
+                </div>
+
+                {/* Details */}
+                <div className="mt-8">
+
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Property Details
+                  </h2>
+
+                  <div className="mt-5 grid grid-cols-2 gap-4 md:grid-cols-4">
+
+                    {/* BHK */}
+                    <div className="detail-box">
+                      <div className="detail-icon">
+                        🏠
+                      </div>
+
+                      <p className="mt-3 text-xs text-gray-400">
+                        Configuration
+                      </p>
+
+                      <p className="mt-1 font-bold text-gray-800">
+                        {property.bhk}
+                      </p>
+                    </div>
+
+                    {/* Area */}
+                    <div className="detail-box">
+                      <div className="detail-icon">
+                        📐
+                      </div>
+
+                      <p className="mt-3 text-xs text-gray-400">
+                        Carpet Area
+                      </p>
+
+                      <p className="mt-1 font-bold text-gray-800">
+                        {property.carpet_area} sq.ft
+                      </p>
+                    </div>
+
+                    {/* Status */}
+                    <div className="detail-box">
+                      <div className="detail-icon">
+                        ✨
+                      </div>
+
+                      <p className="mt-3 text-xs text-gray-400">
+                        Status
+                      </p>
+
+                      <p className="mt-1 font-bold text-[#9B7E52]">
+                        {formattedStatus}
+                      </p>
+                    </div>
+
+                    {/* Builder */}
+                    <div className="detail-box">
+                      <div className="detail-icon">
+                        🏗️
+                      </div>
+
+                      <p className="mt-3 text-xs text-gray-400">
+                        Builder
+                      </p>
+
+                      <p className="mt-1 line-clamp-1 font-bold text-gray-800">
+                        {property.builder_name}
+                      </p>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* Description */}
+                <div className="mt-10">
+
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    About This Property
+                  </h2>
+
+                  <div className="mt-4 rounded-2xl border border-gray-100 bg-white/50 p-5">
+                    <p className="leading-8 text-gray-600">
+                      {property.description}
+                    </p>
+                  </div>
+
+                </div>
+
+              </div>
+
+              {/* RIGHT SIDEBAR */}
+              <aside>
+
+                <div className="sticky top-24 rounded-3xl border border-[#C9A961]/15 bg-white/80 p-6 shadow-xl backdrop-blur-xl">
+
+                  <div className="mb-5">
+
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#9B7E52]">
+                      Interested?
+                    </span>
+
+                    <h2 className="mt-2 text-2xl font-bold text-gray-900">
+                      Enquire About This Property
+                    </h2>
+
+                    <p className="mt-2 text-sm leading-6 text-gray-500">
+                      Get more information, schedule a visit, or speak
+                      with our property consultant.
+                    </p>
+
+                  </div>
+
+                  {/* Enquiry Form */}
+                  <EnquiryForm propertyId={property.id} />
+
+                </div>
+
+              </aside>
+
+            </div>
+
           </div>
-
-
-
-          <div className="rounded-lg bg-gray-100 p-4">
-            <p className="text-gray-500">
-              Status
-            </p>
-
-            <p className="font-bold">
-              {property.status}
-            </p>
-          </div>
-
-
-
-          <div className="rounded-lg bg-gray-100 p-4">
-            <p className="text-gray-500">
-              Price
-            </p>
-
-            <p className="font-bold text-blue-600">
-              ₹ {Number(property.price).toLocaleString("en-IN")}
-            </p>
-          </div>
-
 
         </div>
 
+        {/* Bottom Trust Section */}
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
 
+          <div className="glass-card flex items-center gap-4 p-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-xl">
+              ✓
+            </div>
 
-        {/* Description */}
+            <div>
+              <p className="font-semibold text-gray-900">
+                Verified Listing
+              </p>
 
-        <h2 className="mt-8 text-2xl font-bold">
-          About Property
-        </h2>
+              <p className="text-sm text-gray-500">
+                Property information reviewed
+              </p>
+            </div>
+          </div>
 
+          <div className="glass-card flex items-center gap-4 p-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C9A961]/15 text-xl">
+              🔒
+            </div>
 
-        <p className="mt-3 leading-7 text-gray-700">
-          {property.description}
-        </p>
+            <div>
+              <p className="font-semibold text-gray-900">
+                Secure Enquiry
+              </p>
 
+              <p className="text-sm text-gray-500">
+                Your information stays protected
+              </p>
+            </div>
+          </div>
 
+          <div className="glass-card flex items-center gap-4 p-5">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#D4A574]/15 text-xl">
+              🤝
+            </div>
 
-        {/* Enquiry Button */}
+            <div>
+              <p className="font-semibold text-gray-900">
+                Expert Assistance
+              </p>
 
-        <EnquiryForm propertyId={property.id}/>
+              <p className="text-sm text-gray-500">
+                Connect with a property consultant
+              </p>
+            </div>
+          </div>
 
+        </div>
 
       </div>
 
     </main>
-
   );
 }
-
