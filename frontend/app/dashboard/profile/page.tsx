@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { API_URL } from "@/lib/api";
 
 type UserProfile = {
   username: string;
@@ -25,7 +26,7 @@ export default function ProfilePage() {
 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/profile/",
+          `${API_URL}/api/profile/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -51,7 +52,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[500px] items-center justify-center">
+      <div className="flex min-h-125 items-center justify-center">
         <div className="text-center">
           <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#E8C4B3] border-t-[#C9A961]" />
           <p className="mt-4 text-sm text-gray-500">
@@ -105,7 +106,7 @@ export default function ProfilePage() {
         </h1>
 
         <p className="mt-2 text-gray-500">
-          Manage and view your PropVerse account information.
+          Manage and view your Homzo account information.
         </p>
       </div>
 
@@ -153,7 +154,7 @@ export default function ProfilePage() {
 
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-xl">
-              👤
+
             </div>
 
             <div>
@@ -197,7 +198,7 @@ export default function ProfilePage() {
 
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/20 text-xl">
-              🔐
+
             </div>
 
             <div>
@@ -206,7 +207,7 @@ export default function ProfilePage() {
               </h2>
 
               <p className="text-sm text-gray-500">
-                Your PropVerse account
+                Your Homzo account
               </p>
             </div>
           </div>
@@ -253,12 +254,12 @@ export default function ProfilePage() {
       </div>
 
       {/* Bottom message */}
-      <div className="mt-8 overflow-hidden rounded-2xl border border-[#C9A961]/30 bg-gradient-to-r from-[#FAF6F0] to-[#F5D5C8]/30 p-6">
+      <div className="mt-8 overflow-hidden rounded-2xl border border-[#C9A961]/30 bg-linear-to-r from-[#FAF6F0] to-[#F5D5C8]/30 p-6">
 
         <div className="flex items-start gap-4">
 
           <div className="text-3xl">
-            🏡
+
           </div>
 
           <div>
@@ -268,7 +269,7 @@ export default function ProfilePage() {
 
             <p className="mt-1 text-sm leading-6 text-gray-600">
               Manage your properties, track leads, and connect with buyers
-              from your PropVerse workspace.
+              from your Homzo workspace.
             </p>
           </div>
 

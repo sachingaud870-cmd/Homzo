@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAF6F0] text-[#2C2C2C]">
+    <main className="relative min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
 
       {/* ================= BACKGROUND EFFECTS ================= */}
 
@@ -23,38 +23,38 @@ export default function AboutPage() {
           <div className="animate-fade-up">
 
             <span className="badge-premium inline-flex items-center gap-2">
-              <span className="text-[#C9A961]">✦</span>
-              About PropVerse
+              <span className="text-[#C9A961]"></span>
+              About Homzo
             </span>
 
             <h1 className="mt-7 text-5xl font-extrabold leading-[1.05] tracking-tight text-[#2C2C2C] md:text-7xl">
 
-              A Smarter Way to
+              A More Refined Way to
 
               <span className="text-gradient block">
-                Find Your Place.
+                Find Your Home.
               </span>
 
             </h1>
 
-            <p className="mt-7 max-w-xl text-lg leading-8 text-gray-600 md:text-xl">
-              PropVerse brings property discovery, intelligent recommendations,
-              and powerful CRM tools together in one modern real estate
-              platform.
+            <p className="mt-7 max-w-xl text-lg leading-8 text-[color:var(--muted)] md:text-xl">
+              Homzo brings together inspiring properties, insightful guidance,
+              and a premium property experience designed for modern buyers and
+              investors.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
 
-              <span className="rounded-full border border-[#C9A961]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
-                ✨ AI Powered
+              <span className="rounded-full border border-[#C9A961]/30 bg-[color:var(--card)]/80 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
+                 AI Powered
               </span>
 
-              <span className="rounded-full border border-[#C9A961]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
-                🔎 Smart Search
+              <span className="rounded-full border border-[#C9A961]/30 bg-[color:var(--card)]/80 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
+                 Smart Search
               </span>
 
-              <span className="rounded-full border border-[#C9A961]/30 bg-white/70 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
-                📊 CRM
+              <span className="rounded-full border border-[#C9A961]/30 bg-[color:var(--card)]/80 px-4 py-2 text-sm font-medium text-[#9B7E52] shadow-sm backdrop-blur">
+                 CRM
               </span>
 
             </div>
@@ -71,7 +71,7 @@ export default function AboutPage() {
 
               <Link
                 href="/contact"
-                className="rounded-xl border border-[#C9A961]/40 bg-white/70 px-6 py-3.5 font-semibold text-[#2C2C2C] shadow-sm transition hover:-translate-y-1 hover:bg-white"
+                className="rounded-xl border border-[#C9A961]/40 bg-[color:var(--card)]/80 px-6 py-3.5 font-semibold text-[color:var(--foreground)] shadow-sm transition hover:-translate-y-1 hover:bg-[color:var(--background-strong)]"
               >
                 Contact Us
               </Link>
@@ -87,7 +87,7 @@ export default function AboutPage() {
 
             <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-[#E8C4B3]/30 via-transparent to-[#C9A961]/20 blur-2xl" />
 
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/50 p-3 shadow-2xl backdrop-blur">
+            <div className="relative overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)]/70 p-3 shadow-2xl backdrop-blur">
 
               <div className="relative h-[420px] overflow-hidden rounded-[1.5rem]">
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
                 <div className="absolute bottom-6 left-6 right-6">
 
                   <p className="text-sm font-medium text-white/80">
-                    The PropVerse Experience
+                    The Homzo Experience
                   </p>
 
                   <h2 className="mt-1 text-2xl font-bold text-white">
@@ -123,7 +123,7 @@ export default function AboutPage() {
               <div className="flex items-center gap-3">
 
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-xl">
-                  🤖
+
                 </div>
 
                 <div>
@@ -165,7 +165,7 @@ export default function AboutPage() {
 
       <section className="relative mx-auto max-w-7xl px-6 md:px-10">
 
-        <div className="grid overflow-hidden rounded-3xl border border-[#C9A961]/20 bg-white/70 shadow-xl backdrop-blur md:grid-cols-4">
+        <div className="grid overflow-hidden rounded-3xl border border-[#C9A961]/20 bg-[color:var(--card)]/80 shadow-xl backdrop-blur md:grid-cols-4">
 
           {[
             ["01", "Smart Discovery", "Find properties faster"],
@@ -189,7 +189,7 @@ export default function AboutPage() {
                 {title}
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-gray-500">
+              <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
                 {description}
               </p>
 
@@ -217,8 +217,8 @@ export default function AboutPage() {
             <span className="text-gradient"> powered by technology.</span>
           </h2>
 
-          <p className="mt-5 text-lg leading-8 text-gray-600">
-            Property decisions can be complicated. PropVerse is designed to
+          <p className="mt-5 text-lg leading-8 text-[color:var(--muted)]">
+            Property decisions can be complicated. Homzo is designed to
             make the journey simpler, clearer, and more intelligent.
           </p>
 
@@ -232,14 +232,14 @@ export default function AboutPage() {
           <div className="premium-card group p-8">
 
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-3xl transition duration-300 group-hover:scale-110 group-hover:rotate-3">
-              🎯
+
             </div>
 
             <h3 className="mt-7 text-2xl font-bold">
               Our Mission
             </h3>
 
-            <p className="mt-4 leading-7 text-gray-600">
+            <p className="mt-4 leading-7 text-[color:var(--muted)]">
               To make buying, selling, and managing properties simple,
               transparent, and accessible for everyone.
             </p>
@@ -252,7 +252,7 @@ export default function AboutPage() {
           <div className="premium-card group p-8">
 
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#C9A961]/20 text-3xl transition duration-300 group-hover:scale-110 group-hover:-rotate-3">
-              ✨
+
             </div>
 
             <h3 className="mt-7 text-2xl font-bold">
@@ -272,11 +272,11 @@ export default function AboutPage() {
           <div className="premium-card group p-8">
 
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D4A574]/20 text-3xl transition duration-300 group-hover:scale-110 group-hover:rotate-3">
-              🏡
+
             </div>
 
             <h3 className="mt-7 text-2xl font-bold">
-              Why PropVerse?
+              Why Homzo?
             </h3>
 
             <p className="mt-4 leading-7 text-gray-600">
@@ -306,7 +306,7 @@ export default function AboutPage() {
             <div>
 
               <span className="inline-flex rounded-full border border-[#D4B776]/30 bg-[#D4B776]/10 px-4 py-2 text-sm text-[#D4B776]">
-                🤖 Intelligent Property Technology
+                 Intelligent Property Technology
               </span>
 
               <h2 className="mt-6 text-4xl font-extrabold leading-tight md:text-5xl">
@@ -319,7 +319,7 @@ export default function AboutPage() {
               </h2>
 
               <p className="mt-5 max-w-xl leading-8 text-gray-300">
-                PropVerse combines property discovery with intelligent tools
+                Homzo combines property discovery with intelligent tools
                 that help buyers and consultants save time and work smarter.
               </p>
 
@@ -329,10 +329,10 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 gap-4">
 
               {[
-                ["🤖", "AI Recommendations"],
-                ["🔎", "Smart Search"],
-                ["📊", "Lead Analytics"],
-                ["📅", "Follow-up Management"],
+                ["", "AI Recommendations"],
+                ["", "Smart Search"],
+                ["", "Lead Analytics"],
+                ["", "Follow-up Management"],
               ].map(([icon, title]) => (
 
                 <div
@@ -366,7 +366,7 @@ export default function AboutPage() {
       <section className="mx-auto max-w-5xl px-6 py-24 text-center md:py-32">
 
         <span className="badge-premium">
-          ✦ Start Your Property Journey
+           Start Your Property Journey
         </span>
 
         <h2 className="mt-6 text-4xl font-extrabold md:text-6xl">
@@ -380,7 +380,7 @@ export default function AboutPage() {
 
         <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-600">
           Explore properties, discover smarter possibilities, and experience
-          a better way to navigate real estate with PropVerse.
+          a better way to navigate real estate with Homzo.
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -396,7 +396,7 @@ export default function AboutPage() {
             href="/contact"
             className="rounded-xl border border-gray-300 bg-white px-7 py-3.5 font-semibold transition hover:-translate-y-1 hover:shadow-lg"
           >
-            Talk to PropVerse
+            Talk to Homzo
           </Link>
 
         </div>

@@ -23,14 +23,13 @@ export default function Footer() {
 
             <Link href="/" className="inline-block">
               <h2 className="text-3xl font-bold tracking-tight">
-                Prop<span className="text-[#C9A961]">Verse</span>
+                Hom<span className="text-[#C9A961]">zo</span>
               </h2>
             </Link>
 
             <p className="mt-4 max-w-xs text-sm leading-7 text-white/55">
-              Your trusted destination for discovering premium properties,
-              connecting with trusted builders, and finding a place you'll
-              love to call home.
+              A premium destination for discovering exceptional homes, trusted
+              builders, and spaces designed for a refined lifestyle.
             </p>
 
             {/* Social */}
@@ -98,7 +97,7 @@ export default function Footer() {
                   href="/about"
                   className="text-white/60 transition hover:text-white"
                 >
-                  About PropVerse
+                  About Homzo
                 </Link>
               </li>
 
@@ -176,14 +175,14 @@ export default function Footer() {
             <div className="mt-5 space-y-4 text-sm">
 
               <div className="flex gap-3">
-                <span>📍</span>
+                <span></span>
                 <span className="text-white/60">
                   Mumbai, Maharashtra, India
                 </span>
               </div>
 
               <div className="flex gap-3">
-                <span>📞</span>
+                <span></span>
                 <a
                   href="tel:+919876543210"
                   className="text-white/60 transition hover:text-white"
@@ -193,12 +192,12 @@ export default function Footer() {
               </div>
 
               <div className="flex gap-3">
-                <span>✉️</span>
+                <span></span>
                 <a
-                  href="mailto:support@propverse.com"
+                  href="mailto:support@homzo.com"
                   className="text-white/60 transition hover:text-white"
                 >
-                  support@propverse.com
+                  support@homzo.com
                 </a>
               </div>
 
@@ -251,7 +250,7 @@ export default function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
 
           <p>
-            © {new Date().getFullYear()} PropVerse. All rights reserved.
+            Copyright {new Date().getFullYear()} Homzo. All rights reserved.
           </p>
 
           <div className="flex gap-5">
@@ -273,7 +272,7 @@ export default function Footer() {
           </div>
 
           <p className="flex items-center gap-1">
-            Made with <span className="text-[#E8C4B3]">♥</span> for better living
+            Made with <span className="text-[#E8C4B3]"></span> for better living
           </p>
 
         </div>

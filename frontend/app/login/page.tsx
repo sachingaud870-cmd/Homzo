@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { API_URL } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login/", {
+      const response = await fetch(`${API_URL}/api/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,8 +61,8 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FAF6F0] px-6 py-12">
-      
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[color:var(--background)] px-6 py-12 text-[color:var(--foreground)]">
+
       {/* Background Effects */}
       <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-[#E8C4B3]/30 blur-3xl" />
       <div className="pointer-events-none absolute -right-40 bottom-0 h-[500px] w-[500px] rounded-full bg-[#C9A961]/20 blur-3xl" />
@@ -72,30 +73,30 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="mb-8 text-center">
           <Link href="/" className="inline-block">
-            <h1 className="text-4xl font-bold tracking-tight text-[#2C2C2C]">
-              Prop<span className="text-[#C9A961]">Verse</span>
+            <h1 className="text-4xl font-bold tracking-tight text-[color:var(--foreground)]">
+              Hom<span className="text-[#C9A961]">zo</span>
             </h1>
           </Link>
 
-          <p className="mt-2 text-sm text-gray-500">
-            Smart Real Estate. Smarter Decisions.
+          <p className="mt-2 text-sm text-[color:var(--muted)]">
+            Luxury homes. Smarter decisions.
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl border border-white/70 bg-white/80 p-8 shadow-2xl backdrop-blur-xl md:p-10">
+        <div className="rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)]/85 p-8 shadow-2xl backdrop-blur-xl md:p-10">
 
           <div className="mb-8">
             <span className="badge-premium">
-              ✦ Welcome Back
+               Welcome Back
             </span>
 
-            <h2 className="mt-5 text-3xl font-bold text-gray-900">
-              Sign in to PropVerse
+            <h2 className="mt-5 text-3xl font-bold text-[color:var(--foreground)]">
+              Sign in to Homzo
             </h2>
 
-            <p className="mt-2 text-gray-500">
-              Access your properties, leads and CRM dashboard.
+            <p className="mt-2 text-[color:var(--muted)]">
+              Access your listings, leads, and premium property dashboard.
             </p>
           </div>
 
@@ -119,7 +120,7 @@ export default function LoginPage() {
 
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  👤
+
                 </span>
 
                 <input
@@ -143,7 +144,7 @@ export default function LoginPage() {
 
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  🔒
+
                 </span>
 
                 <input
@@ -179,9 +180,9 @@ export default function LoginPage() {
           </form>
 
           {/* Register */}
-          <div className="mt-8 border-t border-gray-200 pt-6 text-center">
-            <p className="text-sm text-gray-500">
-              Don't have an account?
+          <div className="mt-8 border-t border-[color:var(--border)] pt-6 text-center">
+            <p className="text-sm text-[color:var(--muted)]">
+              Don&apos;t have an account?
             </p>
 
             <Link
@@ -196,7 +197,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="mt-6 text-center text-xs text-gray-400">
-          © {new Date().getFullYear()} PropVerse. All rights reserved.
+          Copyright {new Date().getFullYear()} Homzo. All rights reserved.
         </p>
 
       </div>

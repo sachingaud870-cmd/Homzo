@@ -26,34 +26,34 @@ export default async function Home() {
   const featuredProperties = properties.slice(0, 6);
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#FAF6F0]">
+    <main className="min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
 
       {/* ================= HERO ================= */}
       <Hero />
 
       {/* ================= TRUST STATS ================= */}
       <section className="relative z-20 mx-auto -mt-10 max-w-6xl px-6">
-        <div className="grid overflow-hidden rounded-3xl bg-white shadow-xl sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)] shadow-[var(--shadow-premium)] backdrop-blur-sm sm:grid-cols-2 lg:grid-cols-4">
 
           {[
-            ["500+", "Properties Listed", "🏠"],
-            ["100+", "Verified Builders", "🏗️"],
-            ["50+", "Locations Covered", "📍"],
-            ["1000+", "Happy Clients", "❤️"],
+            ["500+", "Properties Listed", ""],
+            ["100+", "Verified Builders", ""],
+            ["50+", "Locations Covered", ""],
+            ["1000+", "Happy Clients", ""],
           ].map(([number, label, icon]) => (
             <div
               key={label}
-              className="group border-b border-gray-100 p-6 text-center transition duration-300 hover:bg-[#FAF6F0] lg:border-b-0 lg:border-r last:border-r-0"
+              className="group border-b border-[color:var(--border)] p-6 text-center transition duration-300 hover:bg-[color:var(--background-soft)]/40 lg:border-b-0 lg:border-r last:border-r-0"
             >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-2xl transition duration-300 group-hover:scale-110">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:var(--primary)]/20 text-2xl text-[color:var(--accent-light)] transition duration-300 group-hover:scale-110">
                 {icon}
               </div>
 
-              <p className="mt-3 text-2xl font-bold text-[#1A3A52]">
+              <p className="mt-3 text-2xl font-bold text-[color:var(--heading)]">
                 {number}
               </p>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-[color:var(--muted)]">
                 {label}
               </p>
             </div>
@@ -73,23 +73,23 @@ export default async function Home() {
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
 
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#C9A961]">
-              Explore Properties
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[color:var(--accent)]">
+              Signature Listings
             </p>
 
-            <h2 className="mt-3 text-4xl font-bold text-[#1A3A52] md:text-5xl">
-              Featured Properties
+            <h2 className="mt-3 text-4xl font-bold text-[color:var(--heading)] md:text-5xl">
+              Handpicked For Elevated Living
             </h2>
 
-            <p className="mt-4 max-w-xl text-gray-500">
-              Discover handpicked properties in some of the most desirable
-              locations.
+            <p className="mt-4 max-w-xl text-[color:var(--muted)]">
+              Discover standout homes and modern investment opportunities in
+              prime, lifestyle-rich locations.
             </p>
           </div>
 
           <Link
             href="/properties"
-            className="font-semibold text-[#9B7E52] transition hover:text-[#C9A961]"
+            className="font-semibold text-[color:var(--accent-light)] transition hover:text-[color:var(--accent)]"
           >
             View All Properties →
           </Link>
@@ -111,17 +111,17 @@ export default async function Home() {
 
         ) : (
 
-          <div className="mt-10 rounded-3xl bg-white p-16 text-center shadow-sm">
+          <div className="mt-10 rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)] p-16 text-center shadow-[var(--shadow-soft)]">
 
-            <div className="text-5xl">
-              🏠
+            <div className="text-5xl text-[color:var(--accent)]">
+
             </div>
 
-            <h3 className="mt-5 text-2xl font-bold text-[#1A3A52]">
+            <h3 className="mt-5 text-2xl font-bold text-[color:var(--heading)]">
               Properties Coming Soon
             </h3>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-[color:var(--muted)]">
               We are adding amazing properties to our platform.
             </p>
 
@@ -131,24 +131,24 @@ export default async function Home() {
 
       </section>
 
-      {/* ================= WHY PROPVERSE ================= */}
-      <section className="bg-white py-24">
+      {/* ================= WHY HOMZO ================= */}
+      <section className="bg-[color:var(--background-soft)] py-24">
 
         <div className="mx-auto max-w-7xl px-6">
 
           <div className="text-center">
 
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#C9A961]">
-              Why PropVerse
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-[color:var(--accent)]">
+              Why Homzo
             </p>
 
-            <h2 className="mt-3 text-4xl font-bold text-[#1A3A52] md:text-5xl">
-              Real Estate Made Simple
+            <h2 className="mt-3 text-4xl font-bold text-[color:var(--heading)] md:text-5xl">
+              Real Estate, Reimagined
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-              Everything you need to discover, compare and manage properties
-              from one powerful platform.
+            <p className="mx-auto mt-4 max-w-2xl text-[color:var(--muted)]">
+              A refined property experience built to help you discover better
+              locations, smarter investments, and more confident decisions.
             </p>
 
           </div>
@@ -157,25 +157,25 @@ export default async function Home() {
 
             {[
               {
-                icon: "🔍",
+                icon: "",
                 title: "Smart Search",
                 description:
                   "Find properties based on your preferred location, BHK and budget.",
               },
               {
-                icon: "✓",
+                icon: "",
                 title: "Verified Properties",
                 description:
                   "Explore carefully managed listings with reliable property information.",
               },
               {
-                icon: "🤖",
+                icon: "",
                 title: "AI Recommendations",
                 description:
                   "Get intelligent property suggestions based on your requirements.",
               },
               {
-                icon: "🤝",
+                icon: "",
                 title: "Expert Consultants",
                 description:
                   "Connect with property consultants who can guide you through the process.",
@@ -184,18 +184,18 @@ export default async function Home() {
 
               <div
                 key={item.title}
-                className="group rounded-3xl border border-gray-100 bg-[#FAF6F0] p-7 transition duration-500 hover:-translate-y-2 hover:shadow-xl"
+                className="group rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--card)] p-7 shadow-[var(--shadow-soft)] transition duration-500 hover:-translate-y-2 hover:shadow-[var(--shadow-hover)]"
               >
 
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1A3A52] text-2xl text-white shadow-lg transition duration-300 group-hover:scale-110">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[color:var(--background-strong)] text-2xl text-[color:var(--accent-light)] shadow-lg transition duration-300 group-hover:scale-110">
                   {item.icon}
                 </div>
 
-                <h3 className="mt-6 text-xl font-bold text-[#1A3A52]">
+                <h3 className="mt-6 text-xl font-bold text-[color:var(--heading)]">
                   {item.title}
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-gray-500">
+                <p className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
                   {item.description}
                 </p>
 
@@ -212,7 +212,7 @@ export default async function Home() {
       {/* ================= AI SECTION ================= */}
       <section className="px-6 py-24">
 
-        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[#1A3A52] shadow-2xl">
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--background-strong)] shadow-[var(--shadow-premium)]">
 
           <div className="relative p-8 md:p-14">
 
@@ -226,7 +226,7 @@ export default async function Home() {
               <div>
 
                 <span className="inline-flex rounded-full bg-[#C9A961]/20 px-4 py-2 text-sm font-semibold text-[#E8C4B3]">
-                  ✨ Powered by AI
+                   Powered by AI
                 </span>
 
                 <h2 className="mt-6 text-4xl font-bold leading-tight text-white md:text-5xl">
@@ -238,7 +238,7 @@ export default async function Home() {
 
                 <p className="mt-5 max-w-xl leading-7 text-gray-300">
                   Tell us your budget, preferred location and requirements.
-                  PropVerse helps you discover properties that match your
+                  Homzo helps you discover properties that match your
                   needs.
                 </p>
 
@@ -261,7 +261,7 @@ export default async function Home() {
                     <div className="flex items-center gap-4">
 
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-2xl">
-                        🤖
+
                       </div>
 
                       <div>
@@ -279,9 +279,9 @@ export default async function Home() {
                     <div className="mt-6 space-y-3">
 
                       {[
-                        ["📍", "Preferred Location", "Mumbai"],
-                        ["🏠", "Property Type", "2 BHK"],
-                        ["💰", "Budget", "₹50L - ₹80L"],
+                        ["", "Preferred Location", "Mumbai"],
+                        ["", "Property Type", "2 BHK"],
+                        ["", "Budget", "₹50L - ₹80L"],
                       ].map(([icon, label, value]) => (
 
                         <div
@@ -312,7 +312,7 @@ export default async function Home() {
                     <div className="mt-5 rounded-xl bg-[#C9A961]/15 p-4 text-center">
 
                       <p className="text-sm font-semibold text-[#9B7E52]">
-                        ✨ Great matches found for you
+                         Great matches found for you
                       </p>
 
                     </div>
@@ -353,10 +353,10 @@ export default async function Home() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
           {[
-            ["Mumbai", "🌆"],
-            ["Thane", "🏙️"],
-            ["Navi Mumbai", "🌇"],
-            ["Pune", "🏡"],
+            ["Mumbai", ""],
+            ["Thane", ""],
+            ["Navi Mumbai", ""],
+            ["Pune", ""],
           ].map(([location, icon]) => (
 
             <Link

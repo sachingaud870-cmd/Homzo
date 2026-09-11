@@ -6,6 +6,7 @@ import { FormEvent, useEffect, useState } from "react";
 
 import {
   getProperty,
+  API_URL,
   PropertyPayload,
   PropertyImage,
   updateProperty,
@@ -492,9 +493,9 @@ export default function EditPropertyPage() {
 
                     <img
 
-                      src={
-                        `http://127.0.0.1:8000${image.image}`
-                      }
+                      src={image.image.startsWith("http") ? image.image : `${API_URL}${image.image}`}
+
+                      alt={`Property image for ${formData.project_name || "this property"}`}
 
                       className="h-32 w-full rounded object-cover"
 

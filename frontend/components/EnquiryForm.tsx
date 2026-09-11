@@ -185,7 +185,6 @@ export default function EnquiryForm({
               <div className="relative">
 
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  👤
                 </span>
 
                 <input
@@ -214,7 +213,6 @@ export default function EnquiryForm({
               <div className="relative">
 
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  📞
                 </span>
 
                 <input
@@ -243,7 +241,6 @@ export default function EnquiryForm({
               <div className="relative">
 
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  ✉️
                 </span>
 
                 <input
@@ -271,7 +268,6 @@ export default function EnquiryForm({
               <div className="relative">
 
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                  📍
                 </span>
 
                 <input
@@ -377,12 +373,11 @@ export default function EnquiryForm({
           <div className="flex items-start justify-center gap-2 text-center">
 
             <span className="mt-0.5 text-xs text-emerald-600">
-              🔒
             </span>
 
             <p className="max-w-lg text-xs leading-5 text-gray-400">
               Your information is secure. By submitting this form, you agree
-              to be contacted by the PropVerse property team.
+              to be contacted by the Homzo property team.
             </p>
 
           </div>

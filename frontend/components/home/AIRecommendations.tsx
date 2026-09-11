@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { API_URL } from "@/lib/api";
 
 type Property = {
   id: number;
@@ -57,7 +58,7 @@ export default function AIRecommendations() {
       }
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/properties/recommendations/?${params.toString()}`
+        `${API_URL}/api/properties/recommendations/?${params.toString()}`
       );
 
       if (!response.ok) {
@@ -95,16 +96,16 @@ export default function AIRecommendations() {
 
         {/* HEADER */}
         <div className="text-center">
-          <span className="inline-flex items-center rounded-full border border-[#C9A961]/30 bg-[#C9A961]/10 px-4 py-2 text-sm font-semibold text-[#9B7E52]">
-            ✨ AI Property Finder
+          <span className="inline-flex items-center rounded-full border border-[color:var(--border)] bg-[color:var(--card)] px-4 py-2 text-sm font-semibold text-[color:var(--accent-light)] shadow-[var(--shadow-soft)]">
+             AI Property Finder
           </span>
 
-          <h2 className="mt-5 text-4xl font-bold tracking-tight text-[#1A3A52] md:text-5xl">
+          <h2 className="mt-5 text-4xl font-bold tracking-tight text-[color:var(--heading)] md:text-5xl">
             Find Properties That{" "}
-            <span className="text-[#C9A961]">Match You</span>
+            <span className="text-[color:var(--accent)]">Match You</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-gray-500">
+            <p className="mx-auto mt-4 max-w-2xl text-[color:var(--muted)]">
             Tell us your preferred location, BHK and budget. Our smart
             recommendation system will find the properties that best match
             your requirements.
@@ -112,7 +113,7 @@ export default function AIRecommendations() {
         </div>
 
         {/* SEARCH BOX */}
-        <div className="mx-auto mt-10 max-w-5xl rounded-[2rem] bg-white p-6 shadow-xl ring-1 ring-gray-100 md:p-8">
+        <div className="mx-auto mt-10 max-w-5xl rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)] p-6 shadow-[var(--shadow-premium)] md:p-8">
           <form
             onSubmit={getRecommendations}
             className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
@@ -120,8 +121,8 @@ export default function AIRecommendations() {
 
             {/* LOCATION */}
             <div>
-              <label className="mb-2 block text-sm font-semibold text-[#1A3A52]">
-                📍 Location
+              <label className="mb-2 block text-sm font-semibold text-[color:var(--heading)]">
+                 Location
               </label>
 
               <input
@@ -129,20 +130,20 @@ export default function AIRecommendations() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. Mumbai"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#C9A961] focus:bg-white focus:ring-2 focus:ring-[#C9A961]/20"
+                className="w-full rounded-xl border border-[color:var(--border)] bg-[color:var(--background)] px-4 py-3 text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20"
               />
             </div>
 
             {/* BHK */}
             <div>
-              <label className="mb-2 block text-sm font-semibold text-[#1A3A52]">
-                🏠 BHK
+              <label className="mb-2 block text-sm font-semibold text-[color:var(--heading)]">
+                 BHK
               </label>
 
               <select
                 value={bhk}
                 onChange={(e) => setBhk(e.target.value)}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#C9A961] focus:bg-white focus:ring-2 focus:ring-[#C9A961]/20"
+                className="w-full rounded-xl border border-[color:var(--border)] bg-[color:var(--background)] px-4 py-3 text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20"
               >
                 <option value="">Any BHK</option>
                 <option value="1 BHK">1 BHK</option>
@@ -155,8 +156,8 @@ export default function AIRecommendations() {
 
             {/* BUDGET */}
             <div>
-              <label className="mb-2 block text-sm font-semibold text-[#1A3A52]">
-                💰 Budget
+              <label className="mb-2 block text-sm font-semibold text-[color:var(--heading)]">
+                 Budget
               </label>
 
               <input
@@ -164,10 +165,10 @@ export default function AIRecommendations() {
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
                 placeholder="e.g. 8000000"
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none transition focus:border-[#C9A961] focus:bg-white focus:ring-2 focus:ring-[#C9A961]/20"
+                className="w-full rounded-xl border border-[color:var(--border)] bg-[color:var(--background)] px-4 py-3 text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/20"
               />
 
-              <p className="mt-1 text-xs text-gray-400">
+              <p className="mt-1 text-xs text-[color:var(--muted)]">
                 Enter maximum budget in ₹
               </p>
             </div>
@@ -177,16 +178,16 @@ export default function AIRecommendations() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-xl bg-[#1A3A52] px-5 py-3 font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#0F1F2E] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-xl bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--accent)] px-5 py-3 font-bold text-[#1b1b1b] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-hover)] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {loading ? "Finding..." : "✨ Find My Properties"}
+                {loading ? "Finding..." : " Find My Properties"}
               </button>
             </div>
           </form>
 
           {/* ERROR */}
           {error && (
-            <div className="mt-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+            <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
               {error}
             </div>
           )}
@@ -197,7 +198,7 @@ export default function AIRecommendations() {
               <button
                 type="button"
                 onClick={clearRecommendations}
-                className="text-sm font-semibold text-gray-500 transition hover:text-[#9B7E52]"
+                className="text-sm font-semibold text-[color:var(--muted)] transition hover:text-[color:var(--accent-light)]"
               >
                 Clear Search
               </button>
@@ -210,11 +211,11 @@ export default function AIRecommendations() {
           <div className="mt-12 text-center">
             <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-[#C9A961]" />
 
-            <p className="mt-4 font-semibold text-[#1A3A52]">
+            <p className="mt-4 font-semibold text-[color:var(--heading)]">
               Finding your best property matches...
             </p>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-[color:var(--muted)]">
               Our recommendation engine is analysing your preferences.
             </p>
           </div>
@@ -242,7 +243,7 @@ export default function AIRecommendations() {
               </div>
 
               <div className="rounded-full bg-[#C9A961]/10 px-4 py-2 text-sm font-semibold text-[#9B7E52]">
-                ✨ Smart Match
+                 Smart Match
               </div>
             </div>
 
@@ -269,13 +270,13 @@ export default function AIRecommendations() {
                         />
                       ) : (
                         <div className="flex h-full items-center justify-center text-5xl">
-                          🏠
+
                         </div>
                       )}
 
                       {/* AI BADGE */}
                       <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-[#9B7E52] shadow backdrop-blur">
-                        ✨ AI Recommended
+                         AI Recommended
                       </div>
 
                       {/* STATUS */}
@@ -296,7 +297,7 @@ export default function AIRecommendations() {
                       </p>
 
                       <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
-                        <span>📍</span>
+                        <span></span>
 
                         <span className="truncate">
                           {property.location}
@@ -365,7 +366,7 @@ export default function AIRecommendations() {
           <div className="mx-auto mt-12 max-w-xl rounded-3xl bg-white p-10 text-center shadow-lg">
 
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#E8C4B3]/30 text-4xl">
-              🏡
+
             </div>
 
             <h3 className="mt-6 text-2xl font-bold text-[#1A3A52]">
@@ -373,7 +374,7 @@ export default function AIRecommendations() {
             </h3>
 
             <p className="mt-3 text-gray-500">
-              We couldn't find properties matching your preferences.
+              We couldn&apos;t find properties matching your preferences.
               Try increasing your budget or choosing another location.
             </p>
 

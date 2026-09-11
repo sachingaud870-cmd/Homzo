@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { API_URL } from "@/lib/api";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -40,7 +41,7 @@ export default function RegisterPage() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/register/",
+        `${API_URL}/api/register/`,
         {
           method: "POST",
 
@@ -92,7 +93,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FAF6F0] px-5 py-12">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[color:var(--background)] px-5 py-12 text-[color:var(--foreground)]">
 
       {/* =====================================================
           BACKGROUND DECORATION
@@ -114,21 +115,21 @@ export default function RegisterPage() {
 
           <Link href="/" className="inline-block">
 
-            <h1 className="text-4xl font-bold tracking-tight text-[#211a16]">
-              Prop<span className="text-[#C9A961]">Verse</span>
+            <h1 className="text-4xl font-bold tracking-tight text-[color:var(--foreground)]">
+              Hom<span className="text-[#C9A961]">zo</span>
             </h1>
 
           </Link>
 
-          <p className="mt-3 text-sm text-gray-500">
-            Create your account and start exploring properties
+          <p className="mt-3 text-sm text-[color:var(--muted)]">
+            Create your account and explore properties with confidence
           </p>
 
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="premium-card rounded-3xl bg-white p-7 shadow-xl md:p-9"
+          className="premium-card rounded-3xl p-7 shadow-xl md:p-9"
         >
 
           {/* Heading */}
@@ -145,12 +146,12 @@ export default function RegisterPage() {
 
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-[color:var(--foreground)]">
               Create Account
             </h2>
 
-            <p className="mt-2 text-sm text-gray-500">
-              Join PropVerse and discover your next property.
+            <p className="mt-2 text-sm text-[color:var(--muted)]">
+              Join Homzo and discover your next exceptional property.
             </p>
 
           </div>
@@ -193,7 +194,7 @@ export default function RegisterPage() {
               <div className="flex gap-3">
 
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-100 font-bold text-emerald-600">
-                  ✓
+
                 </div>
 
                 <div>
@@ -295,7 +296,7 @@ export default function RegisterPage() {
             <div className="relative">
 
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                ✉
+
               </span>
 
               <input
@@ -410,7 +411,7 @@ export default function RegisterPage() {
         {/* Footer */}
 
         <p className="mt-6 text-center text-xs text-gray-400">
-          © {new Date().getFullYear()} PropVerse. All rights reserved.
+          Copyright {new Date().getFullYear()} Homzo. All rights reserved.
         </p>
 
       </div>

@@ -116,7 +116,6 @@ function PropertiesDashboardContent() {
             </div>
 
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-2xl">
-              🏠
             </div>
 
           </div>
@@ -161,7 +160,6 @@ function PropertiesDashboardContent() {
             </div>
 
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A961]/20 text-2xl">
-              📈
             </div>
 
           </div>
@@ -236,7 +234,6 @@ function PropertiesDashboardContent() {
           <div className="flex min-h-[350px] flex-col items-center justify-center p-8 text-center">
 
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#E8C4B3]/20 text-4xl">
-              🏠
             </div>
 
             <h3 className="mt-5 text-xl font-bold text-[#1A3A52]">
@@ -313,7 +310,6 @@ function PropertiesDashboardContent() {
                       <div className="flex items-center gap-3">
 
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-xl">
-                          🏠
                         </div>
 
                         <div>
@@ -339,7 +335,7 @@ function PropertiesDashboardContent() {
                     <td className="px-5 py-5">
 
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <span>📍</span>
+                        <span />
                         {property.location}
                       </div>
 

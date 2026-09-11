@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getToken, getUser, logout } from "@/lib/auth";
+import { useHydrated } from "@/lib/useHydrated";
 
 export default function DashboardLayout({
   children,
@@ -13,11 +15,12 @@ export default function DashboardLayout({
   const router = useRouter();
   const pathname = usePathname();
 
-  const user = getUser();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isHydrated = useHydrated();
+
+  const user = isHydrated ? getUser() : null;
   const role = user?.role || "BROKER";
   const isAdmin = role === "ADMIN";
-
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -36,22 +39,22 @@ export default function DashboardLayout({
     {
       href: "/dashboard",
       label: "Dashboard",
-      icon: "📊",
+      icon: "",
     },
     {
       href: "/dashboard/properties",
       label: "My Properties",
-      icon: "🏠",
+      icon: "",
     },
     {
       href: "/dashboard/leads",
       label: "My Leads",
-      icon: "📩",
+      icon: "",
     },
     {
       href: "/dashboard/profile",
       label: "My Profile",
-      icon: "👤",
+      icon: "",
     },
   ];
 
@@ -68,7 +71,7 @@ export default function DashboardLayout({
           href="/dashboard"
           className="text-2xl font-bold tracking-tight text-gray-900"
         >
-          Prop<span className="text-[#C9A961]">Verse</span>
+          Hom<span className="text-[#C9A961]">zo</span>
         </Link>
 
         <button
@@ -76,7 +79,7 @@ export default function DashboardLayout({
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-xl transition hover:border-[#C9A961]/40 hover:bg-[#FAF6F0]"
           aria-label="Toggle menu"
         >
-          {mobileOpen ? "✕" : "☰"}
+          {mobileOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
         </button>
 
       </header>
@@ -123,7 +126,7 @@ export default function DashboardLayout({
                     : "text-gray-600 hover:bg-[#FAF6F0]"
                 }`}
               >
-                <span>🛡️</span>
+                <span></span>
                 Admin Panel
               </Link>
             )}
@@ -132,7 +135,7 @@ export default function DashboardLayout({
               onClick={handleLogout}
               className="mt-3 flex w-full items-center gap-3 rounded-xl bg-red-50 px-4 py-3 text-left font-medium text-red-600 transition hover:bg-red-100"
             >
-              🚪 Logout
+               Logout
             </button>
 
           </nav>
@@ -162,7 +165,7 @@ export default function DashboardLayout({
             >
 
               <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                Prop<span className="text-[#C9A961]">Verse</span>
+                Hom<span className="text-[#C9A961]">zo</span>
               </h1>
 
               <div className="mt-2 flex items-center gap-2">
@@ -184,7 +187,7 @@ export default function DashboardLayout({
               <div className="flex items-center gap-3">
 
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-lg">
-                  {isAdmin ? "🛡️" : "🤝"}
+                  {isAdmin ? "" : ""}
                 </div>
 
                 <div className="min-w-0">
@@ -279,7 +282,7 @@ export default function DashboardLayout({
                 >
 
                   <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm">
-                    🛡️
+
                   </span>
 
                   <span>Admin Panel</span>
@@ -303,10 +306,10 @@ export default function DashboardLayout({
 
               <div className="flex items-center gap-2">
 
-                <span className="text-lg">✦</span>
+                <span className="text-lg"></span>
 
                 <span className="text-sm font-bold">
-                  PropVerse
+                  Homzo
                 </span>
 
               </div>
@@ -325,7 +328,7 @@ export default function DashboardLayout({
             >
 
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm transition group-hover:scale-105">
-                🚪
+
               </span>
 
               <span>Logout</span>
@@ -353,7 +356,7 @@ export default function DashboardLayout({
             <div>
 
               <p className="text-xs font-medium text-gray-400">
-                PropVerse Workspace
+                Homzo Workspace
               </p>
 
             </div>

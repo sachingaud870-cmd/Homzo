@@ -36,7 +36,7 @@ export default function PropertyCard({
   const formattedStatus = property.status.replaceAll("_", " ");
 
   return (
-    <article className="premium-card group overflow-hidden">
+    <article className="premium-card group overflow-hidden bg-[color:var(--card)] text-[color:var(--foreground)]">
 
       {/* Property Image */}
       <div className="image-hover relative h-60">
@@ -51,7 +51,7 @@ export default function PropertyCard({
         ) : (
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#F5D5C8] to-[#E8C4B3]">
             <div className="text-center">
-              <div className="text-4xl">🏡</div>
+              <div className="text-4xl"></div>
               <p className="mt-2 text-sm font-medium text-[#9B7E52]">
                 No Image Available
               </p>
@@ -64,7 +64,7 @@ export default function PropertyCard({
 
         {/* Status */}
         <div className="absolute left-4 top-4">
-          <span className="rounded-full border border-white/30 bg-white/90 px-3 py-1.5 text-xs font-bold text-[#9B7E52] shadow-lg backdrop-blur-md">
+          <span className="rounded-full border border-[color:var(--border)] bg-[color:var(--panel)]/90 px-3 py-1.5 text-xs font-bold text-[color:var(--accent-light)] shadow-lg backdrop-blur-md">
             {formattedStatus}
           </span>
         </div>
@@ -90,7 +90,7 @@ export default function PropertyCard({
           </div>
 
           <div className="rounded-full bg-white/20 px-3 py-1.5 text-xs backdrop-blur-md">
-            📐 {property.carpet_area} sq.ft
+             {property.carpet_area} sq.ft
           </div>
 
         </div>
@@ -101,13 +101,13 @@ export default function PropertyCard({
       <div className="p-5">
 
         {/* Title */}
-        <h2 className="line-clamp-1 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-[#9B7E52]">
+        <h2 className="line-clamp-1 text-xl font-bold text-[color:var(--heading)] transition-colors duration-300 group-hover:text-[color:var(--accent-light)]">
           {property.project_name}
         </h2>
 
         {/* Location */}
-        <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
-          <span className="text-[#C9A961]">📍</span>
+        <div className="mt-2 flex items-center gap-2 text-sm text-[color:var(--muted)]">
+          <span className="text-[color:var(--accent)]"></span>
 
           <span className="line-clamp-1">
             {property.location}
@@ -116,44 +116,44 @@ export default function PropertyCard({
 
         {/* Builder */}
         <div className="mt-3 flex items-center gap-2 text-sm">
-          <span className="text-gray-400">
+          <span className="text-[color:var(--muted)]">
             Builder
           </span>
 
-          <span className="font-medium text-gray-700">
+          <span className="font-medium text-[color:var(--foreground)]">
             {property.builder_name}
           </span>
         </div>
 
         {/* Details */}
-        <div className="mt-5 grid grid-cols-3 divide-x divide-gray-200 rounded-2xl border border-[#C9A961]/10 bg-[#FAF6F0]/70 py-3">
+        <div className="mt-5 grid grid-cols-3 divide-x divide-[color:var(--border)] rounded-2xl border border-[color:var(--border)] bg-[color:var(--background)]/60 py-3">
 
           <div className="text-center">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[color:var(--muted)]">
               Type
             </p>
 
-            <p className="mt-1 text-sm font-bold text-gray-800">
+            <p className="mt-1 text-sm font-bold text-[color:var(--foreground)]">
               {property.bhk}
             </p>
           </div>
 
           <div className="text-center">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[color:var(--muted)]">
               Area
             </p>
 
-            <p className="mt-1 text-sm font-bold text-gray-800">
+            <p className="mt-1 text-sm font-bold text-[color:var(--foreground)]">
               {property.carpet_area}
             </p>
           </div>
 
           <div className="text-center">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[color:var(--muted)]">
               Status
             </p>
 
-            <p className="mt-1 text-sm font-bold text-[#9B7E52]">
+            <p className="mt-1 text-sm font-bold text-[color:var(--accent-light)]">
               Available
             </p>
           </div>
@@ -162,7 +162,7 @@ export default function PropertyCard({
 
         {/* Button */}
         <Link href={`/property/${property.id}`}
-        
+
           className="btn-accent mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3"
         >
           View Property

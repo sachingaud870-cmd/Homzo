@@ -29,7 +29,7 @@ export default async function PropertiesPage({
   const properties = await getProperties(params);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAF6F0]">
+    <main className="relative min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
 
       {/* ================= BACKGROUND ================= */}
 
@@ -51,21 +51,21 @@ export default async function PropertiesPage({
             <div className="max-w-3xl">
 
               <span className="badge-premium">
-                ✦ PropVerse Collection
+                 Homzo Collection
               </span>
 
-              <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-[#2C2C2C] md:text-6xl">
+              <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-[color:var(--foreground)] md:text-6xl">
 
-                Find a place
+                Curated spaces
                 <span className="text-gradient block">
-                  you'll love.
+                  for exceptional living.
                 </span>
 
               </h1>
 
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-600">
-                Explore premium properties, compare your options, and discover
-                a home that matches your lifestyle and budget.
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-[color:var(--muted)]">
+                Explore premium residential choices, compare your options, and
+                discover a lifestyle-first home that reflects your goals.
               </p>
 
             </div>
@@ -76,10 +76,10 @@ export default async function PropertiesPage({
             <div className="glass-card min-w-[190px] p-5 text-center">
 
               <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-xl">
-                🏠
+
               </div>
 
-              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">
+              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-[color:var(--muted)]">
                 Properties Found
               </p>
 
@@ -99,15 +99,15 @@ export default async function PropertiesPage({
         <section className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
 
           {[
-            ["✓", "Verified Listings"],
-            ["✦", "Smart Discovery"],
+            ["", "Verified Listings"],
+            ["", "Smart Discovery"],
             ["₹", "Budget Friendly"],
-            ["🔒", "Trusted Platform"],
+            ["", "Trusted Platform"],
           ].map(([icon, title]) => (
 
             <div
               key={title}
-              className="group rounded-2xl border border-white/70 bg-white/60 p-4 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg"
+              className="group rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)]/70 p-4 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-[color:var(--background-strong)] hover:shadow-lg"
             >
 
               <div className="flex items-center gap-3">
@@ -116,7 +116,7 @@ export default async function PropertiesPage({
                   {icon}
                 </span>
 
-                <span className="text-sm font-semibold text-gray-700">
+                <span className="text-sm font-semibold text-[color:var(--foreground)]">
                   {title}
                 </span>
 
@@ -137,23 +137,23 @@ export default async function PropertiesPage({
 
           <aside className="lg:col-span-1">
 
-            <div className="sticky top-24 overflow-hidden rounded-3xl border border-white/80 bg-white/70 p-5 shadow-xl backdrop-blur">
+            <div className="sticky top-24 overflow-hidden rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)]/80 p-5 shadow-xl backdrop-blur">
 
               <div className="mb-6">
 
                 <div className="flex items-center gap-3">
 
                   <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-xl">
-                    🔎
+
                   </div>
 
                   <div>
 
-                    <h2 className="font-bold text-gray-900">
+                    <h2 className="font-bold text-[color:var(--foreground)]">
                       Find Your Property
                     </h2>
 
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-[color:var(--muted)]">
                       Refine your search
                     </p>
 
@@ -182,17 +182,17 @@ export default async function PropertiesPage({
 
                   <div>
 
-                    <h2 className="text-xl font-bold text-gray-900">
+                    <h2 className="text-xl font-bold text-[color:var(--foreground)]">
                       Featured Properties
                     </h2>
 
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-[color:var(--muted)]">
                       Showing {properties.length} available properties
                     </p>
 
                   </div>
 
-                  <div className="hidden rounded-full bg-white px-4 py-2 text-sm text-gray-500 shadow-sm md:block">
+                  <div className="hidden rounded-full bg-[color:var(--background-strong)] px-4 py-2 text-sm text-[color:var(--muted)] shadow-sm md:block">
                     Latest Listings
                   </div>
 
@@ -226,25 +226,25 @@ export default async function PropertiesPage({
 
               /* ================= EMPTY STATE ================= */
 
-              <div className="flex min-h-[500px] items-center justify-center rounded-[2rem] border border-white/80 bg-white/60 p-10 text-center shadow-xl backdrop-blur">
+              <div className="flex min-h-[500px] items-center justify-center rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)]/80 p-10 text-center shadow-xl backdrop-blur">
 
                 <div className="max-w-md">
 
                   <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] bg-[#E8C4B3]/25 text-5xl">
-                    🏡
+
                   </div>
 
-                  <h2 className="mt-7 text-3xl font-bold text-gray-900">
+                  <h2 className="mt-7 text-3xl font-bold text-[color:var(--foreground)]">
                     No Properties Found
                   </h2>
 
-                  <p className="mt-4 leading-7 text-gray-500">
-                    We couldn't find properties matching your current search.
+                    <p className="mt-4 leading-7 text-[color:var(--muted)]">
+                    We couldn&apos;t find properties matching your current search.
                     Try changing your location, BHK, status, or price range.
                   </p>
 
                   <div className="mt-7 inline-flex rounded-full bg-[#C9A961]/10 px-5 py-2.5 text-sm font-semibold text-[#9B7E52]">
-                    ✦ Try adjusting your filters
+                     Try adjusting your filters
                   </div>
 
                 </div>
@@ -267,17 +267,17 @@ export default async function PropertiesPage({
             <div>
 
               <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[#D4B776]">
-                Can't find what you're looking for?
+                Can&apos;t find what you&apos;re looking for?
               </span>
 
               <h2 className="mt-4 text-3xl font-extrabold md:text-4xl">
-                Let PropVerse help you
+                Let Homzo help you
                 <span className="text-[#E8C4B3]">
                   {" "}find it.
                 </span>
               </h2>
 
-              <p className="mt-4 max-w-xl leading-7 text-gray-300">
+                <p className="mt-4 max-w-xl leading-7 text-gray-300">
                 Tell us your preferred location, budget, and requirements.
                 Our property team can help you discover suitable options.
               </p>
@@ -291,7 +291,7 @@ export default async function PropertiesPage({
                 href="/contact"
                 className="btn-accent rounded-xl px-7 py-3.5"
               >
-                Contact PropVerse →
+                Contact Homzo →
               </a>
 
             </div>

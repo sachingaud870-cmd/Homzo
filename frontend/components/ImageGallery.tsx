@@ -40,7 +40,7 @@ export default function ImageGallery({
           />
         ) : (
           <div className="flex h-full flex-col items-center justify-center text-gray-500">
-            <span className="text-5xl">🏡</span>
+            <span className="text-5xl"></span>
 
             <p className="mt-3 text-sm font-medium">
               No images available
@@ -55,7 +55,7 @@ export default function ImageGallery({
         {images.length > 0 && (
           <div className="absolute left-5 top-5">
             <span className="rounded-full border border-white/30 bg-black/30 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
-              📷 {images.length} Photos
+               {images.length} Photos
             </span>
           </div>
         )}

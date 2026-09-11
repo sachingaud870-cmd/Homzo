@@ -38,7 +38,7 @@ export default async function SearchPage({
   );
 
   return (
-    <main className="min-h-screen bg-[#FAF6F0]">
+    <main className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
 
       {/* =====================================================
           HEADER
@@ -92,13 +92,13 @@ export default async function SearchPage({
           SEARCH SUMMARY
       ====================================================== */}
 
-      <section className="border-b border-[#C9A961]/10 bg-white">
+      <section className="border-b border-[#C9A961]/10 bg-[color:var(--card)]/80 backdrop-blur-xl">
 
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-5 md:px-10">
 
           <div>
 
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-[color:var(--muted)]">
               Search criteria
             </p>
 
@@ -106,18 +106,18 @@ export default async function SearchPage({
 
               {location && (
                 <span className="rounded-full bg-[#E8C4B3]/20 px-4 py-2 text-sm font-medium text-[#9B7E52]">
-                  📍 {location}
+                   {location}
                 </span>
               )}
 
               {bhk && (
                 <span className="rounded-full bg-[#C9A961]/15 px-4 py-2 text-sm font-medium text-[#9B7E52]">
-                  🏠 {bhk}
+                   {bhk}
                 </span>
               )}
 
               {!location && !bhk && (
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-[color:var(--muted)]">
                   Showing all available properties
                 </span>
               )}
@@ -145,11 +145,11 @@ export default async function SearchPage({
 
         <div className="mb-8">
 
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-[color:var(--foreground)]">
             Search Results
           </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-[color:var(--muted)]">
             {properties.length > 0
               ? `${properties.length} ${properties.length === 1 ? "property" : "properties"} found`
               : "No properties found matching your search"}
@@ -180,18 +180,18 @@ export default async function SearchPage({
              EMPTY STATE
           ================================================== */
 
-          <div className="rounded-3xl border border-dashed border-[#C9A961]/30 bg-white px-6 py-16 text-center shadow-sm">
+          <div className="rounded-3xl border border-dashed border-[#C9A961]/30 bg-[color:var(--card)]/80 px-6 py-16 text-center shadow-sm backdrop-blur-xl">
 
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#E8C4B3]/20 text-3xl">
-              🔎
+
             </div>
 
-            <h3 className="mt-6 text-2xl font-bold text-gray-900">
+            <h3 className="mt-6 text-2xl font-bold text-[color:var(--foreground)]">
               No properties found
             </h3>
 
-            <p className="mx-auto mt-3 max-w-md leading-7 text-gray-500">
-              We couldn't find properties matching your current search.
+            <p className="mx-auto mt-3 max-w-md leading-7 text-[color:var(--muted)]">
+              We couldn&apos;t find properties matching your current search.
               Try another location or BHK.
             </p>
 
@@ -232,11 +232,11 @@ export default async function SearchPage({
           <div className="relative">
 
             <h2 className="text-2xl font-bold text-white md:text-3xl">
-              Can't find what you're looking for?
+              Can&apos;t find what you&apos;re looking for?
             </h2>
 
             <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/50">
-              Tell our property team what you need and we'll help you
+              Tell our property team what you need and we&apos;ll help you
               discover suitable options.
             </p>
 
@@ -244,7 +244,7 @@ export default async function SearchPage({
               href="/contact"
               className="mt-6 inline-flex rounded-xl bg-[#C9A961] px-6 py-3 font-semibold text-[#211a16] transition hover:-translate-y-0.5 hover:bg-[#D4B776] hover:shadow-lg"
             >
-              Contact PropVerse
+              Contact Homzo
             </Link>
 
           </div>

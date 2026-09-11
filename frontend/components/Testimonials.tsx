@@ -9,7 +9,7 @@ const testimonials = [
     name: "Rajesh Kumar",
     role: "Property Buyer",
     rating: 5,
-    content: "PropVerse made finding my dream villa incredibly easy. The entire process was transparent and professional.",
+    content: "Homzo made finding my dream villa incredibly easy. The entire process was transparent and professional.",
     avatar: "RK"
   },
   {
@@ -66,7 +66,7 @@ export default function Testimonials() {
             Trusted by <span className="bg-gradient-to-r from-[#D4A574] to-[#C9A961] bg-clip-text text-transparent">Thousands</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Real stories from real clients who found their perfect property with PropVerse
+            Real stories from real clients who found their perfect property with Homzo
           </p>
         </motion.div>
 
@@ -95,9 +95,9 @@ export default function Testimonials() {
               </div>
 
               {/* Quote */}
-              <p className="text-gray-700 mb-6 font-light leading-relaxed">
-                "{testimonial.content}"
-              </p>
+              <q className="text-gray-700 mb-6 font-light leading-relaxed">
+                {testimonial.content}
+              </q>
 
               {/* Author */}
               <div className="flex items-center gap-4 pt-6 border-t border-gray-200">
@@ -125,7 +125,7 @@ export default function Testimonials() {
             Ready to Find Your Dream Property?
           </h3>
           <p className="text-white/90 mb-6 text-lg">
-            Join thousands of satisfied clients. Start your journey with PropVerse today.
+            Join thousands of satisfied clients. Start your journey with Homzo today.
           </p>
           <button className="bg-white text-[#D4A574] px-8 py-4 rounded-lg font-bold hover:shadow-lg transition-all duration-300">
             Get Started

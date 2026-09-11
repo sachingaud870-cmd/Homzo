@@ -1,4 +1,12 @@
-export function getUser(){
+export type StoredUser = {
+    username?: string;
+    role?: string;
+};
+
+let cachedUserValue: string | null | undefined;
+let cachedUser: StoredUser | null = null;
+
+export function getUser(): StoredUser | null {
 
     if(typeof window === "undefined"){
         return null;
@@ -7,13 +15,39 @@ export function getUser(){
 
     const user = localStorage.getItem("user");
 
+    if (user === cachedUserValue) {
+        return cachedUser;
+    }
+
+    cachedUserValue = user;
+
 
     if(!user){
+        cachedUser = null;
         return null;
     }
 
 
-    return JSON.parse(user);
+    try {
+        const parsedUser: unknown = JSON.parse(user);
+
+        if (!parsedUser || typeof parsedUser !== "object" || Array.isArray(parsedUser)) {
+            throw new Error("Invalid saved user");
+        }
+
+        const { username, role } = parsedUser as Record<string, unknown>;
+        cachedUser = {
+            ...(typeof username === "string" ? { username } : {}),
+            ...(typeof role === "string" ? { role } : {}),
+        };
+
+        return cachedUser;
+    } catch {
+        localStorage.removeItem("user");
+        cachedUserValue = null;
+        cachedUser = null;
+        return null;
+    }
 
 }
 
@@ -40,5 +74,8 @@ export function logout(){
     localStorage.removeItem("refresh");
 
     localStorage.removeItem("user");
+
+    cachedUserValue = null;
+    cachedUser = null;
 
 }

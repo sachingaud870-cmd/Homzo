@@ -2,13 +2,16 @@
 
 import { getDashboardStats } from "@/lib/api";
 import { getUser } from "@/lib/auth";
+import { useHydrated } from "@/lib/useHydrated";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
-  const user = getUser();
+  const isHydrated = useHydrated();
+  const user = isHydrated ? getUser() : null;
   const isAdmin = user?.role === "ADMIN";
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stats, setStats] = useState<any>(null);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function AdminPage() {
     return (
       <main className="min-h-screen bg-[#FAF6F0] p-6 md:p-10">
         <div className="mx-auto max-w-3xl rounded-3xl border border-red-200 bg-red-50 p-10 text-red-700 shadow-xl">
-          <div className="text-5xl">🔒</div>
+          <div className="text-5xl"></div>
 
           <h1 className="mt-5 text-3xl font-bold">
             Access Denied
@@ -41,22 +44,22 @@ export default function AdminPage() {
     {
       label: "Total Properties",
       value: stats?.total_properties ?? 0,
-      icon: "🏠",
+      icon: "",
     },
     {
       label: "Total Leads",
       value: stats?.total_leads ?? 0,
-      icon: "👥",
+      icon: "",
     },
     {
       label: "Conversion Rate",
       value: `${stats?.conversion_rate ?? 0}%`,
-      icon: "📈",
+      icon: "",
     },
     {
       label: "Follow-ups Due",
       value: stats?.follow_up_due_today ?? 0,
-      icon: "🔔",
+      icon: "",
     },
   ];
 
@@ -69,7 +72,7 @@ export default function AdminPage() {
         <div className="mb-10 animate-fade-up">
 
           <span className="badge-premium">
-            ✦ Administration
+             Administration
           </span>
 
           <h1 className="mt-5 text-4xl font-bold text-gray-900 md:text-5xl">
@@ -141,6 +144,7 @@ export default function AdminPage() {
             <div className="mt-7 space-y-5">
 
               {stats?.leads_by_status?.length ? (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 stats.leads_by_status.map((item: any) => {
 
                   const percentage =
@@ -200,6 +204,7 @@ export default function AdminPage() {
             <div className="mt-6 space-y-3">
 
               {stats?.top_properties?.length ? (
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 stats.top_properties.map((item: any) => (
                   <div
                     key={`${item.project_name}-${item.location}`}
@@ -212,7 +217,7 @@ export default function AdminPage() {
                       </p>
 
                       <p className="mt-1 text-sm text-gray-500">
-                        📍 {item.location}
+                         {item.location}
                       </p>
                     </div>
 

@@ -62,41 +62,41 @@ export default function Hero() {
 
           {/* Small badge */}
 
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-[color:var(--card)]/55 px-4 py-2 backdrop-blur-md">
 
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#C9A961]" />
 
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-              Premium Real Estate
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--foreground)]">
+              Curated Living
             </span>
 
           </div>
 
           {/* Heading */}
 
-          <h1 className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-white md:text-7xl">
+          <h1 className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-[color:var(--foreground)] md:text-7xl">
 
-            Find a Home
+            Discover a Life
             <br />
 
-            <span className="text-[#E8C4B3]">
-              You'll Love.
+            <span className="text-[color:var(--accent-light)]">
+              Worth Coming Home To.
             </span>
 
           </h1>
 
           {/* Description */}
 
-          <p className="mt-6 max-w-2xl text-base leading-7 text-white/75 md:text-xl md:leading-8">
-            Discover premium properties, trusted builders and beautiful
-            homes in locations that match your lifestyle.
+          <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)] md:text-xl md:leading-8">
+            Explore thoughtfully selected homes, trusted developments, and
+            investment-worthy properties designed for elevated living.
           </p>
 
           {/* =================================================
               SEARCH BOX
           ================================================== */}
 
-          <div className="mt-10 max-w-4xl rounded-3xl border border-white/20 bg-white/95 p-3 shadow-2xl backdrop-blur-xl md:p-4">
+          <div className="mt-10 max-w-4xl rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)]/95 p-3 shadow-2xl backdrop-blur-xl md:p-4">
 
             <div className="grid gap-3 md:grid-cols-[1.5fr_1fr_auto]">
 
@@ -104,12 +104,12 @@ export default function Hero() {
 
               <div className="relative">
 
-                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-[color:var(--muted)]">
                   Location
                 </label>
 
                 <span className="absolute bottom-3.5 left-4 text-lg">
-                  📍
+
                 </span>
 
                 <input
@@ -121,7 +121,7 @@ export default function Hero() {
                     }
                   }}
                   placeholder="Search city or location"
-                  className="h-16 w-full rounded-2xl border border-gray-200 bg-[#FAF6F0] pb-2 pl-11 pr-4 pt-5 text-sm text-gray-800 outline-none transition focus:border-[#C9A961] focus:bg-white focus:ring-4 focus:ring-[#C9A961]/10"
+                  className="h-16 w-full rounded-2xl border border-[color:var(--border)] bg-[color:var(--background)] pb-2 pl-11 pr-4 pt-5 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:bg-[color:var(--background-strong)] focus:ring-4 focus:ring-[color:var(--accent)]/15"
                 />
 
               </div>
@@ -130,18 +130,18 @@ export default function Hero() {
 
               <div className="relative">
 
-                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-[color:var(--muted)]">
                   Property Type
                 </label>
 
                 <span className="absolute bottom-3.5 left-4 text-lg">
-                  🏠
+
                 </span>
 
                 <select
                   value={bhk}
                   onChange={(e) => setBhk(e.target.value)}
-                  className="h-16 w-full appearance-none rounded-2xl border border-gray-200 bg-[#FAF6F0] pb-2 pl-11 pr-8 pt-5 text-sm text-gray-800 outline-none transition focus:border-[#C9A961] focus:bg-white focus:ring-4 focus:ring-[#C9A961]/10"
+                  className="h-16 w-full appearance-none rounded-2xl border border-[color:var(--border)] bg-[color:var(--background)] pb-2 pl-11 pr-8 pt-5 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:bg-[color:var(--background-strong)] focus:ring-4 focus:ring-[color:var(--accent)]/15"
                 >
                   <option value="">Select BHK</option>
                   <option value="1BHK">1 BHK</option>
@@ -149,7 +149,7 @@ export default function Hero() {
                   <option value="3BHK">3 BHK</option>
                 </select>
 
-                <span className="pointer-events-none absolute bottom-4 right-4 text-gray-400">
+                <span className="pointer-events-none absolute bottom-4 right-4 text-[color:var(--muted)]">
                   ▾
                 </span>
 
@@ -157,21 +157,30 @@ export default function Hero() {
 
               {/* Search Button */}
 
-              <button
-                onClick={handleSearch}
-                className="group relative h-16 overflow-hidden rounded-2xl bg-gradient-to-r from-[#C9A961] to-[#9B7E52] px-8 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]"
-              >
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSearch}
+                  className="group relative h-16 flex-1 overflow-hidden rounded-2xl bg-gradient-to-r from-[#C9A961] to-[#9B7E52] px-8 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]"
+                >
 
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  <span>Search</span>
-                  <span className="transition duration-300 group-hover:translate-x-1">
-                    →
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    <span>Search</span>
+                    <span className="transition duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
                   </span>
-                </span>
 
-                <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-500 group-hover:translate-x-full" />
+                  <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-500 group-hover:translate-x-full" />
 
-              </button>
+                </button>
+
+                <a
+                  href="/about"
+                  className="flex h-16 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--background-strong)]/60 px-6 font-semibold text-[color:var(--foreground)] backdrop-blur-sm transition duration-300 hover:bg-[color:var(--background-strong)]"
+                >
+                  About
+                </a>
+              </div>
 
             </div>
 
@@ -181,20 +190,20 @@ export default function Hero() {
               TRUST POINTS
           ================================================== */}
 
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/70">
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[color:var(--foreground)]/80">
 
             <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]">✓</span>
+              <span className="text-[#C9A961]"></span>
               Verified Properties
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]">✓</span>
+              <span className="text-[#C9A961]"></span>
               Trusted Builders
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]">✓</span>
+              <span className="text-[#C9A961]"></span>
               Smart Property Search
             </div>
 

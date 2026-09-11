@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { getUser } from "@/lib/auth";
+import { useHydrated } from "@/lib/useHydrated";
 
 export default function DashboardPage() {
-  const user = getUser();
+  const isHydrated = useHydrated();
+  const user = isHydrated ? getUser() : null;
   const role = user?.role || "BROKER";
   const isAdmin = role === "ADMIN";
 
@@ -14,7 +16,7 @@ export default function DashboardPage() {
       description:
         "Add, edit, and organize listings for your property portfolio.",
       href: "/dashboard/properties",
-      icon: "🏠",
+      icon: "",
       label: "Properties",
       accent: "rose",
     },
@@ -23,7 +25,7 @@ export default function DashboardPage() {
       description:
         "Track enquiries, update lead status, and follow up with buyers.",
       href: "/dashboard/leads",
-      icon: "📩",
+      icon: "",
       label: "CRM & Leads",
       accent: "gold",
     },
@@ -32,14 +34,14 @@ export default function DashboardPage() {
       description:
         "Manage your account details and workspace preferences.",
       href: "/dashboard/profile",
-      icon: "👤",
+      icon: "",
       label: "Account",
       accent: "peach",
     },
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#FAF6F0]">
+    <main className="relative min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
 
       {/* Background Decorations */}
       <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-[#E8C4B3]/20 blur-3xl" />
@@ -68,7 +70,7 @@ export default function DashboardPage() {
 
               </div>
 
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+              <h1 className="text-4xl font-bold tracking-tight text-[color:var(--foreground)] md:text-5xl">
                 Welcome back,
                 <span className="text-gradient">
                   {" "}
@@ -76,7 +78,7 @@ export default function DashboardPage() {
                 </span>
               </h1>
 
-              <p className="mt-3 max-w-2xl text-gray-500">
+              <p className="mt-3 max-w-2xl text-[color:var(--muted)]">
                 Manage your properties, leads, enquiries, and real estate
                 operations from one powerful workspace.
               </p>
@@ -84,7 +86,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Role Badge */}
-            <div className="flex items-center gap-3 rounded-2xl border border-[#C9A961]/15 bg-white/70 px-5 py-4 shadow-sm backdrop-blur-xl">
+            <div className="flex items-center gap-3 rounded-2xl border border-[#C9A961]/15 bg-[color:var(--card)]/80 px-5 py-4 shadow-sm backdrop-blur-xl">
 
               <div
                 className={`flex h-11 w-11 items-center justify-center rounded-xl text-lg ${
@@ -93,7 +95,7 @@ export default function DashboardPage() {
                     : "bg-[#E8C4B3]/25"
                 }`}
               >
-                {isAdmin ? "🛡️" : "🤝"}
+                {isAdmin ? "" : ""}
               </div>
 
               <div>
@@ -101,7 +103,7 @@ export default function DashboardPage() {
                   Access Level
                 </p>
 
-                <p className="mt-1 font-bold text-gray-800">
+                <p className="mt-1 font-bold text-[color:var(--foreground)]">
                   {isAdmin ? "Administrator" : "Property Broker"}
                 </p>
               </div>
@@ -123,7 +125,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/25 text-xl">
-                🏠
+
               </div>
 
               <span className="text-xs font-semibold text-emerald-600">
@@ -132,11 +134,11 @@ export default function DashboardPage() {
 
             </div>
 
-            <p className="mt-5 text-sm text-gray-500">
+            <p className="mt-5 text-sm text-[color:var(--muted)]">
               Property Portfolio
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-gray-900">
+            <p className="mt-1 text-2xl font-bold text-[color:var(--foreground)]">
               Manage
             </p>
 
@@ -147,7 +149,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-xl">
-                📩
+
               </div>
 
               <span className="text-xs font-semibold text-[#9B7E52]">
@@ -156,11 +158,11 @@ export default function DashboardPage() {
 
             </div>
 
-            <p className="mt-5 text-sm text-gray-500">
+            <p className="mt-5 text-sm text-[color:var(--muted)]">
               Lead Management
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-gray-900">
+            <p className="mt-1 text-2xl font-bold text-[color:var(--foreground)]">
               Track
             </p>
 
@@ -171,7 +173,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4A574]/15 text-xl">
-                📅
+
               </div>
 
               <span className="text-xs font-semibold text-blue-600">
@@ -180,11 +182,11 @@ export default function DashboardPage() {
 
             </div>
 
-            <p className="mt-5 text-sm text-gray-500">
+            <p className="mt-5 text-sm text-[color:var(--muted)]">
               Client Activities
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-gray-900">
+            <p className="mt-1 text-2xl font-bold text-[color:var(--foreground)]">
               Stay Organized
             </p>
 
@@ -195,7 +197,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-xl">
-                📈
+
               </div>
 
               <span className="text-xs font-semibold text-emerald-600">
@@ -204,11 +206,11 @@ export default function DashboardPage() {
 
             </div>
 
-            <p className="mt-5 text-sm text-gray-500">
+            <p className="mt-5 text-sm text-[color:var(--muted)]">
               Workspace
             </p>
 
-            <p className="mt-1 text-2xl font-bold text-gray-900">
+            <p className="mt-1 text-2xl font-bold text-[color:var(--foreground)]">
               Performance
             </p>
 
@@ -228,7 +230,7 @@ export default function DashboardPage() {
               Quick Access
             </p>
 
-            <h2 className="mt-2 text-2xl font-bold text-gray-900">
+            <h2 className="mt-2 text-2xl font-bold text-[color:var(--foreground)]">
               Manage Your Workspace
             </h2>
 
@@ -330,7 +332,7 @@ export default function DashboardPage() {
                 <div className="flex items-start gap-5">
 
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#C9A961]/15 text-2xl">
-                    🛡️
+
                   </div>
 
                   <div>
@@ -369,7 +371,7 @@ export default function DashboardPage() {
               <div className="relative flex items-start gap-5">
 
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-2xl">
-                  🤝
+
                 </div>
 
                 <div>
@@ -385,7 +387,7 @@ export default function DashboardPage() {
                   <p className="mt-2 max-w-2xl leading-7 text-gray-500">
                     Focus on property performance, client enquiries,
                     lead management, and follow-ups from your personalized
-                    PropVerse workspace.
+                    Homzo workspace.
                   </p>
 
                 </div>
@@ -404,13 +406,13 @@ export default function DashboardPage() {
 
         <div className="mt-8 flex items-center justify-center gap-2 text-center text-xs text-gray-400">
 
-          <span>✦</span>
+          <span></span>
 
           <span>
-            PropVerse — Smart Property Management
+            Homzo — Smart Property Management
           </span>
 
-          <span>✦</span>
+          <span></span>
 
         </div>
 

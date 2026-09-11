@@ -119,11 +119,15 @@ export default function LeadsPage() {
   }
 
   useEffect(() => {
-    loadData(1, {
-      search: "",
-      status: "",
-      location: "",
-    });
+    const init = async () => {
+      await loadData(1, {
+        search: "",
+        status: "",
+        location: "",
+      });
+    };
+
+    void init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -242,19 +246,19 @@ export default function LeadsPage() {
     {
       label: "Total Leads",
       value: stats.total_leads,
-      icon: "👥",
+      icon: "",
       className: "from-[#1a3a52] to-[#2d5a7b]",
     },
     {
       label: "New Leads",
       value: stats.new_leads,
-      icon: "✨",
+      icon: "",
       className: "from-[#c9a961] to-[#d4b776]",
     },
     {
       label: "Interested",
       value: stats.interested_leads,
-      icon: "🔥",
+      icon: "",
       className: "from-[#76558d] to-[#9b73b5]",
     },
     {
@@ -349,7 +353,6 @@ export default function LeadsPage() {
             </div>
 
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#c9a961]/15 text-2xl">
-              📅
             </div>
 
           </div>
@@ -375,7 +378,6 @@ export default function LeadsPage() {
             </div>
 
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-2xl">
-              ⚠️
             </div>
 
           </div>
@@ -483,7 +485,7 @@ export default function LeadsPage() {
                     </div>
 
                     <span className="font-medium text-gray-700">
-                      📍 {item.location}
+                      {item.location}
                     </span>
 
                   </div>
@@ -564,7 +566,7 @@ export default function LeadsPage() {
               type="submit"
               className="btn-accent rounded-xl px-6 py-3"
             >
-              🔎 Apply Filters
+              Apply Filters
             </button>
 
             <button
@@ -692,7 +694,7 @@ export default function LeadsPage() {
                     </td>
 
                     <td className="px-5 py-5 text-sm text-gray-600">
-                      📍 {lead.location}
+                      {lead.location}
                     </td>
 
                     <td className="px-5 py-5">
@@ -805,13 +807,13 @@ export default function LeadsPage() {
                           className="w-full rounded-lg border border-gray-200 p-2 text-sm"
                         >
                           <option value="CALL">
-                            📞 Call
+                            Call
                           </option>
                           <option value="WHATSAPP">
-                            💬 WhatsApp
+                            WhatsApp
                           </option>
                           <option value="EMAIL">
-                            ✉️ Email
+                            Email
                           </option>
                         </select>
 
@@ -889,7 +891,6 @@ export default function LeadsPage() {
                       className="px-5 py-16 text-center"
                     >
                       <div className="text-5xl">
-                        🔍
                       </div>
 
                       <p className="mt-4 font-semibold text-gray-700">

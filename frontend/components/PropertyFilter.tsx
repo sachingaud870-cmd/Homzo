@@ -59,7 +59,7 @@ export default function PropertyFilter() {
 
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A961]">
-            📍
+
           </span>
 
           <input
@@ -162,7 +162,7 @@ export default function PropertyFilter() {
           className="btn-accent w-full rounded-xl py-3"
         >
           <span className="flex items-center justify-center gap-2">
-            <span>🔎</span>
+            <span></span>
             Apply Filters
           </span>
         </button>
@@ -182,7 +182,7 @@ export default function PropertyFilter() {
         <div className="flex gap-3">
 
           <div className="text-xl">
-            ✨
+
           </div>
 
           <div>
