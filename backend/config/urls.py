@@ -1,8 +1,6 @@
-from django.conf import settings
-from django.conf.urls.static import static
-
 from django.contrib import admin
 from django.urls import path, include
+
 from .views import home
 
 from rest_framework_simplejwt.views import (
@@ -13,52 +11,59 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
 
-    path('', home),
+    # Home
+    path(
+        "",
+        home,
+    ),
 
-    path('admin/', admin.site.urls),
+    # Django Admin
+    path(
+        "admin/",
+        admin.site.urls,
+    ),
 
+    # Properties
     path(
         "api/properties/",
-        include("properties.urls")
+        include("properties.urls"),
     ),
 
+    # Leads
     path(
         "api/leads/",
-        include("leads.urls")
+        include("leads.urls"),
     ),
 
+    # Dashboard
     path(
-    "api/dashboard/",
-    include("dashboard.urls")
-),
+        "api/dashboard/",
+        include("dashboard.urls"),
+    ),
 
-path(
-    "api/auth/",
-    include("users.urls"),
-),
+    # Authentication
+    path(
+        "api/auth/",
+        include("users.urls"),
+    ),
 
-path(
-    "api/login/",
-    TokenObtainPairView.as_view(),
-    name="token_obtain_pair",
-),
+    # Login / JWT
+    path(
+        "api/login/",
+        TokenObtainPairView.as_view(),
+        name="token_obtain_pair",
+    ),
 
-path(
-    "api/token/refresh/",
-    TokenRefreshView.as_view(),
-    name="token_refresh",
-),
+    # Refresh Token
+    path(
+        "api/token/refresh/",
+        TokenRefreshView.as_view(),
+        name="token_refresh",
+    ),
 
-path(
-    "api/",
-    include("accounts.urls")
-),
-
+    # Accounts
+    path(
+        "api/",
+        include("accounts.urls"),
+    ),
 ]
-
-
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)
-
