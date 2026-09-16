@@ -71,15 +71,7 @@ ALLOWED_HOSTS = config(
 
 INSTALLED_APPS = [
 
-    # --------------------------------------------------------
-    # Cloudinary
-    # --------------------------------------------------------
-    "cloudinary_storage",
-    "cloudinary",
-
-    # --------------------------------------------------------
     # Django Core
-    # --------------------------------------------------------
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -87,17 +79,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # --------------------------------------------------------
+    # Cloudinary
+    "cloudinary_storage",
+    "cloudinary",
+
     # Third Party
-    # --------------------------------------------------------
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
     "corsheaders",
 
-    # --------------------------------------------------------
     # Local Apps
-    # --------------------------------------------------------
     "users",
     "accounts",
     "properties",
@@ -298,6 +290,11 @@ STORAGES = {
         ),
     },
 }
+
+# Compatibility for django-cloudinary-storage 0.3.0
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedStaticFilesStorage"
+)
 
 
 # ============================================================
