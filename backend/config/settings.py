@@ -1,4 +1,3 @@
-
 """
 Django settings for config project.
 
@@ -114,24 +113,31 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
 
+    # Security must be first
     "django.middleware.security.SecurityMiddleware",
 
-    # Static files
+    # WhiteNoise serves Django static files
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     # CORS
     "corsheaders.middleware.CorsMiddleware",
 
+    # Sessions
     "django.contrib.sessions.middleware.SessionMiddleware",
 
+    # Common Django middleware
     "django.middleware.common.CommonMiddleware",
 
+    # CSRF
     "django.middleware.csrf.CsrfViewMiddleware",
 
+    # Authentication
     "django.contrib.auth.middleware.AuthenticationMiddleware",
 
+    # Messages
     "django.contrib.messages.middleware.MessageMiddleware",
 
+    # Clickjacking protection
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -159,7 +165,6 @@ TEMPLATES = [
 
         "OPTIONS": {
             "context_processors": [
-
                 "django.template.context_processors.request",
 
                 "django.contrib.auth.context_processors.auth",
@@ -237,9 +242,15 @@ MEDIA_ROOT = BASE_DIR / "media"
 # ============================================================
 # CLOUDINARY
 # ============================================================
+#
+# Uploaded property images/files
+#              ↓
+#          Cloudinary
+#
+# This is used by Django's default file storage.
+#
 
 CLOUDINARY_STORAGE = {
-
     "CLOUD_NAME": config(
         "CLOUDINARY_CLOUD_NAME"
     ),
@@ -258,55 +269,35 @@ CLOUDINARY_STORAGE = {
 # STORAGE CONFIGURATION
 # ============================================================
 #
-# User uploaded images/files
-#        ↓
-# Cloudinary
+# default:
+#   User uploaded files → Cloudinary
 #
-# CSS / JS / Admin static files
-#        ↓
-# WhiteNoise
+# staticfiles:
+#   CSS / JS / Django admin static files → WhiteNoise
 #
-# ============================================================
+# Django 4.2+ / 5.x / 6.x uses STORAGES for this.
+#
 
 STORAGES = {
 
     # --------------------------------------------------------
-    # User uploaded media
+    # USER UPLOADS
     # --------------------------------------------------------
-
     "default": {
-        "BACKEND":
-            "cloudinary_storage.storage.MediaCloudinaryStorage",
+        "BACKEND": (
+            "cloudinary_storage.storage.MediaCloudinaryStorage"
+        ),
     },
 
     # --------------------------------------------------------
-    # Static files
+    # STATIC FILES
     # --------------------------------------------------------
-
     "staticfiles": {
-        "BACKEND":
-            "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": (
+            "whitenoise.storage.CompressedStaticFilesStorage"
+        ),
     },
 }
-
-
-# ============================================================
-# COMPATIBILITY FOR DJANGO-CLOUDINARY-STORAGE
-# ============================================================
-#
-# django-cloudinary-storage's collectstatic command checks
-# STATICFILES_STORAGE.
-#
-# This prevents:
-#
-# AttributeError:
-# 'Settings' object has no attribute 'STATICFILES_STORAGE'
-#
-# ============================================================
-
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-)
 
 
 # ============================================================
@@ -394,17 +385,21 @@ DEFAULT_FROM_EMAIL = config(
 
 if not DEBUG:
 
+    # Render HTTPS proxy support
     SECURE_PROXY_SSL_HEADER = (
         "HTTP_X_FORWARDED_PROTO",
         "https",
     )
 
+    # Redirect HTTP → HTTPS
     SECURE_SSL_REDIRECT = True
 
+    # HSTS
     SECURE_HSTS_SECONDS = 31536000
 
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
+    # Secure cookies
     SESSION_COOKIE_SECURE = True
 
     CSRF_COOKIE_SECURE = True
