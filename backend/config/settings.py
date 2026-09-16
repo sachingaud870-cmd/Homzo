@@ -292,9 +292,7 @@ STORAGES = {
 }
 
 # Compatibility for django-cloudinary-storage 0.3.0
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedStaticFilesStorage"
-)
+
 
 
 # ============================================================
