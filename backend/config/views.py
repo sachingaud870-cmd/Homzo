@@ -3,5 +3,5 @@ from django.http import JsonResponse
 
 def home(request):
     return JsonResponse({
-        "message": "Welcome to PropVerse API"
+        "message": "Welcome to Homzo API"
     })

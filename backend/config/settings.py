@@ -69,13 +69,17 @@ ALLOWED_HOSTS = config(
 # ============================================================
 
 INSTALLED_APPS = [
-    # Django
+    # 1. Cloudinary sabse pehle aana chahiye staticfiles se pehle
+    "cloudinary_storage",
+    "django.contrib.staticfiles",
+    "cloudinary",
+
+    # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
 
     # Local apps
     "property_images",
@@ -85,10 +89,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "corsheaders",
-
-    # Cloudinary
-    "cloudinary",
-    "cloudinary_storage",
 
     # Project apps
     "accounts",

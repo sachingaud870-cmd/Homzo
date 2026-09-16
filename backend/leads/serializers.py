@@ -18,6 +18,9 @@ class LeadSerializer(serializers.ModelSerializer):
             "message",
             "status",
             "created_at",
+            "follow_up_date",
+            "follow_up_note",
+            "preferred_channel",
         ]
 
         read_only_fields = [

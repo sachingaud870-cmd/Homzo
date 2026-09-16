@@ -12,7 +12,7 @@ from .serializers import UserProfileSerializer
 
 def home(request):
     return JsonResponse({
-        "message": "Welcome to PropVerse API"
+        "message": "Welcome to Homzo API"
     })
 
 

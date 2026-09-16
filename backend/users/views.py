@@ -27,6 +27,7 @@ class LoginAPIView(APIView):
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "username": user.username,
+                "role": "ADMIN" if user.is_superuser else "BROKER",
             },
             status=status.HTTP_200_OK,
         )

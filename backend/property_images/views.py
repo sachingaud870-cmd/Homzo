@@ -67,3 +67,27 @@ class PropertyImageDeleteAPIView(APIView):
             {"detail": "Image deleted successfully."},
             status=status.HTTP_204_NO_CONTENT
         )
+
+
+class PropertyImageSetMainAPIView(APIView):
+
+    def post(self, request, pk):
+        image = PropertyImage.objects.filter(pk=pk).first()
+
+        if image is None:
+            return Response(
+                {"detail": "Image not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        PropertyImage.objects.filter(property=image.property).update(is_main=False)
+        image.is_main = True
+        image.save(update_fields=["is_main"])
+
+        return Response(
+            PropertyImageUploadSerializer(
+                image,
+                context={"request": request}
+            ).data,
+            status=status.HTTP_200_OK
+        )

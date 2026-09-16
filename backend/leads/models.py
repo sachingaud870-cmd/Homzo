@@ -40,6 +40,25 @@ class Lead(models.Model):
         auto_now_add=True
     )
 
+    follow_up_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+    follow_up_note = models.TextField(
+        blank=True,
+    )
+
+    preferred_channel = models.CharField(
+        max_length=20,
+        choices=[
+            ("CALL", "Call"),
+            ("WHATSAPP", "WhatsApp"),
+            ("EMAIL", "Email"),
+        ],
+        default="CALL",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name

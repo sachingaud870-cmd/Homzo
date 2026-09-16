@@ -21,4 +21,6 @@ class PropertyFilter(django_filters.FilterSet):
             "bhk",
             "status",
             "featured",
+            "min_price",
+            "max_price",
         ]
