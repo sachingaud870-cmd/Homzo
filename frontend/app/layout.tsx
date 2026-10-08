@@ -8,9 +8,7 @@ const themeScript = `
     try {
       var theme = localStorage.getItem("homzo-theme");
       if (theme !== "light" && theme !== "dark") {
-        theme = window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark";
+        theme = "dark";
       }
       document.documentElement.setAttribute("data-theme", theme);
     } catch (error) {}
@@ -30,7 +28,7 @@ function FontLinks() {
         crossOrigin="anonymous"
       />
       <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet"
       />
     </>
@@ -41,6 +39,11 @@ function FontLinks() {
 export const metadata: Metadata = {
   title: "Homzo",
   description: "Luxury real estate, modern living, and smarter property decisions.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 

@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useSyncExternalStore } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { getUser, logout, type StoredUser } from "@/lib/auth";
-import { useRouter } from "next/navigation";
-
+import { usePathname, useRouter } from "next/navigation";
 
 type Theme = "dark" | "light";
 
 const AUTH_CHANGE_EVENT = "auth-change";
 const THEME_CHANGE_EVENT = "homzo-theme-change";
+
+const navItems = [
+  { href: "/about", label: "About" },
+  { href: "/properties", label: "Properties" },
+  { href: "/#ai-finder", label: "AI Finder" },
+  { href: "/contact", label: "Contact" },
+];
 
 function subscribeToAuth(onStoreChange: () => void) {
   window.addEventListener(AUTH_CHANGE_EVENT, onStoreChange);
@@ -31,9 +37,7 @@ function getTheme(): Theme {
       return savedTheme;
     }
 
-    return window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark";
+    return "dark";
   } catch {
     return "dark";
   }
@@ -62,180 +66,200 @@ function setThemePreference(theme: Theme) {
 }
 
 export default function Navbar() {
-
   const router = useRouter();
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const user = useSyncExternalStore<StoredUser | null>(
-    subscribeToAuth,
-    getUser,
-    () => null,
-  );
-  const theme = useSyncExternalStore<Theme>(
-    subscribeToTheme,
-    getTheme,
-    () => "dark",
-  );
+  const user = useSyncExternalStore<StoredUser | null>(subscribeToAuth, getUser, () => null);
+  const theme = useSyncExternalStore<Theme>(subscribeToTheme, getTheme, () => "dark");
+  const overHero = pathname === "/" && !scrolled;
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+  }, [theme]);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 32);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   function handleLogout() {
-
     logout();
-
-    window.dispatchEvent(
-      new Event(AUTH_CHANGE_EVENT)
-    );
-
-
+    window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
     router.push("/");
-
+    setMobileOpen(false);
   }
-
-
 
   const toggleTheme = () => {
     setThemePreference(theme === "dark" ? "light" : "dark");
   };
 
   return (
-
-    <nav className="flex flex-col gap-3 border-b border-[color:var(--accent)]/40 bg-[color:var(--background-strong)] px-3 py-3 shadow-[0_0_24px_rgba(212,175,109,0.14)] backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-12">
-
-
-      {/* Logo and Brand */}
-
-      <Link
-        href="/"
-        className="group self-center rounded-xl border border-[color:var(--accent)]/70 bg-[color:var(--background)] p-2 shadow-[0_0_18px_rgba(212,175,109,0.18)] transition hover:shadow-[0_0_22px_rgba(212,175,109,0.24)] sm:self-auto"
-      >
-        <Image
-          src="/images/logo.png"
-          alt="Homzo Logo"
-          width={220}
-          height={90}
-          priority
-          style={{ height: "auto" }}
-          className="h-auto w-[180px] object-contain transition-transform duration-300 group-hover:scale-[1.02] sm:w-[220px]"
-        />
-      </Link>
-
-
-
-      {/* Menu */}
-
-      <div className="hidden lg:flex gap-10 text-[color:var(--accent-light)]">
-
-        <Link href="/" className="font-medium text-[color:var(--accent-light)] hover:text-[color:var(--primary-light)] transition relative group">
-          Home
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[color:var(--primary-dark)] to-[color:var(--accent-light)] group-hover:w-full transition-all"></span>
+    <header
+      className={`z-50 transition-all duration-500 [transition-timing-function:var(--ease-premium)] ${
+        pathname === "/" ? "fixed inset-x-0 top-0" : "sticky top-0"
+      } ${
+        overHero
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-[color:var(--border)] bg-[color:var(--background)]/90 shadow-[var(--shadow-sm)] backdrop-blur-xl"
+      }`}
+    >
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          aria-label="HOMZO home"
+          className={`inline-flex items-center gap-2 py-2 transition-colors ${
+            overHero ? "text-white" : "text-[color:var(--heading)]"
+          }`}
+        >
+          <span className="font-editorial text-3xl leading-none text-[color:var(--primary-light)]">H</span>
+          <span className="flex flex-col text-[11px] font-medium leading-tight tracking-[0.24em]">
+            HOMZO
+            <span className="mt-0.5 text-[7px] tracking-[0.32em] opacity-65">REAL ESTATE</span>
+          </span>
         </Link>
 
+        <div className="hidden items-center gap-8 lg:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`group relative py-2 text-sm font-medium transition-colors ${
+                overHero ? "text-white/85 hover:text-white" : "text-[color:var(--muted)] hover:text-[color:var(--heading)]"
+              }`}
+            >
+              {item.label}
+              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[color:var(--primary)] transition-transform duration-300 group-hover:scale-x-100" />
+            </Link>
+          ))}
+        </div>
 
-        <Link href="/properties" className="font-medium text-[color:var(--accent-light)] hover:text-[color:var(--primary-light)] transition relative group">
-          Properties
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[color:var(--primary-dark)] to-[color:var(--accent-light)] group-hover:w-full transition-all"></span>
-        </Link>
+        <div className="hidden items-center gap-3 sm:flex">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className={`flex h-10 w-10 items-center justify-center rounded-full border transition hover:border-[color:var(--primary)] ${
+              overHero
+                ? "border-white/30 bg-white/10 text-white hover:bg-white/20"
+                : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)] hover:text-[color:var(--primary)]"
+            }`}
+            aria-label="Toggle day and night mode"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
 
-
-        <Link href="/about" className="font-medium text-[color:var(--accent-light)] hover:text-[color:var(--primary-light)] transition relative group">
-          About
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[color:var(--primary-dark)] to-[color:var(--accent-light)] group-hover:w-full transition-all"></span>
-        </Link>
-
-
-        <Link href="/contact" className="font-medium text-[color:var(--accent-light)] hover:text-[color:var(--primary-light)] transition relative group">
-          Contact
-          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[color:var(--primary-dark)] to-[color:var(--accent-light)] group-hover:w-full transition-all"></span>
-        </Link>
-
-      </div>
-
-
-
-      {/* Login / User */}
-
-      <div className="w-full sm:w-auto">
-
-        {
-          user ? (
-
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--accent)]/50 bg-[color:var(--background-strong)] text-lg text-[color:var(--accent-light)] shadow-[0_0_18px_rgba(212,175,109,0.14)] transition duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--primary-light)] hover:scale-105 hover:shadow-[0_0_18px_rgba(212,175,109,0.35)]"
-                aria-label="Toggle day and night mode"
-                title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {theme === "dark" ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}
-              </button>
-
-              <span className="text-sm font-medium text-[color:var(--foreground)]">
-                {user.username} <span className="text-[color:var(--accent-light)]">({user.role || "BROKER"})</span>
+          {user ? (
+            <>
+              <span className="hidden text-sm font-medium text-[color:var(--muted)] md:inline-flex">
+                {user.username}
+                <span className="ml-1 text-[color:var(--primary)]">({user.role || "BROKER"})</span>
               </span>
-
-              <Link href="/dashboard" className="rounded-lg bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--accent)] px-5 py-2 text-sm font-medium text-[#1b1b1b] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-hover)]">
+              <Link
+                href="/dashboard"
+                className="rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
+              >
                 Dashboard
               </Link>
-
               <button
                 onClick={handleLogout}
-                className="rounded-lg bg-[#ef4444] px-4 py-2 text-white text-sm font-medium transition hover:bg-[#dc2626]"
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition hover:border-[color:var(--primary)] ${
+                  overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
+                }`}
               >
                 Logout
               </button>
-
-
-            </div>
-
-
+            </>
           ) : (
-
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-end sm:gap-3">
-
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--accent)]/50 bg-[color:var(--background-strong)] text-lg text-[color:var(--accent-light)] shadow-[0_0_18px_rgba(212,175,109,0.14)] transition duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--primary-light)] hover:scale-105 hover:shadow-[0_0_18px_rgba(212,175,109,0.35)]"
-                aria-label="Toggle day and night mode"
-                title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {theme === "dark" ? <Sun aria-hidden="true" size={18} /> : <Moon aria-hidden="true" size={18} />}
-              </button>
-
-              <Link
-                href="/about"
-                className="rounded-lg border-2 border-[color:var(--accent)] bg-[color:var(--background-strong)] px-5 py-2 text-sm font-medium text-[color:var(--accent-light)] transition hover:bg-[color:var(--primary-light)] hover:text-[#1b1b1b] hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
-              >
-                About
-              </Link>
-
+            <>
               <Link
                 href="/login"
-                className="rounded-lg border-2 border-[color:var(--accent)] bg-[color:var(--background-strong)] px-5 py-2 text-sm font-medium text-[color:var(--accent-light)] transition hover:bg-[color:var(--primary-light)] hover:text-[#1b1b1b] hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
+                className={`rounded-full border px-4 py-2.5 text-sm font-semibold transition hover:border-[color:var(--primary)] ${
+                  overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
+                }`}
               >
                 Login
               </Link>
-
               <Link
                 href="/register"
-                className="rounded-lg bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--accent)] px-5 py-2 text-sm font-medium text-[#1b1b1b] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-hover)]"
+                className="rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
               >
                 Register
               </Link>
+            </>
+          )}
+        </div>
 
+        <button
+          type="button"
+          onClick={() => setMobileOpen((value) => !value)}
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-full border sm:hidden ${
+            overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
+          }`}
+          aria-label="Toggle mobile menu"
+        >
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </nav>
+
+      {mobileOpen && (
+        <div className="border-t border-[color:var(--border)] bg-[color:var(--background)]/95 backdrop-blur-xl sm:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            <div className="mt-2 flex items-center justify-between gap-2 border-t border-[color:var(--border)] pt-4">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--background)] text-[color:var(--foreground)]"
+                aria-label="Toggle day and night mode"
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+
+              {!user ? (
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-semibold"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileOpen(false)}
+                    className="rounded-full bg-[color:var(--primary)] px-4 py-2 text-sm font-semibold text-[#101722]"
+                  >
+                    Register
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="rounded-full bg-[#ef4444] px-4 py-2 text-sm font-semibold text-white"
+                >
+                  Logout
+                </button>
+              )}
             </div>
-
-          )
-
-        }
-
-      </div>
-
-
-    </nav>
-
+          </div>
+        </div>
+      )}
+    </header>
   );
-
 }

@@ -20,7 +20,6 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
-  Star,
   UsersRound,
   Waves,
   Wifi,
@@ -41,29 +40,6 @@ type Property = {
     is_main: boolean;
   }[];
 };
-
-const stats = [
-  {
-    number: "500+",
-    label: "Properties",
-    icon: Building2,
-  },
-  {
-    number: "100+",
-    label: "Trusted Builders",
-    icon: BadgeCheck,
-  },
-  {
-    number: "50+",
-    label: "Prime Locations",
-    icon: MapPin,
-  },
-  {
-    number: "1000+",
-    label: "Happy Clients",
-    icon: UsersRound,
-  },
-];
 
 const benefits = [
   {
@@ -133,25 +109,29 @@ const locations = [
   {
     name: "Mumbai",
     description: "Premium residences across Mumbai.",
+    image: "https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1400&q=85",
   },
   {
     name: "Thane",
     description: "Modern communities in Thane.",
+    image: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Navi Mumbai",
     description: "Emerging destinations for modern living.",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=85",
   },
   {
     name: "Pune",
     description: "Homes across Pune's growing neighbourhoods.",
+    image: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1000&q=85",
   },
 ];
 
 export default async function HomePage() {
   const properties: Property[] = await getProperties();
 
-  const featuredProperties = properties.slice(0, 6);
+  const featuredProperties = properties.slice(0, 4);
 
   return (
     <main className="min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -160,85 +140,13 @@ export default async function HomePage() {
           HERO
       ========================================================= */}
 
-      <Hero />
-
-      {/* =========================================================
-          TRUST STATS
-      ========================================================= */}
-
-      <section className="relative z-20 mx-auto -mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--panel)] shadow-[var(--shadow-lg)] backdrop-blur-xl">
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
-
-            {stats.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.label}
-                  className={`
-                    group relative p-7 text-center
-                    transition-all duration-500
-                    hover:bg-[color:var(--surface-hover)]
-                    ${
-                      index < 3
-                        ? "border-b border-[color:var(--border)] lg:border-b-0 lg:border-r"
-                        : ""
-                    }
-                    ${
-                      index === 1
-                        ? "sm:border-r sm:border-[color:var(--border)]"
-                        : ""
-                    }
-                  `}
-                >
-
-                  {/* Number */}
-                  <span className="absolute right-5 top-4 text-xs font-bold tracking-widest text-[color:var(--muted)] opacity-50">
-                    0{index + 1}
-                  </span>
-
-                  {/* Icon */}
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--primary)]/10 text-[color:var(--primary)] transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-110 group-hover:bg-[color:var(--primary)] group-hover:text-[color:var(--on-primary)] group-hover:shadow-[var(--shadow-gold)]">
-
-                    <Icon
-                      size={25}
-                      strokeWidth={1.6}
-                    />
-
-                  </div>
-
-                  <div className="mt-4 text-3xl font-bold tracking-tight text-[color:var(--heading)]">
-                    {item.number}
-                  </div>
-
-                  <div className="mt-1 text-sm text-[color:var(--muted)]">
-                    {item.label}
-                  </div>
-
-                </div>
-              );
-            })}
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* =========================================================
-          AI RECOMMENDATIONS
-      ========================================================= */}
-
-      <section className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
-        <AIRecommendations />
-      </section>
+      <Hero featuredProperty={properties[0]} />
 
       {/* =========================================================
           FEATURED PROPERTIES
       ========================================================= */}
 
-      <section className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-16">
 
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
 
@@ -254,11 +162,11 @@ export default async function HomePage() {
 
             </div>
 
-            <h2 className="text-4xl font-bold tracking-tight text-[color:var(--heading)] sm:text-5xl lg:text-6xl">
+            <h2 className="text-4xl font-semibold tracking-[-0.045em] text-[color:var(--heading)] sm:text-5xl lg:text-6xl">
 
-              Discover Spaces
+              Discover spaces
 
-              <span className="block text-[color:var(--primary)]">
+              <span className="block font-normal italic text-[color:var(--accent-light)] [font-family:var(--font-display)]">
                 Worth Coming Home To.
               </span>
 
@@ -274,7 +182,7 @@ export default async function HomePage() {
 
           <Link
             href="/properties"
-            className="group inline-flex w-fit items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-3.5 text-sm font-semibold text-[color:var(--heading)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-hover)] hover:bg-[color:var(--surface-hover)]"
+            className="group inline-flex w-fit items-center gap-2 border-b border-[color:var(--border-strong)] py-3 text-sm font-semibold text-[color:var(--heading)] transition-all duration-300 hover:border-[color:var(--accent)]"
           >
 
             View All Properties
@@ -290,7 +198,7 @@ export default async function HomePage() {
 
         {featuredProperties.length > 0 ? (
 
-          <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6">
 
             {featuredProperties.map((property) => (
 
@@ -331,7 +239,7 @@ export default async function HomePage() {
           WHY HOMZO
       ========================================================= */}
 
-      <section className="relative overflow-hidden bg-[color:var(--background-soft)] py-28">
+      <section id="why-homzo" className="relative overflow-hidden bg-[color:var(--background-soft)] py-20 md:py-28">
 
         <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[color:var(--primary)]/5 blur-3xl" />
 
@@ -372,7 +280,7 @@ export default async function HomePage() {
 
           </div>
 
-          <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid border-t border-[color:var(--border)] sm:grid-cols-2 lg:grid-cols-4">
 
             {benefits.map((item) => {
               const Icon = item.icon;
@@ -380,7 +288,7 @@ export default async function HomePage() {
               return (
                 <div
                   key={item.title}
-                  className="group relative overflow-hidden rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--card)] p-7 transition-all duration-500 hover:-translate-y-2 hover:border-[color:var(--border-hover)] hover:shadow-[var(--shadow-lg)]"
+                  className="group relative border-b border-[color:var(--border)] px-2 py-7 transition-colors duration-300 hover:bg-[color:var(--surface-hover)] sm:px-5 lg:border-r lg:last:border-r-0"
                 >
 
                   {/* Decorative glow */}
@@ -388,9 +296,9 @@ export default async function HomePage() {
 
                   <div className="relative">
 
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-center justify-between">
 
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--primary)]/10 text-[color:var(--primary)] transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--primary)] group-hover:text-[color:var(--on-primary)]">
+                      <div className="flex h-11 w-11 items-center justify-center text-[color:var(--primary)] transition-colors duration-300 group-hover:text-[color:var(--accent-light)]">
 
                         <Icon
                           size={24}
@@ -405,7 +313,7 @@ export default async function HomePage() {
 
                     </div>
 
-                    <h3 className="mt-7 text-xl font-bold text-[color:var(--heading)]">
+                    <h3 className="mt-6 text-xl font-semibold text-[color:var(--heading)] transition-transform duration-300 group-hover:translate-x-1">
                       {item.title}
                     </h3>
 
@@ -436,11 +344,15 @@ export default async function HomePage() {
 
       </section>
 
+      <section className="mx-auto max-w-[1440px] px-5 pt-12 sm:px-8 lg:px-16">
+        <AIRecommendations />
+      </section>
+
       {/* =========================================================
           LIFESTYLE / AMENITIES
       ========================================================= */}
 
-      <section className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-16">
 
         <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
 
@@ -706,32 +618,29 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
 
-        <div className="text-center">
+          <div className="max-w-3xl">
+            <div className="mb-5 flex items-center gap-3">
 
-          <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-px w-12 bg-[color:var(--primary)]" />
 
-            <span className="h-px w-12 bg-[color:var(--primary)]" />
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-[color:var(--primary)]">
+                Destinations
+              </span>
 
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[color:var(--primary)]">
-              Prime Destinations
-            </span>
+            </div>
 
-            <span className="h-px w-12 bg-[color:var(--primary)]" />
+            <h2 className="text-4xl font-semibold tracking-[-0.045em] text-[color:var(--heading)] sm:text-5xl">
+              Find your place.
+            </h2>
+
+            <p className="mt-5 max-w-2xl leading-7 text-[color:var(--muted)]">
+              Explore homes across established neighbourhoods and emerging
+              destinations.
+            </p>
 
           </div>
 
-          <h2 className="text-4xl font-bold tracking-tight text-[color:var(--heading)] sm:text-5xl">
-            Find Your Place.
-          </h2>
-
-          <p className="mx-auto mt-5 max-w-2xl leading-7 text-[color:var(--muted)]">
-            Explore homes across established neighbourhoods and emerging
-            destinations.
-          </p>
-
-        </div>
-
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
 
           {locations.map((location, index) => (
 
@@ -740,34 +649,29 @@ export default async function HomePage() {
               href={`/properties?location=${encodeURIComponent(
                 location.name
               )}`}
-              className="group relative overflow-hidden rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--card)] p-7 transition-all duration-500 hover:-translate-y-2 hover:border-[color:var(--border-hover)] hover:shadow-[var(--shadow-lg)]"
+              className={`group relative isolate flex min-h-[340px] min-w-[78vw] snap-start items-end overflow-hidden rounded-lg bg-[#222] p-6 text-white transition-transform duration-700 hover:-translate-y-1 sm:min-w-0 sm:p-7 ${index === 0 ? "lg:col-span-2" : ""}`}
             >
 
-              <span className="absolute right-5 top-5 text-xs font-bold tracking-widest text-[color:var(--muted)]">
-                0{index + 1}
-              </span>
-
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={location.image}
+                alt={`${location.name} city and residential architecture`}
+                className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-colors group-hover:from-black/85" />
               <div className="relative">
-
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[color:var(--primary)]/10 text-[color:var(--primary)] transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--primary)] group-hover:text-[color:var(--on-primary)]">
-
-                  <MapPin
-                    size={24}
-                    strokeWidth={1.6}
-                  />
-
-                </div>
-
-                <h3 className="mt-7 text-2xl font-bold text-[color:var(--heading)]">
+                <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                  0{index + 1} / 04
+                </span>
+                <h3 className="text-2xl font-semibold text-white">
                   {location.name}
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                <p className="mt-2 text-sm leading-6 text-white/80">
                   {location.description}
                 </p>
 
-                <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-[color:var(--primary)]">
-
+                <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-white">
                   Explore
 
                   <ArrowRight
@@ -857,35 +761,41 @@ export default async function HomePage() {
           FINAL CTA
       ========================================================= */}
 
-      <section className="relative overflow-hidden px-4 py-28 sm:px-6 lg:px-8">
+      <section className="relative isolate overflow-hidden bg-[#111] px-5 py-24 sm:px-8 md:py-32 lg:px-16">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,10,10,0.84),rgba(10,10,10,0.48)),linear-gradient(0deg,rgba(10,10,10,0.55),transparent)]" />
 
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[color:var(--primary)]/10 blur-3xl" />
-
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className="relative mx-auto max-w-4xl text-center text-white">
 
           <div className="mb-6 flex items-center justify-center gap-3">
 
-            <span className="h-px w-12 bg-[color:var(--primary)]" />
+            <span className="h-px w-12 bg-[#c5a981]" />
 
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[color:var(--primary)]">
+            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#ead8bd]">
               Your Next Chapter
             </span>
 
-            <span className="h-px w-12 bg-[color:var(--primary)]" />
+            <span className="h-px w-12 bg-[#c5a981]" />
 
           </div>
 
-          <h2 className="text-4xl font-bold tracking-tight text-[color:var(--heading)] sm:text-5xl lg:text-6xl">
+          <h2 className="text-4xl font-semibold tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">
 
             Your Next Home
 
-            <span className="block text-[color:var(--primary)]">
+            <span className="block font-normal italic text-[#ead8bd] [font-family:var(--font-display)]">
               Starts Here.
             </span>
 
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[color:var(--muted)]">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/85">
             Explore premium properties, discover new possibilities and connect
             with the right people to make your real-estate journey simpler.
           </p>
@@ -894,7 +804,7 @@ export default async function HomePage() {
 
             <Link
               href="/properties"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[color:var(--primary)] px-8 py-4 font-bold text-[color:var(--on-primary)] shadow-[var(--shadow-gold)] transition-all duration-300 hover:-translate-y-1"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-[#111] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f2eee7]"
             >
 
               Browse Properties
@@ -908,7 +818,7 @@ export default async function HomePage() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] px-8 py-4 font-bold text-[color:var(--heading)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-hover)] hover:bg-[color:var(--surface-hover)]"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/50 bg-white/5 px-8 py-4 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10"
             >
 
               <MessageCircle size={18} />

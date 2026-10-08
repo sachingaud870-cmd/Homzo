@@ -1,222 +1,210 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  ArrowRight,
+  BedDouble,
+  ChevronDown,
+  MapPin,
+  Play,
+  Ruler,
+} from "lucide-react";
 
-export default function Hero() {
+type FeaturedProperty = {
+  id: number;
+  project_name: string;
+  location: string;
+  price: string;
+  bhk: string;
+  carpet_area: number;
+};
+
+export default function Hero({
+  featuredProperty,
+}: {
+  featuredProperty?: FeaturedProperty;
+}) {
   const router = useRouter();
-
   const [location, setLocation] = useState("");
   const [bhk, setBhk] = useState("");
+  const [budget, setBudget] = useState("");
 
   function handleSearch() {
     const params = new URLSearchParams();
-
-    if (location) {
-      params.set("location", location);
-    }
-
-    if (bhk) {
-      params.set("bhk", bhk);
-    }
-
-    router.push(`/search?${params.toString()}`);
+    if (location.trim()) params.set("location", location.trim());
+    if (bhk) params.set("bhk", bhk);
+    if (budget) params.set("max_price", budget);
+    router.push(`/properties?${params.toString()}`);
   }
 
   return (
-    <section className="relative flex min-h-[680px] items-center overflow-hidden">
-
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
-
+    <section className="relative isolate overflow-hidden bg-[#071321] text-white">
       <div className="absolute inset-0">
-
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-          alt="Luxury modern home"
-          className="h-full w-full object-cover scale-105 transition-transform duration-[10s] hover:scale-110"
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90"
+          alt="Modern hillside home glowing at dusk"
+          className="homzo-hero-image h-full min-h-[820px] w-full object-cover object-center"
         />
-
-        {/* Luxury overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#17120f]/90 via-[#2c211b]/65 to-[#2c211b]/30" />
-
-        <div className="absolute inset-0 bg-black/10" />
-
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,13,24,0.94)_0%,rgba(5,13,24,0.76)_38%,rgba(5,13,24,0.16)_78%,rgba(5,13,24,0.12)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,#071321_0%,rgba(7,19,33,0.7)_15%,transparent_52%)]" />
       </div>
 
-      {/* Decorative glow */}
+      <div className="relative mx-auto flex min-h-[820px] w-full max-w-[1440px] flex-col justify-center px-5 pb-8 pt-32 sm:px-8 sm:pt-36 lg:px-16">
+        <div className="grid flex-1 items-center gap-10 lg:grid-cols-[1fr_0.8fr]">
+          <div className="max-w-2xl">
+            <div className="homzo-reveal mb-5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[color:var(--primary-light)] sm:text-xs">
+              <span className="h-px w-7 bg-[color:var(--primary)]" />
+              Find more than a home.
+            </div>
 
-      <div className="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#E8C4B3]/20 blur-3xl" />
+            <h1 className="homzo-reveal homzo-reveal-delay-1 max-w-[680px] text-[clamp(3.3rem,7.2vw,6.8rem)] font-normal leading-[0.88] tracking-[-0.055em] text-[#f6f4f0]">
+              Find your
+              <span className="font-editorial block italic text-[color:var(--primary-light)]">
+                place
+              </span>
+              to thrive.
+            </h1>
 
-      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#C9A961]/15 blur-3xl" />
+            <p className="homzo-reveal homzo-reveal-delay-2 mt-6 max-w-md text-sm leading-6 text-white/75 sm:text-base sm:leading-7">
+              Curated homes. Expert guidance. A more considered way to find
+              the place that feels like yours.
+            </p>
 
-      {/* =====================================================
-          CONTENT
-      ====================================================== */}
-
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 md:px-10">
-
-        <div className="max-w-4xl animate-fade-up">
-
-          {/* Small badge */}
-
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-[color:var(--card)]/55 px-4 py-2 backdrop-blur-md">
-
-            <span className="h-2 w-2 animate-pulse rounded-full bg-[#C9A961]" />
-
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--foreground)]">
-              Curated Living
-            </span>
-
+            <div className="homzo-reveal homzo-reveal-delay-3 mt-7 flex flex-wrap items-center gap-3">
+              <Link
+                href="/properties"
+                className="inline-flex min-h-12 items-center gap-3 rounded-full bg-[color:var(--primary)] px-5 py-3 text-sm font-semibold text-[#101722] transition duration-300 hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
+              >
+                Explore properties <ArrowRight size={16} />
+              </Link>
+              <a
+                href="#why-homzo"
+                className="inline-flex min-h-12 items-center gap-3 rounded-full px-3 py-3 text-sm font-medium text-white/90 transition hover:text-[color:var(--primary-light)]"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/40">
+                  <Play size={12} fill="currentColor" />
+                </span>
+                Discover HOMZO
+              </a>
+            </div>
           </div>
 
-          {/* Heading */}
-
-          <h1 className="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-[color:var(--foreground)] md:text-7xl">
-
-            Discover a Life
-            <br />
-
-            <span className="text-[color:var(--accent-light)]">
-              Worth Coming Home To.
-            </span>
-
-          </h1>
-
-          {/* Description */}
-
-          <p className="mt-6 max-w-2xl text-base leading-7 text-[color:var(--muted)] md:text-xl md:leading-8">
-            Explore thoughtfully selected homes, trusted developments, and
-            investment-worthy properties designed for elevated living.
-          </p>
-
-          {/* =================================================
-              SEARCH BOX
-          ================================================== */}
-
-          <div className="mt-10 max-w-4xl rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)]/95 p-3 shadow-2xl backdrop-blur-xl md:p-4">
-
-            <div className="grid gap-3 md:grid-cols-[1.5fr_1fr_auto]">
-
-              {/* Location */}
-
-              <div className="relative">
-
-                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-[color:var(--muted)]">
-                  Location
-                </label>
-
-                <span className="absolute bottom-3.5 left-4 text-lg">
-
-                </span>
-
-                <input
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleSearch();
-                    }
-                  }}
-                  placeholder="Search city or location"
-                  className="h-16 w-full rounded-2xl border border-[color:var(--border)] bg-[color:var(--background)] pb-2 pl-11 pr-4 pt-5 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:bg-[color:var(--background-strong)] focus:ring-4 focus:ring-[color:var(--accent)]/15"
-                />
-
-              </div>
-
-              {/* BHK */}
-
-              <div className="relative">
-
-                <label className="absolute left-4 top-2 text-[10px] font-bold uppercase tracking-wider text-[color:var(--muted)]">
-                  Property Type
-                </label>
-
-                <span className="absolute bottom-3.5 left-4 text-lg">
-
-                </span>
-
-                <select
-                  value={bhk}
-                  onChange={(e) => setBhk(e.target.value)}
-                  className="h-16 w-full appearance-none rounded-2xl border border-[color:var(--border)] bg-[color:var(--background)] pb-2 pl-11 pr-8 pt-5 text-sm text-[color:var(--foreground)] outline-none transition focus:border-[color:var(--accent)] focus:bg-[color:var(--background-strong)] focus:ring-4 focus:ring-[color:var(--accent)]/15"
-                >
-                  <option value="">Select BHK</option>
-                  <option value="1BHK">1 BHK</option>
-                  <option value="2BHK">2 BHK</option>
-                  <option value="3BHK">3 BHK</option>
-                </select>
-
-                <span className="pointer-events-none absolute bottom-4 right-4 text-[color:var(--muted)]">
-                  ▾
-                </span>
-
-              </div>
-
-              {/* Search Button */}
-
-              <div className="flex gap-3">
-                <button
-                  onClick={handleSearch}
-                  className="group relative h-16 flex-1 overflow-hidden rounded-2xl bg-gradient-to-r from-[#C9A961] to-[#9B7E52] px-8 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98]"
-                >
-
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    <span>Search</span>
-                    <span className="transition duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
-                  </span>
-
-                  <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-500 group-hover:translate-x-full" />
-
-                </button>
-
-                <a
-                  href="/about"
-                  className="flex h-16 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--background-strong)]/60 px-6 font-semibold text-[color:var(--foreground)] backdrop-blur-sm transition duration-300 hover:bg-[color:var(--background-strong)]"
-                >
-                  About
-                </a>
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* =================================================
-              TRUST POINTS
-          ================================================== */}
-
-          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[color:var(--foreground)]/80">
-
-            <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]"></span>
-              Verified Properties
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]"></span>
-              Trusted Builders
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[#C9A961]"></span>
-              Smart Property Search
-            </div>
-
-          </div>
-
+          <div className="hidden lg:block" aria-hidden="true" />
         </div>
 
+        <div className="relative z-10 mb-8 grid gap-4 lg:absolute lg:bottom-[118px] lg:right-16 lg:mb-0 lg:w-[330px]">
+          <article className="rounded-2xl border border-white/20 bg-[#172437]/75 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:p-6">
+            <div className="text-[9px] font-medium uppercase tracking-[0.2em] text-[color:var(--primary-light)]">
+              {featuredProperty ? "Featured property" : "The HOMZO collection"}
+            </div>
+            <h2 className="mt-3 font-editorial text-2xl text-white sm:text-[1.8rem]">
+              {featuredProperty?.project_name ?? "A place to call your own"}
+            </h2>
+            {featuredProperty ? (
+              <div className="mt-2 flex items-center gap-1.5 text-xs text-white/65">
+                <MapPin size={13} />
+                <span className="line-clamp-1">{featuredProperty.location}</span>
+              </div>
+            ) : (
+              <p className="mt-2 text-xs text-white/65">
+                Discover a home made for the way you live.
+              </p>
+            )}
+            <div className="mt-5 grid grid-cols-3 gap-2 border-y border-white/10 py-4 text-xs text-white/80">
+              <span className="flex items-center gap-1.5">
+                <BedDouble size={14} className="text-[color:var(--primary-light)]" />
+                {featuredProperty?.bhk ?? "Curated"}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Ruler size={14} className="text-[color:var(--primary-light)]" />
+                {featuredProperty ? `${featuredProperty.carpet_area} sq.ft` : "Distinctive"}
+              </span>
+              <span className="truncate text-right">
+                {featuredProperty
+                  ? `₹${Number(featuredProperty.price).toLocaleString("en-IN")}`
+                  : "Exceptional"}
+              </span>
+            </div>
+            <Link
+              href={featuredProperty ? `/property/${featuredProperty.id}` : "/properties"}
+              className="group mt-4 flex items-center justify-between text-xs font-medium text-white/90 transition hover:text-[color:var(--primary-light)]"
+            >
+              View property
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 transition group-hover:border-[color:var(--primary)]">
+                <ArrowRight size={14} />
+              </span>
+            </Link>
+          </article>
+        </div>
+
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSearch();
+          }}
+          className="relative z-10 grid gap-1 rounded-2xl border border-white/10 bg-[#101d2d]/90 p-2 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl md:grid-cols-[1.25fr_0.9fr_1fr_auto] md:gap-0"
+        >
+          <label className="flex min-h-[62px] flex-col justify-center border-b border-white/10 px-4 md:border-b-0 md:border-r md:border-white/10 md:px-5">
+            <span className="mb-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/45">
+              Location
+            </span>
+            <span className="flex items-center gap-2">
+              <MapPin size={14} className="shrink-0 text-[color:var(--primary-light)]" />
+              <input
+                value={location}
+                onChange={(event) => setLocation(event.target.value)}
+                placeholder="Any location"
+                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/60"
+              />
+            </span>
+          </label>
+
+          <label className="relative flex min-h-[62px] flex-col justify-center border-b border-white/10 px-4 md:border-b-0 md:border-r md:border-white/10 md:px-5">
+            <span className="mb-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/45">
+              Property type
+            </span>
+            <select
+              value={bhk}
+              onChange={(event) => setBhk(event.target.value)}
+              className="w-full appearance-none bg-transparent pr-5 text-sm text-white outline-none [&>option]:bg-[#101d2d]"
+            >
+              <option value="">Any type</option>
+              <option value="1 BHK">1 BHK</option>
+              <option value="2 BHK">2 BHK</option>
+              <option value="3 BHK">3 BHK</option>
+              <option value="4 BHK">4 BHK</option>
+            </select>
+            <ChevronDown size={13} className="pointer-events-none absolute right-5 top-1/2 mt-1 text-white/55" />
+          </label>
+
+          <label className="flex min-h-[62px] flex-col justify-center px-4 md:px-5">
+            <span className="mb-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/45">
+              Maximum budget
+            </span>
+            <span className="flex items-center gap-2 text-sm text-white">
+              ₹
+              <input
+                type="number"
+                min="0"
+                value={budget}
+                onChange={(event) => setBudget(event.target.value)}
+                placeholder="Any budget"
+                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/60"
+              />
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            className="m-1 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[color:var(--primary)] px-6 text-sm font-semibold text-[#101722] transition duration-300 hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)] md:min-h-[54px]"
+          >
+            Search properties <ArrowRight size={15} />
+          </button>
+        </form>
       </div>
-
-      {/* Bottom fade */}
-
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAF6F0] to-transparent" />
-
     </section>
   );
 }
