@@ -51,7 +51,7 @@ export default function LoginPage() {
 
       window.dispatchEvent(new Event("auth-change"));
 
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
       setError("Unable to connect to the server.");
