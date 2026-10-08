@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, Plus, X } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getToken, getUser, logout } from "@/lib/auth";
@@ -47,6 +47,11 @@ export default function DashboardLayout({
       icon: "",
     },
     {
+      href: "/dashboard/properties/add",
+      label: "Add Property",
+      icon: "",
+    },
+    {
       href: "/dashboard/leads",
       label: "My Leads",
       icon: "",
@@ -65,7 +70,7 @@ export default function DashboardLayout({
           MOBILE TOP BAR
       ====================================================== */}
 
-      <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-[#C9A961]/10 bg-white/85 px-5 shadow-sm backdrop-blur-xl lg:hidden">
+      <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-[#C9A961]/10 bg-white/85 px-4 shadow-sm backdrop-blur-xl lg:hidden">
 
         <Link
           href="/dashboard"
@@ -74,13 +79,22 @@ export default function DashboardLayout({
           Hom<span className="text-[#C9A961]">zo</span>
         </Link>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-xl transition hover:border-[#C9A961]/40 hover:bg-[#FAF6F0]"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/dashboard/properties/add"
+            className="inline-flex h-10 items-center gap-1.5 rounded-xl bg-[color:var(--primary)] px-3 text-sm font-semibold text-[#101722] transition hover:bg-[color:var(--primary-light)]"
+          >
+            <Plus aria-hidden="true" size={16} />
+            Add Property
+          </Link>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-xl transition hover:border-[#C9A961]/40 hover:bg-[#FAF6F0]"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
+          </button>
+        </div>
 
       </header>
 
@@ -97,6 +111,7 @@ export default function DashboardLayout({
               const active =
                 pathname === item.href ||
                 (item.href !== "/dashboard" &&
+                  item.href !== "/dashboard/properties/add" &&
                   pathname.startsWith(item.href));
 
               return (
@@ -220,6 +235,7 @@ export default function DashboardLayout({
                 const active =
                   pathname === item.href ||
                   (item.href !== "/dashboard" &&
+                    item.href !== "/dashboard/properties/add" &&
                     pathname.startsWith(item.href));
 
                 return (

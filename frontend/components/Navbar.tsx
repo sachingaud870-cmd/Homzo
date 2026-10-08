@@ -221,6 +221,49 @@ export default function Navbar() {
               </Link>
             ))}
 
+            {user && (
+              <div className="space-y-1 border-t border-[color:var(--border)] pt-3">
+                <p className="px-3 pb-1 text-xs font-medium text-[color:var(--muted)]">
+                  Signed in as {user.username}
+                </p>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/dashboard/properties"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                >
+                  My Properties
+                </Link>
+                <Link
+                  href="/dashboard/properties/add"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                >
+                  Add Property
+                </Link>
+                <Link
+                  href="/dashboard/leads"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                >
+                  My Leads
+                </Link>
+                <Link
+                  href="/dashboard/profile"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                >
+                  My Profile
+                </Link>
+              </div>
+            )}
+
             <div className="mt-2 flex items-center justify-between gap-2 border-t border-[color:var(--border)] pt-4">
               <button
                 type="button"
