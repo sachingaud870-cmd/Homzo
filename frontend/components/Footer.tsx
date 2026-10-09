@@ -1,4 +1,14 @@
 import Link from "next/link";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Camera,
+  Heart,
+  Mail,
+  MessageCircle,
+  MapPin,
+  Phone,
+} from "lucide-react";
 
 export default function Footer() {
   return (
@@ -41,7 +51,7 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:border-[#C9A961]/40 hover:bg-[#C9A961]/10"
               >
-                ◎
+                <Camera size={17} aria-hidden="true" />
               </a>
 
               <a
@@ -49,7 +59,7 @@ export default function Footer() {
                 aria-label="Facebook"
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:border-[#C9A961]/40 hover:bg-[#C9A961]/10"
               >
-                f
+                <MessageCircle size={17} aria-hidden="true" />
               </a>
 
               <a
@@ -57,7 +67,7 @@ export default function Footer() {
                 aria-label="LinkedIn"
                 className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition hover:-translate-y-1 hover:border-[#C9A961]/40 hover:bg-[#C9A961]/10"
               >
-                in
+                <BriefcaseBusiness size={17} aria-hidden="true" />
               </a>
 
             </div>
@@ -175,14 +185,14 @@ export default function Footer() {
             <div className="mt-5 space-y-4 text-sm">
 
               <div className="flex gap-3">
-                <span></span>
+                <MapPin size={17} className="mt-0.5 shrink-0 text-[#C9A961]" aria-hidden="true" />
                 <span className="text-white/60">
                   Mumbai, Maharashtra, India
                 </span>
               </div>
 
               <div className="flex gap-3">
-                <span></span>
+                <Phone size={17} className="mt-0.5 shrink-0 text-[#C9A961]" aria-hidden="true" />
                 <a
                   href="tel:+919876543210"
                   className="text-white/60 transition hover:text-white"
@@ -192,7 +202,7 @@ export default function Footer() {
               </div>
 
               <div className="flex gap-3">
-                <span></span>
+                <Mail size={17} className="mt-0.5 shrink-0 text-[#C9A961]" aria-hidden="true" />
                 <a
                   href="mailto:support@homzo.com"
                   className="text-white/60 transition hover:text-white"
@@ -234,9 +244,7 @@ export default function Footer() {
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#C9A961] px-6 py-3 font-semibold text-[#211a16] transition hover:-translate-y-0.5 hover:bg-[#D4B776] hover:shadow-lg"
             >
               Explore Properties
-              <span className="transition group-hover:translate-x-1">
-                →
-              </span>
+              <ArrowRight size={17} className="transition group-hover:translate-x-1" aria-hidden="true" />
             </Link>
 
           </div>
@@ -272,7 +280,7 @@ export default function Footer() {
           </div>
 
           <p className="flex items-center gap-1">
-            Made with <span className="text-[#E8C4B3]"></span> for better living
+            Made with <Heart size={13} className="fill-[#E8C4B3] text-[#E8C4B3]" aria-label="love" /> for better living
           </p>
 
         </div>

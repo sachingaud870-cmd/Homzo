@@ -3,6 +3,16 @@
 import Link from "next/link";
 import { getUser } from "@/lib/auth";
 import { useHydrated } from "@/lib/useHydrated";
+import {
+  ArrowRight,
+  Building2,
+  ChartNoAxesCombined,
+  House,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  UsersRound,
+} from "lucide-react";
 
 export default function DashboardPage() {
   const isHydrated = useHydrated();
@@ -16,7 +26,7 @@ export default function DashboardPage() {
       description:
         "Add, edit, and organize listings for your property portfolio.",
       href: "/dashboard/properties",
-      icon: "",
+      icon: Building2,
       label: "Properties",
       accent: "rose",
     },
@@ -25,7 +35,7 @@ export default function DashboardPage() {
       description:
         "Track enquiries, update lead status, and follow up with buyers.",
       href: "/dashboard/leads",
-      icon: "",
+      icon: UsersRound,
       label: "CRM & Leads",
       accent: "gold",
     },
@@ -34,7 +44,7 @@ export default function DashboardPage() {
       description:
         "Manage your account details and workspace preferences.",
       href: "/dashboard/profile",
-      icon: "",
+      icon: House,
       label: "Account",
       accent: "peach",
     },
@@ -95,7 +105,11 @@ export default function DashboardPage() {
                     : "bg-[#E8C4B3]/25"
                 }`}
               >
-                {isAdmin ? "" : ""}
+                {isAdmin ? (
+                  <ShieldCheck size={21} aria-hidden="true" />
+                ) : (
+                  <House size={21} aria-hidden="true" />
+                )}
               </div>
 
               <div>
@@ -125,7 +139,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/25 text-xl">
-
+                <Building2 size={20} aria-hidden="true" />
               </div>
 
               <span className="text-xs font-semibold text-emerald-600">
@@ -149,7 +163,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-xl">
-
+                <UsersRound size={20} aria-hidden="true" />
               </div>
 
               <span className="text-xs font-semibold text-[#9B7E52]">
@@ -173,7 +187,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#D4A574]/15 text-xl">
-
+                <ChartNoAxesCombined size={20} aria-hidden="true" />
               </div>
 
               <span className="text-xs font-semibold text-blue-600">
@@ -197,7 +211,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
 
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-xl">
-
+                <TrendingUp size={20} aria-hidden="true" />
               </div>
 
               <span className="text-xs font-semibold text-emerald-600">
@@ -263,12 +277,10 @@ export default function DashboardPage() {
                           : "bg-[#D4A574]/15"
                     }`}
                   >
-                    {card.icon}
+                    <card.icon size={24} strokeWidth={1.8} aria-hidden="true" />
                   </div>
 
-                  <span className="text-xl text-gray-300 transition duration-300 group-hover:translate-x-1 group-hover:text-[#C9A961]">
-                    →
-                  </span>
+                  <ArrowRight size={20} className="text-gray-300 transition duration-300 group-hover:translate-x-1 group-hover:text-[#C9A961]" aria-hidden="true" />
 
                 </div>
 
@@ -298,9 +310,7 @@ export default function DashboardPage() {
                     Open workspace
                   </span>
 
-                  <span className="text-[#C9A961] transition duration-300 group-hover:translate-x-2">
-                    →
-                  </span>
+                  <ArrowRight size={17} className="text-[#C9A961] transition duration-300 group-hover:translate-x-2" aria-hidden="true" />
 
                 </div>
 
@@ -332,7 +342,7 @@ export default function DashboardPage() {
                 <div className="flex items-start gap-5">
 
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#C9A961]/15 text-2xl">
-
+                    <ShieldCheck size={25} aria-hidden="true" />
                   </div>
 
                   <div>
@@ -354,8 +364,8 @@ export default function DashboardPage() {
 
                 </div>
 
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-xl text-[#C9A961] shadow-sm transition duration-300 group-hover:translate-x-2">
-                  →
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#C9A961] shadow-sm transition duration-300 group-hover:translate-x-2">
+                  <ArrowRight size={20} aria-hidden="true" />
                 </div>
 
               </div>
@@ -371,7 +381,7 @@ export default function DashboardPage() {
               <div className="relative flex items-start gap-5">
 
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-2xl">
-
+                  <House size={25} aria-hidden="true" />
                 </div>
 
                 <div>
@@ -406,13 +416,13 @@ export default function DashboardPage() {
 
         <div className="mt-8 flex items-center justify-center gap-2 text-center text-xs text-gray-400">
 
-          <span></span>
+          <Sparkles size={13} aria-hidden="true" />
 
           <span>
             Homzo — Smart Property Management
           </span>
 
-          <span></span>
+          <Sparkles size={13} aria-hidden="true" />
 
         </div>
 

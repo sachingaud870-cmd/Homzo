@@ -3,7 +3,21 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSyncExternalStore } from "react";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import {
+  Building2,
+  House,
+  LogIn,
+  LogOut,
+  Mail,
+  Menu,
+  Moon,
+  Plus,
+  Sparkles,
+  Sun,
+  UserPlus,
+  X,
+  LayoutDashboard,
+} from "lucide-react";
 import { getUser, logout, type StoredUser } from "@/lib/auth";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -13,10 +27,10 @@ const AUTH_CHANGE_EVENT = "auth-change";
 const THEME_CHANGE_EVENT = "homzo-theme-change";
 
 const navItems = [
-  { href: "/about", label: "About" },
-  { href: "/properties", label: "Properties" },
-  { href: "/#ai-finder", label: "AI Finder" },
-  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About", icon: House },
+  { href: "/properties", label: "Properties", icon: Building2 },
+  { href: "/#ai-finder", label: "AI Finder", icon: Sparkles },
+  { href: "/contact", label: "Contact", icon: Mail },
 ];
 
 function subscribeToAuth(onStoreChange: () => void) {
@@ -88,6 +102,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
   function handleLogout() {
     logout();
     window.dispatchEvent(new Event(AUTH_CHANGE_EVENT));
@@ -117,7 +142,9 @@ export default function Navbar() {
             overHero ? "text-white" : "text-[color:var(--heading)]"
           }`}
         >
-          <span className="font-editorial text-3xl leading-none text-[color:var(--primary-light)]">H</span>
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[color:var(--primary)]/40 bg-[color:var(--primary)]/10 text-[color:var(--primary-light)]">
+            <House size={20} strokeWidth={1.7} aria-hidden="true" />
+          </span>
           <span className="flex flex-col text-[11px] font-medium leading-tight tracking-[0.24em]">
             HOMZO
             <span className="mt-0.5 text-[7px] tracking-[0.32em] opacity-65">REAL ESTATE</span>
@@ -129,12 +156,28 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={
+                (item.href === "/#ai-finder"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`))
+                  ? "page"
+                  : undefined
+              }
               className={`group relative py-2 text-sm font-medium transition-colors ${
                 overHero ? "text-white/85 hover:text-white" : "text-[color:var(--muted)] hover:text-[color:var(--heading)]"
               }`}
             >
-              {item.label}
-              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[color:var(--primary)] transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="inline-flex items-center gap-2">
+                <item.icon size={15} strokeWidth={1.8} aria-hidden="true" />
+                {item.label}
+              </span>
+              <span
+                className={`absolute bottom-0 left-0 h-px w-full origin-left bg-[color:var(--primary)] transition-transform duration-300 ${
+                  pathname === item.href || pathname.startsWith(`${item.href}/`)
+                    ? "scale-x-100"
+                    : "scale-x-0 group-hover:scale-x-100"
+                }`}
+              />
             </Link>
           ))}
         </div>
@@ -162,16 +205,19 @@ export default function Navbar() {
               </span>
               <Link
                 href="/dashboard"
-                className="rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
+                className="inline-flex items-center gap-2 rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
               >
+                <LayoutDashboard size={16} aria-hidden="true" />
                 Dashboard
               </Link>
               <button
+                type="button"
                 onClick={handleLogout}
                 className={`rounded-full border px-4 py-2 text-sm font-semibold transition hover:border-[color:var(--primary)] ${
                   overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
                 }`}
               >
+                <LogOut className="mr-1 inline" size={15} aria-hidden="true" />
                 Logout
               </button>
             </>
@@ -179,16 +225,18 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className={`rounded-full border px-4 py-2.5 text-sm font-semibold transition hover:border-[color:var(--primary)] ${
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition hover:border-[color:var(--primary)] ${
                   overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
                 }`}
               >
+                <LogIn size={15} aria-hidden="true" />
                 Login
               </Link>
               <Link
                 href="/register"
-                className="rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
+                className="inline-flex items-center gap-2 rounded-full bg-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[#101722] transition hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
               >
+                <UserPlus size={15} aria-hidden="true" />
                 Register
               </Link>
             </>
@@ -202,21 +250,40 @@ export default function Navbar() {
             overHero ? "border-white/30 bg-white/10 text-white" : "border-[color:var(--border)] bg-[color:var(--background-strong)] text-[color:var(--foreground)]"
           }`}
           aria-label="Toggle mobile menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
 
-      {mobileOpen && (
-        <div className="border-t border-[color:var(--border)] bg-[color:var(--background)]/95 backdrop-blur-xl sm:hidden">
+      <div
+        id="mobile-navigation"
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
+        className={`grid overflow-hidden bg-[color:var(--background)]/95 backdrop-blur-xl transition-[grid-template-rows,opacity] duration-300 ease-[var(--ease-premium)] sm:hidden ${
+          mobileOpen
+            ? "grid-rows-[1fr] border-t border-[color:var(--border)] opacity-100"
+            : "pointer-events-none grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="min-h-0 overflow-hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                aria-current={
+                  (item.href === "/#ai-finder"
+                    ? pathname === "/"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`))
+                    ? "page"
+                    : undefined
+                }
+                className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
               >
+                <item.icon size={17} strokeWidth={1.8} aria-hidden="true" />
                 {item.label}
               </Link>
             ))}
@@ -229,36 +296,41 @@ export default function Navbar() {
                 <Link
                   href="/dashboard"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
                 >
+                  <LayoutDashboard size={17} aria-hidden="true" />
                   Dashboard
                 </Link>
                 <Link
                   href="/dashboard/properties"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
                 >
+                  <Building2 size={17} aria-hidden="true" />
                   My Properties
                 </Link>
                 <Link
                   href="/dashboard/properties/add"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
                 >
+                  <Plus size={17} aria-hidden="true" />
                   Add Property
                 </Link>
                 <Link
                   href="/dashboard/leads"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
                 >
+                  <Mail size={17} aria-hidden="true" />
                   My Leads
                 </Link>
                 <Link
                   href="/dashboard/profile"
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
+                  className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[color:var(--foreground)] transition hover:bg-[color:var(--background-soft)]"
                 >
+                  <House size={17} aria-hidden="true" />
                   My Profile
                 </Link>
               </div>
@@ -279,30 +351,34 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={() => setMobileOpen(false)}
-                    className="rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-semibold"
+                    className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] px-4 py-2 text-sm font-semibold"
                   >
+                    <LogIn size={15} aria-hidden="true" />
                     Login
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="rounded-full bg-[color:var(--primary)] px-4 py-2 text-sm font-semibold text-[#101722]"
+                    className="inline-flex items-center gap-2 rounded-full bg-[color:var(--primary)] px-4 py-2 text-sm font-semibold text-[#101722]"
                   >
+                    <UserPlus size={15} aria-hidden="true" />
                     Register
                   </Link>
                 </div>
               ) : (
                 <button
+                  type="button"
                   onClick={handleLogout}
-                  className="rounded-full bg-[#ef4444] px-4 py-2 text-sm font-semibold text-white"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#ef4444] px-4 py-2 text-sm font-semibold text-white"
                 >
+                  <LogOut size={15} aria-hidden="true" />
                   Logout
                 </button>
               )}
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

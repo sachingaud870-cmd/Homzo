@@ -1,7 +1,23 @@
 import type { Metadata } from "next";
+import { Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
 import Navbar from "@/components/Navbar";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+  weight: "400",
+  style: ["normal", "italic"],
+});
 
 const themeScript = `
   (function () {
@@ -14,27 +30,6 @@ const themeScript = `
     } catch (error) {}
   })();
 `;
-
-function FontLinks() {
-  return (
-    <>
-      <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-      />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
-    </>
-  );
-}
-
 
 export const metadata: Metadata = {
   title: "Homzo",
@@ -69,9 +64,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
 
-      <body>
-        <FontLinks />
-
+      <body className={`${inter.variable} ${instrumentSerif.variable}`}>
         <Navbar />
 
         {children}

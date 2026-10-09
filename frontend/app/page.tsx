@@ -1,8 +1,11 @@
+import Image from "next/image";
 import { getProperties } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
 import Hero from "@/components/home/Hero";
 import AIRecommendations from "@/components/home/AIRecommendations";
 import Link from "next/link";
+import { Suspense } from "react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 import {
   ArrowRight,
@@ -128,11 +131,7 @@ const locations = [
   },
 ];
 
-export default async function HomePage() {
-  const properties: Property[] = await getProperties();
-
-  const featuredProperties = properties.slice(0, 4);
-
+export default function HomePage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
 
@@ -140,15 +139,15 @@ export default async function HomePage() {
           HERO
       ========================================================= */}
 
-      <Hero featuredProperty={properties[0]} />
+      <Hero />
 
       {/* =========================================================
           FEATURED PROPERTIES
       ========================================================= */}
 
-      <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-16">
+      <section id="featured-properties" className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-16">
 
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <ScrollReveal className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
 
           <div className="max-w-3xl">
 
@@ -194,44 +193,11 @@ export default async function HomePage() {
 
           </Link>
 
-        </div>
+        </ScrollReveal>
 
-        {featuredProperties.length > 0 ? (
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6">
-
-            {featuredProperties.map((property) => (
-
-              <PropertyCard
-                key={property.id}
-                property={property}
-              />
-
-            ))}
-
-          </div>
-
-        ) : (
-
-          <div className="mt-14 rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)] p-14 text-center shadow-[var(--shadow-md)] sm:p-20">
-
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--primary)]">
-
-              <Building2 size={30} />
-
-            </div>
-
-            <h3 className="mt-6 text-2xl font-bold text-[color:var(--heading)]">
-              Properties Coming Soon
-            </h3>
-
-            <p className="mx-auto mt-3 max-w-md text-[color:var(--muted)]">
-              We are preparing a collection of premium properties for you.
-            </p>
-
-          </div>
-
-        )}
+        <Suspense fallback={<FeaturedPropertiesFallback />}>
+          <FeaturedProperties />
+        </Suspense>
 
       </section>
 
@@ -247,7 +213,7 @@ export default async function HomePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <ScrollReveal className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
 
             <div>
 
@@ -278,7 +244,7 @@ export default async function HomePage() {
               and expert assistance together in one refined experience.
             </p>
 
-          </div>
+          </ScrollReveal>
 
           <div className="mt-14 grid border-t border-[color:var(--border)] sm:grid-cols-2 lg:grid-cols-4">
 
@@ -286,9 +252,10 @@ export default async function HomePage() {
               const Icon = item.icon;
 
               return (
-                <div
+                <ScrollReveal
                   key={item.title}
                   className="group relative border-b border-[color:var(--border)] px-2 py-7 transition-colors duration-300 hover:bg-[color:var(--surface-hover)] sm:px-5 lg:border-r lg:last:border-r-0"
+                  delay={(Number(item.number) - 1) * 0.06}
                 >
 
                   {/* Decorative glow */}
@@ -334,7 +301,7 @@ export default async function HomePage() {
 
                   </div>
 
-                </div>
+                </ScrollReveal>
               );
             })}
 
@@ -354,9 +321,9 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-[1440px] px-5 py-20 sm:px-8 md:py-28 lg:px-16">
 
-        <div className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <ScrollReveal className="grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
 
-          <div>
+        <ScrollReveal>
 
             <div className="mb-5 flex items-center gap-3">
 
@@ -403,7 +370,7 @@ export default async function HomePage() {
 
             </div>
 
-          </div>
+          </ScrollReveal>
 
           <div className="grid gap-5 sm:grid-cols-2">
 
@@ -411,9 +378,10 @@ export default async function HomePage() {
               const Icon = item.icon;
 
               return (
-                <div
+                <ScrollReveal
                   key={item.title}
                   className="group rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--card)] p-7 transition-all duration-500 hover:-translate-y-1 hover:border-[color:var(--border-hover)] hover:shadow-[var(--shadow-md)]"
+                  delay={amenities.indexOf(item) * 0.05}
                 >
 
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[color:var(--primary)]/10 text-[color:var(--primary)] transition-all duration-500 group-hover:scale-110 group-hover:bg-[color:var(--primary)] group-hover:text-[color:var(--on-primary)]">
@@ -433,13 +401,13 @@ export default async function HomePage() {
                     {item.description}
                   </p>
 
-                </div>
+                </ScrollReveal>
               );
             })}
 
           </div>
 
-        </div>
+          </ScrollReveal>
 
       </section>
 
@@ -618,7 +586,7 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
 
-          <div className="max-w-3xl">
+          <ScrollReveal className="max-w-3xl">
             <div className="mb-5 flex items-center gap-3">
 
               <span className="h-px w-12 bg-[color:var(--primary)]" />
@@ -638,25 +606,27 @@ export default async function HomePage() {
               destinations.
             </p>
 
-          </div>
+          </ScrollReveal>
 
           <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
 
           {locations.map((location, index) => (
 
-            <Link
+            <ScrollReveal
               key={location.name}
-              href={`/properties?location=${encodeURIComponent(
-                location.name
-              )}`}
-              className={`group relative isolate flex min-h-[340px] min-w-[78vw] snap-start items-end overflow-hidden rounded-lg bg-[#222] p-6 text-white transition-transform duration-700 hover:-translate-y-1 sm:min-w-0 sm:p-7 ${index === 0 ? "lg:col-span-2" : ""}`}
+              className={`min-w-[78vw] snap-start sm:min-w-0 ${index === 0 ? "lg:col-span-2" : ""}`}
+              delay={index * 0.07}
             >
-
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <Link
+              href={`/properties?location=${encodeURIComponent(location.name)}`}
+              className="group relative isolate flex min-h-[340px] h-full items-end overflow-hidden rounded-lg bg-[#222] p-6 text-white transition-transform duration-500 hover:-translate-y-1 sm:p-7"
+            >
+              <Image
                 src={location.image}
                 alt={`${location.name} city and residential architecture`}
-                className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                fill
+                sizes={index === 0 ? "(min-width: 1024px) 50vw, 80vw" : "(min-width: 640px) 40vw, 80vw"}
+                className="-z-20 object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-colors group-hover:from-black/85" />
               <div className="relative">
@@ -684,6 +654,7 @@ export default async function HomePage() {
               </div>
 
             </Link>
+            </ScrollReveal>
 
           ))}
 
@@ -762,16 +733,17 @@ export default async function HomePage() {
       ========================================================= */}
 
       <section className="relative isolate overflow-hidden bg-[#111] px-5 py-24 sm:px-8 md:py-32 lg:px-16">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85"
+        <Image
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=75"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          fill
+          sizes="100vw"
+          className="-z-20 object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,10,10,0.84),rgba(10,10,10,0.48)),linear-gradient(0deg,rgba(10,10,10,0.55),transparent)]" />
 
-        <div className="relative mx-auto max-w-4xl text-center text-white">
+        <ScrollReveal className="relative mx-auto max-w-4xl text-center text-white">
 
           <div className="mb-6 flex items-center justify-center gap-3">
 
@@ -829,10 +801,58 @@ export default async function HomePage() {
 
           </div>
 
-        </div>
+        </ScrollReveal>
 
       </section>
 
     </main>
+  );
+}
+
+async function FeaturedProperties() {
+  const properties: Property[] = await getProperties();
+  const featuredProperties = properties.slice(0, 4);
+
+  if (featuredProperties.length === 0) {
+    return (
+      <div className="mt-14 rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--card)] p-14 text-center shadow-[var(--shadow-md)] sm:p-20">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] text-[color:var(--primary)]">
+          <Building2 size={30} aria-hidden="true" />
+        </div>
+        <h3 className="mt-6 text-2xl font-bold text-[color:var(--heading)]">
+          Properties Coming Soon
+        </h3>
+        <p className="mx-auto mt-3 max-w-md text-[color:var(--muted)]">
+          We are preparing a collection of premium properties for you.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6">
+      {featuredProperties.map((property, index) => (
+        <ScrollReveal key={property.id} delay={index * 0.06}>
+          <PropertyCard property={property} />
+        </ScrollReveal>
+      ))}
+    </div>
+  );
+}
+
+function FeaturedPropertiesFallback() {
+  return (
+    <div
+      aria-label="Loading featured properties"
+      aria-busy="true"
+      className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6"
+    >
+      {[0, 1, 2, 3].map((item) => (
+        <div
+          key={item}
+          className="h-72 animate-pulse rounded-2xl bg-[color:var(--background-soft)]"
+        />
+      ))}
+    </div>
   );
 }

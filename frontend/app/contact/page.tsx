@@ -1,3 +1,5 @@
+import { Mail, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+
 export default function ContactPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -12,7 +14,8 @@ export default function ContactPage() {
         <div className="mb-14 text-center animate-fade-up">
 
           <span className="badge-premium">
-             Get In Touch
+            <MessageCircle size={14} aria-hidden="true" />
+            Get In Touch
           </span>
 
           <h1 className="mt-5 text-5xl font-bold text-[color:var(--foreground)] md:text-6xl">
@@ -54,8 +57,8 @@ export default function ContactPage() {
               <div className="mt-10 space-y-6">
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xl">
-
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#E8C4B3]">
+                    <MapPin size={21} aria-hidden="true" />
                   </div>
 
                   <div>
@@ -63,15 +66,15 @@ export default function ContactPage() {
                       Address
                     </h3>
 
-                    <p className="mt-1 text-sm text-gray-300">
+                    <a href="https://maps.google.com/?q=Mumbai%2C+Maharashtra%2C+India" className="mt-1 block text-sm text-gray-300 transition hover:text-white">
                       Mumbai, Maharashtra, India
-                    </p>
+                    </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xl">
-
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#E8C4B3]">
+                    <Phone size={20} aria-hidden="true" />
                   </div>
 
                   <div>
@@ -79,15 +82,15 @@ export default function ContactPage() {
                       Phone
                     </h3>
 
-                    <p className="mt-1 text-sm text-gray-300">
+                    <a href="tel:+919370334624" className="mt-1 block text-sm text-gray-300 transition hover:text-white">
                       +91 9370334624
-                    </p>
+                    </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xl">
-
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-[#E8C4B3]">
+                    <Mail size={20} aria-hidden="true" />
                   </div>
 
                   <div>
@@ -95,9 +98,9 @@ export default function ContactPage() {
                       Email
                     </h3>
 
-                    <p className="mt-1 text-sm text-gray-300">
+                    <a href="mailto:sachingaud870@gmail.com" className="mt-1 block break-all text-sm text-gray-300 transition hover:text-white">
                       sachingaud870@gmail.com
-                    </p>
+                    </a>
                   </div>
                 </div>
 
@@ -107,7 +110,8 @@ export default function ContactPage() {
             {/* Right */}
             <div className="p-8 md:p-12">
 
-              <h2 className="text-2xl font-bold text-[color:var(--foreground)]">
+              <h2 className="flex items-center gap-3 text-2xl font-bold text-[color:var(--foreground)]">
+                <Mail size={21} className="text-[#9B7E52]" aria-hidden="true" />
                 Send us a message
               </h2>
 
@@ -155,9 +159,10 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="btn-accent w-full"
+                  className="btn-accent inline-flex w-full items-center justify-center gap-2"
                 >
-                  Send Message →
+                  Send Message
+                  <Send size={16} aria-hidden="true" />
                 </button>
 
               </form>

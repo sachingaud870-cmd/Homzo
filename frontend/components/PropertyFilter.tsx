@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Lightbulb,
+  MapPin,
+  RotateCcw,
+  Search,
+} from "lucide-react";
 
 export default function PropertyFilter() {
   const router = useRouter();
@@ -58,8 +64,8 @@ export default function PropertyFilter() {
         </label>
 
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C9A961]">
-
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9B7E52]">
+            <MapPin size={16} aria-hidden="true" />
           </span>
 
           <input
@@ -158,19 +164,22 @@ export default function PropertyFilter() {
       <div className="space-y-3 pt-2">
 
         <button
+          type="button"
           onClick={handleFilter}
           className="btn-accent w-full rounded-xl py-3"
         >
           <span className="flex items-center justify-center gap-2">
-            <span></span>
+            <Search size={16} aria-hidden="true" />
             Apply Filters
           </span>
         </button>
 
         <button
+          type="button"
           onClick={clearFilters}
-          className="btn-secondary w-full rounded-xl py-3"
+          className="btn-secondary inline-flex w-full items-center justify-center gap-2 rounded-xl py-3"
         >
+          <RotateCcw size={15} aria-hidden="true" />
           Clear All Filters
         </button>
 
@@ -181,8 +190,8 @@ export default function PropertyFilter() {
 
         <div className="flex gap-3">
 
-          <div className="text-xl">
-
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#C9A961]/15 text-[#9B7E52]">
+            <Lightbulb size={18} aria-hidden="true" />
           </div>
 
           <div>

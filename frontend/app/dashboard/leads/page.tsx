@@ -9,6 +9,15 @@ import {
   triggerLeadAutomation,
   updateLeadStatus,
 } from "@/lib/api";
+import {
+  AlertTriangle,
+  CalendarClock,
+  Check,
+  Handshake,
+  MessageSquareText,
+  Search,
+  UsersRound,
+} from "lucide-react";
 
 type Status = Lead["status"];
 
@@ -246,25 +255,25 @@ export default function LeadsPage() {
     {
       label: "Total Leads",
       value: stats.total_leads,
-      icon: "",
+      icon: UsersRound,
       className: "from-[#1a3a52] to-[#2d5a7b]",
     },
     {
       label: "New Leads",
       value: stats.new_leads,
-      icon: "",
+      icon: MessageSquareText,
       className: "from-[#c9a961] to-[#d4b776]",
     },
     {
       label: "Interested",
       value: stats.interested_leads,
-      icon: "",
+      icon: Handshake,
       className: "from-[#76558d] to-[#9b73b5]",
     },
     {
       label: "Closed",
       value: stats.closed_leads,
-      icon: "✓",
+      icon: Check,
       className: "from-[#28745c] to-[#3c9a78]",
     },
   ];
@@ -326,7 +335,7 @@ export default function LeadsPage() {
               </div>
 
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 text-2xl backdrop-blur">
-                {card.icon}
+                <card.icon size={23} strokeWidth={1.8} aria-hidden="true" />
               </div>
 
             </div>
@@ -353,6 +362,7 @@ export default function LeadsPage() {
             </div>
 
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#c9a961]/15 text-2xl">
+              <CalendarClock size={25} className="text-[#9b7e52]" aria-hidden="true" />
             </div>
 
           </div>
@@ -378,6 +388,7 @@ export default function LeadsPage() {
             </div>
 
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-2xl">
+              <AlertTriangle size={25} className="text-red-600" aria-hidden="true" />
             </div>
 
           </div>
@@ -890,7 +901,8 @@ export default function LeadsPage() {
                       colSpan={7}
                       className="px-5 py-16 text-center"
                     >
-                      <div className="text-5xl">
+                      <div className="flex justify-center text-[#9b7e52]">
+                        <Search size={36} strokeWidth={1.5} aria-hidden="true" />
                       </div>
 
                       <p className="mt-4 font-semibold text-gray-700">

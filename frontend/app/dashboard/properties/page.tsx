@@ -4,6 +4,14 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { deleteProperty, getProperties } from "@/lib/api";
+import {
+  Building2,
+  Check,
+  CircleCheck,
+  MapPin,
+  Plus,
+  TrendingUp,
+} from "lucide-react";
 
 type Property = {
   id: number;
@@ -91,9 +99,7 @@ function PropertiesDashboardContent() {
           href="/dashboard/properties/add"
           className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#1A3A52] px-6 py-3 font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-[#0F1F2E] hover:shadow-xl"
         >
-          <span className="text-xl transition-transform duration-300 group-hover:rotate-90">
-            +
-          </span>
+          <Plus size={18} className="transition-transform duration-300 group-hover:rotate-90" aria-hidden="true" />
           Add Property
         </Link>
 
@@ -116,6 +122,7 @@ function PropertiesDashboardContent() {
             </div>
 
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-2xl">
+              <Building2 size={22} className="text-[#9B7E52]" aria-hidden="true" />
             </div>
 
           </div>
@@ -140,7 +147,7 @@ function PropertiesDashboardContent() {
             </div>
 
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-2xl">
-              ✓
+              <Check size={22} aria-hidden="true" />
             </div>
 
           </div>
@@ -160,6 +167,7 @@ function PropertiesDashboardContent() {
             </div>
 
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#C9A961]/20 text-2xl">
+              <TrendingUp size={22} className="text-[#9B7E52]" aria-hidden="true" />
             </div>
 
           </div>
@@ -171,8 +179,8 @@ function PropertiesDashboardContent() {
       {(message || successMessage) && (
         <div className="animate-fade-up mb-6 flex items-center gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700 shadow-sm">
 
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 font-bold">
-            ✓
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100">
+            <CircleCheck size={20} aria-hidden="true" />
           </div>
 
           <div>
@@ -233,7 +241,8 @@ function PropertiesDashboardContent() {
           /* Empty State */
           <div className="flex min-h-[350px] flex-col items-center justify-center p-8 text-center">
 
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#E8C4B3]/20 text-4xl">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#E8C4B3]/20 text-[#9B7E52]">
+              <Building2 size={36} strokeWidth={1.5} aria-hidden="true" />
             </div>
 
             <h3 className="mt-5 text-xl font-bold text-[#1A3A52]">
@@ -249,7 +258,10 @@ function PropertiesDashboardContent() {
               href="/dashboard/properties/add"
               className="btn-accent mt-6 rounded-xl px-6 py-3"
             >
-              + Add Your First Property
+              <span className="inline-flex items-center gap-2">
+                <Plus size={17} aria-hidden="true" />
+                Add Your First Property
+              </span>
             </Link>
 
           </div>
@@ -310,6 +322,7 @@ function PropertiesDashboardContent() {
                       <div className="flex items-center gap-3">
 
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-xl">
+                          <Building2 size={19} className="text-[#9B7E52]" aria-hidden="true" />
                         </div>
 
                         <div>
@@ -335,7 +348,7 @@ function PropertiesDashboardContent() {
                     <td className="px-5 py-5">
 
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <span />
+                        <MapPin size={14} className="text-[#C9A961]" aria-hidden="true" />
                         {property.location}
                       </div>
 

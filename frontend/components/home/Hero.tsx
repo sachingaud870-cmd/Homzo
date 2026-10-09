@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,7 +9,6 @@ import {
   BedDouble,
   ChevronDown,
   MapPin,
-  Play,
   Ruler,
 } from "lucide-react";
 
@@ -41,19 +41,21 @@ export default function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-[#071321] text-white">
-      <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90"
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=75"
           alt="Modern hillside home glowing at dusk"
-          className="homzo-hero-image h-full min-h-[820px] w-full object-cover object-center"
+          fill
+          priority
+          sizes="100vw"
+          className="homzo-hero-image object-cover object-center"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,13,24,0.94)_0%,rgba(5,13,24,0.76)_38%,rgba(5,13,24,0.16)_78%,rgba(5,13,24,0.12)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,#071321_0%,rgba(7,19,33,0.7)_15%,transparent_52%)]" />
+        <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(5,13,24,0.68)_0%,rgba(5,13,24,0.42)_38%,rgba(5,13,24,0.08)_78%,rgba(5,13,24,0.04)_100%)]" />
+        <div className="absolute inset-0 z-10 bg-[linear-gradient(0deg,#071321_0%,rgba(7,19,33,0.45)_12%,transparent_42%)]" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[820px] w-full max-w-[1440px] flex-col justify-center px-5 pb-8 pt-32 sm:px-8 sm:pt-36 lg:px-16">
-        <div className="grid flex-1 items-center gap-10 lg:grid-cols-[1fr_0.8fr]">
+      <div className="relative z-20 mx-auto flex min-h-[min(820px,100svh)] w-full max-w-[1440px] flex-col justify-center px-5 pb-8 pt-32 sm:px-8 sm:pt-36 lg:px-16">
+        <div className="grid items-center gap-10 lg:flex-1 lg:grid-cols-[1fr_0.8fr]">
           <div className="max-w-2xl">
             <div className="homzo-reveal mb-5 flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.24em] text-[color:var(--primary-light)] sm:text-xs">
               <span className="h-px w-7 bg-[color:var(--primary)]" />
@@ -76,7 +78,7 @@ export default function Hero({
             <div className="homzo-reveal homzo-reveal-delay-3 mt-7 flex flex-wrap items-center gap-3">
               <Link
                 href="/properties"
-                className="inline-flex min-h-12 items-center gap-3 rounded-full bg-[color:var(--primary)] px-5 py-3 text-sm font-semibold text-[#101722] transition duration-300 hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
+                className="homzo-cta inline-flex min-h-12 items-center gap-3 rounded-full bg-[color:var(--primary)] px-5 py-3 text-sm font-semibold text-[#101722] transition duration-300 hover:-translate-y-0.5 hover:bg-[color:var(--primary-light)]"
               >
                 Explore properties <ArrowRight size={16} />
               </Link>
@@ -85,7 +87,7 @@ export default function Hero({
                 className="inline-flex min-h-12 items-center gap-3 rounded-full px-3 py-3 text-sm font-medium text-white/90 transition hover:text-[color:var(--primary-light)]"
               >
                 <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/40">
-                  <Play size={12} fill="currentColor" />
+                  <ChevronDown size={14} />
                 </span>
                 Discover HOMZO
               </a>
@@ -95,8 +97,8 @@ export default function Hero({
           <div className="hidden lg:block" aria-hidden="true" />
         </div>
 
-        <div className="relative z-10 mb-8 grid gap-4 lg:absolute lg:bottom-[118px] lg:right-16 lg:mb-0 lg:w-[330px]">
-          <article className="rounded-2xl border border-white/20 bg-[#172437]/75 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:p-6">
+        <div className="relative z-10 mb-8 hidden gap-4 lg:absolute lg:bottom-[118px] lg:right-16 lg:mb-0 lg:grid lg:w-[330px]">
+          <article className="homzo-float rounded-2xl border border-white/20 bg-[#172437]/75 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:p-6">
             <div className="text-[9px] font-medium uppercase tracking-[0.2em] text-[color:var(--primary-light)]">
               {featuredProperty ? "Featured property" : "The HOMZO collection"}
             </div>
@@ -145,7 +147,7 @@ export default function Hero({
             event.preventDefault();
             handleSearch();
           }}
-          className="relative z-10 grid gap-1 rounded-2xl border border-white/10 bg-[#101d2d]/90 p-2 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl md:grid-cols-[1.25fr_0.9fr_1fr_auto] md:gap-0"
+          className="homzo-reveal homzo-reveal-delay-3 relative z-10 grid gap-1 rounded-2xl border border-white/10 bg-[#101d2d]/90 p-2 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl md:grid-cols-[1.25fr_0.9fr_1fr_auto] md:gap-0"
         >
           <label className="flex min-h-[62px] flex-col justify-center border-b border-white/10 px-4 md:border-b-0 md:border-r md:border-white/10 md:px-5">
             <span className="mb-1 text-[9px] font-medium uppercase tracking-[0.18em] text-white/45">
@@ -204,6 +206,19 @@ export default function Hero({
             Search properties <ArrowRight size={15} />
           </button>
         </form>
+
+        <a
+          href="#featured-properties"
+          className="group mx-auto mt-6 inline-flex min-h-10 items-center gap-2 px-3 text-xs font-medium tracking-wide text-white/65 transition hover:text-white sm:mt-7"
+          aria-label="Scroll to featured properties"
+        >
+          Scroll to explore
+          <ChevronDown
+            size={14}
+            className="transition-transform duration-300 group-hover:translate-y-1"
+            aria-hidden="true"
+          />
+        </a>
       </div>
     </section>
   );

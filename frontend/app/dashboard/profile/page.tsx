@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { API_URL } from "@/lib/api";
+import { BadgeCheck, Mail, UserRound } from "lucide-react";
 
 type UserProfile = {
   username: string;
@@ -66,8 +67,8 @@ export default function ProfilePage() {
   if (!user) {
     return (
       <div className="animate-fade-up rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-2xl">
-          !
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-red-100 text-red-700">
+          <UserRound size={25} aria-hidden="true" />
         </div>
 
         <h2 className="mt-4 text-xl font-bold text-red-800">
@@ -154,7 +155,7 @@ export default function ProfilePage() {
 
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-xl">
-
+              <UserRound size={20} className="text-[#9B7E52]" aria-hidden="true" />
             </div>
 
             <div>
@@ -198,7 +199,7 @@ export default function ProfilePage() {
 
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/20 text-xl">
-
+              <BadgeCheck size={20} className="text-[#9B7E52]" aria-hidden="true" />
             </div>
 
             <div>
@@ -258,8 +259,8 @@ export default function ProfilePage() {
 
         <div className="flex items-start gap-4">
 
-          <div className="text-3xl">
-
+          <div className="shrink-0 text-[#9B7E52]">
+            <Mail size={27} aria-hidden="true" />
           </div>
 
           <div>

@@ -4,6 +4,13 @@ import { getDashboardStats } from "@/lib/api";
 import { getUser } from "@/lib/auth";
 import { useHydrated } from "@/lib/useHydrated";
 import Link from "next/link";
+import {
+  AlertTriangle,
+  Building2,
+  ChartNoAxesCombined,
+  ShieldAlert,
+  UsersRound,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
@@ -26,7 +33,7 @@ export default function AdminPage() {
     return (
       <main className="min-h-screen bg-[#FAF6F0] p-6 md:p-10">
         <div className="mx-auto max-w-3xl rounded-3xl border border-red-200 bg-red-50 p-10 text-red-700 shadow-xl">
-          <div className="text-5xl"></div>
+          <ShieldAlert size={44} aria-hidden="true" />
 
           <h1 className="mt-5 text-3xl font-bold">
             Access Denied
@@ -44,22 +51,22 @@ export default function AdminPage() {
     {
       label: "Total Properties",
       value: stats?.total_properties ?? 0,
-      icon: "",
+      icon: Building2,
     },
     {
       label: "Total Leads",
       value: stats?.total_leads ?? 0,
-      icon: "",
+      icon: UsersRound,
     },
     {
       label: "Conversion Rate",
       value: `${stats?.conversion_rate ?? 0}%`,
-      icon: "",
+      icon: ChartNoAxesCombined,
     },
     {
       label: "Follow-ups Due",
       value: stats?.follow_up_due_today ?? 0,
-      icon: "",
+      icon: AlertTriangle,
     },
   ];
 
@@ -108,8 +115,8 @@ export default function AdminPage() {
                   </p>
                 </div>
 
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-xl">
-                  {card.icon}
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-[#9B7E52]">
+                  <card.icon size={22} strokeWidth={1.8} aria-hidden="true" />
                 </div>
 
               </div>

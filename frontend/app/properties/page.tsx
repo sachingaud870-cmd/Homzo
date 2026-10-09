@@ -1,6 +1,15 @@
 import { getProperties } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilter from "@/components/PropertyFilter";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  House,
+  Search,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
 type Property = {
   id: number;
@@ -51,6 +60,7 @@ export default async function PropertiesPage({
             <div className="max-w-3xl">
 
               <span className="badge-premium">
+                <Building2 size={14} aria-hidden="true" />
                  Homzo Collection
               </span>
 
@@ -75,8 +85,8 @@ export default async function PropertiesPage({
 
             <div className="glass-card min-w-[190px] p-5 text-center">
 
-              <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-xl">
-
+              <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-[#C9A961]/15 text-[#9B7E52]">
+                <Building2 size={21} aria-hidden="true" />
               </div>
 
               <p className="mt-3 text-xs font-semibold uppercase tracking-[0.15em] text-[color:var(--muted)]">
@@ -99,31 +109,24 @@ export default async function PropertiesPage({
         <section className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
 
           {[
-            ["", "Verified Listings"],
-            ["", "Smart Discovery"],
-            ["₹", "Budget Friendly"],
-            ["", "Trusted Platform"],
-          ].map(([icon, title]) => (
-
+            { icon: BadgeCheck, title: "Verified Listings" },
+            { icon: Sparkles, title: "Smart Discovery" },
+            { icon: Search, title: "Budget Friendly" },
+            { icon: ShieldCheck, title: "Trusted Platform" },
+          ].map(({ icon: Icon, title }) => (
             <div
               key={title}
               className="group rounded-2xl border border-[color:var(--border)] bg-[color:var(--card)]/70 p-4 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-[color:var(--background-strong)] hover:shadow-lg"
             >
-
               <div className="flex items-center gap-3">
-
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#E8C4B3]/25 text-sm font-bold text-[#9B7E52]">
-                  {icon}
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#E8C4B3]/25 text-[#9B7E52]">
+                  <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-
                 <span className="text-sm font-semibold text-[color:var(--foreground)]">
                   {title}
                 </span>
-
               </div>
-
             </div>
-
           ))}
 
         </section>
@@ -143,8 +146,8 @@ export default async function PropertiesPage({
 
                 <div className="flex items-center gap-3">
 
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-xl">
-
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E8C4B3]/30 text-[#9B7E52]">
+                    <Search size={20} aria-hidden="true" />
                   </div>
 
                   <div>
@@ -230,8 +233,8 @@ export default async function PropertiesPage({
 
                 <div className="max-w-md">
 
-                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] bg-[#E8C4B3]/25 text-5xl">
-
+                  <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] bg-[#E8C4B3]/25 text-[#9B7E52]">
+                    <House size={38} strokeWidth={1.5} aria-hidden="true" />
                   </div>
 
                   <h2 className="mt-7 text-3xl font-bold text-[color:var(--foreground)]">
@@ -243,8 +246,9 @@ export default async function PropertiesPage({
                     Try changing your location, BHK, status, or price range.
                   </p>
 
-                  <div className="mt-7 inline-flex rounded-full bg-[#C9A961]/10 px-5 py-2.5 text-sm font-semibold text-[#9B7E52]">
-                     Try adjusting your filters
+                  <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#C9A961]/10 px-5 py-2.5 text-sm font-semibold text-[#9B7E52]">
+                    <Search size={15} aria-hidden="true" />
+                    Try adjusting your filters
                   </div>
 
                 </div>
@@ -289,9 +293,10 @@ export default async function PropertiesPage({
 
               <a
                 href="/contact"
-                className="btn-accent rounded-xl px-7 py-3.5"
+                className="btn-accent inline-flex items-center gap-2 rounded-xl px-7 py-3.5"
               >
-                Contact Homzo →
+                Contact Homzo
+                <ArrowRight size={17} aria-hidden="true" />
               </a>
 
             </div>

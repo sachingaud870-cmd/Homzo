@@ -79,7 +79,7 @@
   --container-width: 1440px;
 
   --font-sans:
-    Inter,
+    var(--font-inter),
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -89,7 +89,7 @@
     Helvetica,
     Arial,
     sans-serif;
-  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-display: var(--font-instrument-serif), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -226,6 +226,37 @@ body {
 
 .homzo-hero-image {
   animation: homzo-hero-zoom 1.8s var(--ease-premium) both;
+  opacity: 1;
+  transform-origin: center;
+}
+
+.homzo-float {
+  animation: homzo-float 7s ease-in-out infinite;
+}
+
+.homzo-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.homzo-cta::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.26) 48%,
+    transparent 76%
+  );
+  content: "";
+  transform: translateX(-120%);
+  transition: transform 650ms var(--ease-premium);
+}
+
+.homzo-cta:hover::after {
+  transform: translateX(120%);
 }
 
 .homzo-reveal {
@@ -246,11 +277,22 @@ body {
 
 @keyframes homzo-hero-zoom {
   from {
-    transform: scale(1.08);
+    transform: scale(1.075);
   }
 
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes homzo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
   }
 }
 
@@ -1951,6 +1993,20 @@ pre {
 
 [data-theme="dark"] [class~="text-[#9B7E52]"] {
   color: var(--primary-light) !important;
+}
+
+[data-theme="dark"] [class~="text-[#1A3A52]"],
+[data-theme="dark"] [class~="text-[#1a3a52]"],
+[data-theme="dark"] [class~="text-[#2C2C2C]"],
+[data-theme="dark"] [class~="text-[#2c2c2c]"] {
+  color: var(--heading) !important;
+}
+
+[data-theme="light"] [class~="bg-[#1A3A52]"],
+[data-theme="light"] [class~="bg-[#1a3a52]"],
+[data-theme="dark"] [class~="bg-[#1A3A52]"],
+[data-theme="dark"] [class~="bg-[#1a3a52]"] {
+  color: #ffffff !important;
 }
 
 [data-theme="dark"] [class*="hover:bg-gray-50"]:hover,

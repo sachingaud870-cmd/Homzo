@@ -36,14 +36,14 @@ export default function PropertyCard({ property }: { property: Property }) {
   const formattedStatus = property.status?.replaceAll("_", " ") ?? "Available";
 
   return (
-    <article className="group overflow-hidden rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] text-[color:var(--foreground)] transition-all duration-500 hover:-translate-y-1 hover:border-[color:var(--border-hover)]">
+    <article className="group overflow-hidden rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] text-[color:var(--foreground)] shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-hover)] hover:shadow-[var(--shadow-md)]">
       <div className="relative aspect-[4/3] overflow-hidden">
         {imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageUrl}
             alt={property.project_name}
-            className="h-full w-full object-cover transition duration-900 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#f3d6bb] via-[#f6eadc] to-[#e7d3b5] text-[#7a5f39]">
@@ -113,7 +113,7 @@ export default function PropertyCard({ property }: { property: Property }) {
 
         <Link
           href={`/property/${property.id}`}
-          className="group/link mt-2 flex w-full items-center justify-between rounded-lg bg-[#111] px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#292929]"
+          className="group/link mt-2 flex min-h-12 w-full items-center justify-between rounded-lg bg-[#111] px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#292929] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]"
         >
           View Property
           <ArrowRight

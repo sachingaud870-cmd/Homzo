@@ -1,7 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Plus, X } from "lucide-react";
+import {
+  Building2,
+  ChartNoAxesCombined,
+  House,
+  LogOut,
+  Menu,
+  Plus,
+  ShieldCheck,
+  UserRound,
+  UsersRound,
+  X,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getToken, getUser, logout } from "@/lib/auth";
@@ -39,27 +50,27 @@ export default function DashboardLayout({
     {
       href: "/dashboard",
       label: "Dashboard",
-      icon: "",
+      icon: ChartNoAxesCombined,
     },
     {
       href: "/dashboard/properties",
       label: "My Properties",
-      icon: "",
+      icon: Building2,
     },
     {
       href: "/dashboard/properties/add",
       label: "Add Property",
-      icon: "",
+      icon: Plus,
     },
     {
       href: "/dashboard/leads",
       label: "My Leads",
-      icon: "",
+      icon: UsersRound,
     },
     {
       href: "/dashboard/profile",
       label: "My Profile",
-      icon: "",
+      icon: UserRound,
     },
   ];
 
@@ -108,6 +119,7 @@ export default function DashboardLayout({
           <nav className="space-y-2">
 
             {navItems.map((item) => {
+              const Icon = item.icon;
               const active =
                 pathname === item.href ||
                 (item.href !== "/dashboard" &&
@@ -125,7 +137,7 @@ export default function DashboardLayout({
                       : "text-gray-600 hover:bg-[#FAF6F0]"
                   }`}
                 >
-                  <span>{item.icon}</span>
+                  <Icon size={18} aria-hidden="true" />
                   {item.label}
                 </Link>
               );
@@ -141,16 +153,18 @@ export default function DashboardLayout({
                     : "text-gray-600 hover:bg-[#FAF6F0]"
                 }`}
               >
-                <span></span>
+                <ShieldCheck size={18} aria-hidden="true" />
                 Admin Panel
               </Link>
             )}
 
             <button
+              type="button"
               onClick={handleLogout}
               className="mt-3 flex w-full items-center gap-3 rounded-xl bg-red-50 px-4 py-3 text-left font-medium text-red-600 transition hover:bg-red-100"
             >
-               Logout
+              <LogOut size={18} aria-hidden="true" />
+              Logout
             </button>
 
           </nav>
@@ -202,7 +216,11 @@ export default function DashboardLayout({
               <div className="flex items-center gap-3">
 
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8C4B3]/30 text-lg">
-                  {isAdmin ? "" : ""}
+                  {isAdmin ? (
+                    <ShieldCheck size={21} aria-hidden="true" />
+                  ) : (
+                    <UserRound size={21} aria-hidden="true" />
+                  )}
                 </div>
 
                 <div className="min-w-0">
@@ -232,6 +250,7 @@ export default function DashboardLayout({
             <nav className="space-y-1.5">
 
               {navItems.map((item) => {
+                const Icon = item.icon;
                 const active =
                   pathname === item.href ||
                   (item.href !== "/dashboard" &&
@@ -262,7 +281,7 @@ export default function DashboardLayout({
                           : "bg-gray-50 group-hover:bg-white"
                       }`}
                     >
-                      {item.icon}
+                      <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
                     </span>
 
                     <span>{item.label}</span>
@@ -298,7 +317,7 @@ export default function DashboardLayout({
                 >
 
                   <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm">
-
+                    <ShieldCheck size={18} aria-hidden="true" />
                   </span>
 
                   <span>Admin Panel</span>
@@ -322,7 +341,7 @@ export default function DashboardLayout({
 
               <div className="flex items-center gap-2">
 
-                <span className="text-lg"></span>
+                <House size={18} className="text-[#C9A961]" aria-hidden="true" />
 
                 <span className="text-sm font-bold">
                   Homzo
@@ -339,12 +358,13 @@ export default function DashboardLayout({
             {/* Logout */}
 
             <button
+              type="button"
               onClick={handleLogout}
               className="group flex w-full items-center gap-3 rounded-xl border border-red-100 bg-red-50 px-3 py-3 text-left text-sm font-semibold text-red-600 transition duration-300 hover:border-red-200 hover:bg-red-100"
             >
 
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white shadow-sm transition group-hover:scale-105">
-
+                <LogOut size={17} aria-hidden="true" />
               </span>
 
               <span>Logout</span>
