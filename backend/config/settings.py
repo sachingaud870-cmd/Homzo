@@ -10,6 +10,7 @@ from datetime import timedelta
 
 from decouple import config, Csv
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 
 # ============================================================
@@ -242,19 +243,27 @@ MEDIA_ROOT = BASE_DIR / "media"
 # This is used by Django's default file storage.
 #
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": config(
-        "CLOUDINARY_CLOUD_NAME"
-    ),
+CLOUDINARY_CLOUD_NAME = config("CLOUDINARY_CLOUD_NAME", default="")
+CLOUDINARY_API_KEY = config("CLOUDINARY_API_KEY", default="")
+CLOUDINARY_API_SECRET = config("CLOUDINARY_API_SECRET", default="")
+CLOUDINARY_CONFIGURED = all(
+    (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)
+)
 
-    "API_KEY": config(
-        "CLOUDINARY_API_KEY"
-    ),
+if any(
+    (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET)
+) and not CLOUDINARY_CONFIGURED:
+    raise ImproperlyConfigured(
+        "Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and "
+        "CLOUDINARY_API_SECRET together, or leave all three unset."
+    )
 
-    "API_SECRET": config(
-        "CLOUDINARY_API_SECRET"
-    ),
-}
+if CLOUDINARY_CONFIGURED:
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": CLOUDINARY_CLOUD_NAME,
+        "API_KEY": CLOUDINARY_API_KEY,
+        "API_SECRET": CLOUDINARY_API_SECRET,
+    }
 
 
 # ============================================================
@@ -278,6 +287,8 @@ STORAGES = {
     "default": {
         "BACKEND": (
             "cloudinary_storage.storage.MediaCloudinaryStorage"
+            if CLOUDINARY_CONFIGURED
+            else "django.core.files.storage.FileSystemStorage"
         ),
     },
 
