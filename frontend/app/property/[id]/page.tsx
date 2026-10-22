@@ -1,6 +1,8 @@
 import { getProperty } from "@/lib/api";
+import { unstable_rethrow } from "next/navigation";
 import EnquiryForm from "@/components/EnquiryForm";
 import ImageGallery from "@/components/ImageGallery";
+import ApiUnavailable from "@/components/ApiUnavailable";
 
 export default async function PropertyDetails({
   params,
@@ -9,7 +11,24 @@ export default async function PropertyDetails({
 }) {
   const { id } = await params;
 
-  const property = await getProperty(id);
+  let property: Awaited<ReturnType<typeof getProperty>> | null;
+  try {
+    property = await getProperty(id);
+  } catch (error) {
+    unstable_rethrow(error);
+    console.error(`Unable to load property ${id}:`, error);
+    property = null;
+  }
+
+  if (property === null) {
+    return (
+      <main className="mx-auto flex min-h-screen max-w-3xl items-center px-5 py-16">
+        <div className="w-full">
+          <ApiUnavailable />
+        </div>
+      </main>
+    );
+  }
 
   const formattedStatus = property.status.replaceAll("_", " ");
 

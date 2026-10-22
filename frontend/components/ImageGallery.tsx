@@ -14,13 +14,17 @@ export default function ImageGallery({
 }: {
   images: PropertyImage[];
 }) {
+  const usableImages = images.filter(
+    (img) => !img.image.includes("YOUR_CLOUD_NAME")
+  );
   const [activeImage, setActiveImage] = useState(
-    images.find((img) => img.is_main)?.image ??
-      images[0]?.image ??
+    usableImages.find((img) => img.is_main)?.image ??
+      usableImages[0]?.image ??
       null
   );
+  const [failedImages, setFailedImages] = useState<string[]>([]);
 
-  const imageUrl = activeImage
+  const imageUrl = activeImage && !failedImages.includes(activeImage)
     ? activeImage.startsWith("http")
       ? activeImage
       : `${API_URL}${activeImage}`
@@ -37,6 +41,7 @@ export default function ImageGallery({
             src={imageUrl}
             alt="Property"
             className="h-full w-full object-cover"
+            onError={() => setFailedImages((current) => [...current, activeImage])}
           />
         ) : (
           <div className="flex h-full flex-col items-center justify-center text-gray-500">
@@ -52,16 +57,16 @@ export default function ImageGallery({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
 
         {/* Top Badge */}
-        {images.length > 0 && (
+        {usableImages.length > 0 && (
           <div className="absolute left-5 top-5">
             <span className="rounded-full border border-white/30 bg-black/30 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
-               {images.length} Photos
+               {usableImages.length} Photos
             </span>
           </div>
         )}
 
         {/* Image Counter */}
-        {images.length > 0 && (
+        {usableImages.length > 0 && (
           <div className="absolute bottom-5 right-5">
             <span className="rounded-full border border-white/20 bg-black/40 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
               Property Gallery
@@ -75,7 +80,7 @@ export default function ImageGallery({
       {images.length > 0 && (
         <div className="mt-4 flex gap-3 overflow-x-auto pb-2">
 
-          {images.map((img) => {
+          {usableImages.filter((img) => !failedImages.includes(img.image)).map((img) => {
             const thumbnailUrl = img.image.startsWith("http")
               ? img.image
               : `${API_URL}${img.image}`;
@@ -97,6 +102,13 @@ export default function ImageGallery({
                   src={thumbnailUrl}
                   alt="Property thumbnail"
                   className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+                  onError={() =>
+                    setFailedImages((current) =>
+                      current.includes(img.image)
+                        ? current
+                        : [...current, img.image]
+                    )
+                  }
                 />
 
                 {!isActive && (

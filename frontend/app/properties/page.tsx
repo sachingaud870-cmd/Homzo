@@ -1,6 +1,8 @@
 import { getProperties } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilter from "@/components/PropertyFilter";
+import ApiUnavailable from "@/components/ApiUnavailable";
+import { unstable_rethrow } from "next/navigation";
 import {
   ArrowRight,
   BadgeCheck,
@@ -35,7 +37,14 @@ export default async function PropertiesPage({
   }>;
 }) {
   const params = await searchParams;
-  const properties = await getProperties(params);
+  let properties: Property[] | null;
+  try {
+    properties = await getProperties(params);
+  } catch (error) {
+    unstable_rethrow(error);
+    console.error("Unable to load properties:", error);
+    properties = null;
+  }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -94,7 +103,7 @@ export default async function PropertiesPage({
               </p>
 
               <p className="mt-1 text-4xl font-extrabold text-[#9B7E52]">
-                {properties.length}
+                {properties?.length ?? "—"}
               </p>
 
             </div>
@@ -177,7 +186,9 @@ export default async function PropertiesPage({
 
           <section className="lg:col-span-3">
 
-            {properties.length > 0 ? (
+            {properties === null ? (
+              <ApiUnavailable />
+            ) : properties.length > 0 ? (
 
               <>
 

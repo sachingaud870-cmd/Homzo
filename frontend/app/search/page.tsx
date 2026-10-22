@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { unstable_rethrow } from "next/navigation";
 import { searchProperties } from "@/lib/api";
 import PropertyCard from "@/components/PropertyCard";
+import ApiUnavailable from "@/components/ApiUnavailable";
 
 type Property = {
   id: number;
@@ -32,10 +34,14 @@ export default async function SearchPage({
   const location = params.location || "";
   const bhk = params.bhk || "";
 
-  const properties: Property[] = await searchProperties(
-    location,
-    bhk
-  );
+  let properties: Property[] | null;
+  try {
+    properties = await searchProperties(location, bhk);
+  } catch (error) {
+    unstable_rethrow(error);
+    console.error("Unable to search properties:", error);
+    properties = null;
+  }
 
   return (
     <main className="min-h-screen bg-[color:var(--background)] text-[color:var(--foreground)]">
@@ -150,14 +156,18 @@ export default async function SearchPage({
           </h2>
 
           <p className="mt-2 text-sm text-[color:var(--muted)]">
-            {properties.length > 0
+            {properties === null
+              ? "Listings are temporarily unavailable"
+              : properties.length > 0
               ? `${properties.length} ${properties.length === 1 ? "property" : "properties"} found`
               : "No properties found matching your search"}
           </p>
 
         </div>
 
-        {properties.length > 0 ? (
+        {properties === null ? (
+          <ApiUnavailable />
+        ) : properties.length > 0 ? (
 
           <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
 

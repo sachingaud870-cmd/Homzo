@@ -4,8 +4,10 @@ import PropertyCard from "@/components/PropertyCard";
 import Hero from "@/components/home/Hero";
 import AIRecommendations from "@/components/home/AIRecommendations";
 import Link from "next/link";
+import { unstable_rethrow } from "next/navigation";
 import { Suspense } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ApiUnavailable from "@/components/ApiUnavailable";
 
 import {
   ArrowRight,
@@ -810,7 +812,19 @@ export default function HomePage() {
 }
 
 async function FeaturedProperties() {
-  const properties: Property[] = await getProperties();
+  let properties: Property[];
+  try {
+    properties = await getProperties();
+  } catch (error) {
+    unstable_rethrow(error);
+    console.error("Unable to load featured properties:", error);
+    return (
+      <div className="mt-14">
+        <ApiUnavailable />
+      </div>
+    );
+  }
+
   const featuredProperties = properties.slice(0, 4);
 
   if (featuredProperties.length === 0) {

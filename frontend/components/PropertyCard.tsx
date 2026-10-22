@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowRight, BedDouble, MapPin, Ruler } from "lucide-react";
 import { API_URL } from "@/lib/api";
 
@@ -19,6 +22,7 @@ type Property = {
 };
 
 export default function PropertyCard({ property }: { property: Property }) {
+  const [imageFailed, setImageFailed] = useState(false);
   const image =
     property.images?.find((img) => img.is_main)?.image ?? property.images?.[0]?.image;
 
@@ -32,18 +36,21 @@ export default function PropertyCard({ property }: { property: Property }) {
     return `${API_URL.replace(/\/$/, "")}/${image.replace(/^\//, "")}`;
   };
 
-  const imageUrl = getImageUrl(image);
+  const imageUrl =
+    image && !image.includes("YOUR_CLOUD_NAME") ? getImageUrl(image) : null;
+  const showImage = imageUrl !== null && !imageFailed;
   const formattedStatus = property.status?.replaceAll("_", " ") ?? "Available";
 
   return (
     <article className="group overflow-hidden rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] text-[color:var(--foreground)] shadow-[var(--shadow-sm)] transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--border-hover)] hover:shadow-[var(--shadow-md)]">
       <div className="relative aspect-[4/3] overflow-hidden">
-        {imageUrl ? (
+        {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageUrl}
             alt={property.project_name}
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
+            onError={() => setImageFailed(true)}
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#f3d6bb] via-[#f6eadc] to-[#e7d3b5] text-[#7a5f39]">

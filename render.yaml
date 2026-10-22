@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: homzo-api
+    name: homzo-backend
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
@@ -16,7 +16,7 @@ services:
           name: homzo-db
           property: connectionString
       - key: ALLOWED_HOSTS
-        value: homzo-api.onrender.com
+        value: homzo-backend.onrender.com
       - key: CORS_ALLOWED_ORIGINS
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
